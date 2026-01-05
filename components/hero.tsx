@@ -44,6 +44,8 @@ export function Hero(): ReactNode {
   const handleMouseMove = (e: MouseEvent<HTMLElement>) => {
     if (!sectionRef.current) return;
     
+    if (window.innerWidth < 850) return;
+    
     const rect = sectionRef.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
@@ -69,7 +71,7 @@ export function Hero(): ReactNode {
       onMouseLeave={handleMouseLeave}
     >
       <motion.div 
-        className="absolute inset-2.5 bg-cover bg-center bg-no-repeat -z-10 brightness-125 rounded-br-4xl rounded-bl-4xl scale-105"
+        className="absolute inset-0 min-[850px]:inset-2.5 bg-cover bg-center bg-no-repeat -z-10 brightness-125 rounded-br-4xl rounded-bl-4xl min-[850px]:scale-105"
         style={{ 
           backgroundImage: 'url(/BG.jpg)',
           x,
