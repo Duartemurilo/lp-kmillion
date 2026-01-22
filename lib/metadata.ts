@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const siteConfig = {
-  name: "Your Site Name",
+  name: "React Bits Pro - SaaS Template",
   description:
     "A modern, accessible landing page template built with Next.js, Tailwind CSS, and TypeScript.",
   url: "https://example.com",
