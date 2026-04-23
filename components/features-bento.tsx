@@ -2,6 +2,7 @@
 
 import { motion, type Transition } from "motion/react";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 import type { ReactNode } from "react";
 
 const EASE = [0.23, 1, 0.32, 1] as const;
@@ -204,13 +205,13 @@ function StepByStepCard(): ReactNode {
           autonomia e velocidade de execução.
         </p>
 
-        <a
-          href="#"
+        <Link
+          href="/motor-promocional"
           className="mt-5 inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-white transition-transform duration-300 hover:translate-x-0.5 hover:bg-[#e85b2d]"
         >
           Saiba mais
           <ArrowRight className="h-4 w-4" />
-        </a>
+        </Link>
       </div>
 
       <div className="relative flex flex-1 items-end justify-center transition-transform duration-500 ease-out group-hover:scale-[1.02]">

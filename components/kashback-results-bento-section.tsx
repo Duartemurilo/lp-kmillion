@@ -81,7 +81,7 @@ function FeaturedCard(): ReactNode {
 
           <h3 className="mt-5 max-w-[15ch] text-[clamp(2rem,3.4vw,3.5rem)] leading-[0.94] font-semibold tracking-[-0.06em] text-white">
             Resultados reais com{" "}
-            <span className="font-semibold tracking-[-0.04em] text-[#300250]">
+            <span className="font-semibold tracking-[-0.04em] text-white">
               simplicidade
             </span>
           </h3>
@@ -161,12 +161,9 @@ export function KashbackResultsBentoSection(): ReactNode {
     <section className="w-full bg-black px-6 pb-32 text-white sm:px-8 lg:px-10">
       <div className="mx-auto max-w-5xl">
         <div className="mb-10 max-w-4xl text-center">
-          <p className="text-sm font-semibold tracking-[0.22em] text-[#FF7A1A] uppercase">
-            Resultado final
-          </p>
           <h2 className="mt-3 text-4xl font-semibold tracking-[-0.05em] text-white sm:text-5xl md:text-6xl lg:text-7xl">
             Resultados reais com{" "}
-            <span className="font-semibold tracking-[-0.04em] text-[#300250]">
+            <span className="font-semibold tracking-[-0.04em] text-[#FF7A1A]">
               simplicidade
             </span>
           </h2>

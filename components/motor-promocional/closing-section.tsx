@@ -2,6 +2,7 @@
 
 import { ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
+import { WHATSAPP_CONTACT_URL } from "@/lib/whatsapp";
 import type { ReactNode } from "react";
 
 type ClosingSectionProps = {
@@ -32,7 +33,9 @@ export function ClosingSection({ ease }: ClosingSectionProps): ReactNode {
             </p>
 
             <a
-              href="#top"
+              href={WHATSAPP_CONTACT_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3.5 text-sm font-semibold text-white transition-transform duration-300 hover:translate-x-0.5 hover:bg-[#e85b2d]"
             >
               Converse com nosso time

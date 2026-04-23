@@ -131,9 +131,12 @@ export function KashbackPage(): ReactNode {
             Kashback Kmillion
           </span>,
           <span key="kashback-hero-2" className="text-black">
-            cashback que gera recompra,
+            cashback que
           </span>,
           <span key="kashback-hero-3" className="text-black">
+            gera recompra,
+          </span>,
+          <span key="kashback-hero-4" className="text-black">
             dados e performance.
           </span>,
         ]}

@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { AlertTriangle, ArrowRight, Settings, PauseCircle } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import type { ReactNode } from "react";
 
 const steps = [
@@ -55,10 +56,8 @@ function StepItem({
           {step.description}
         </p>
 
-        <motion.a
-          href="#"
-          whileHover={{ x: 2 }}
-          whileTap={{ scale: 0.98 }}
+        <Link
+          href="/ims"
           className="group text-accent mt-4 inline-flex items-center gap-2 text-sm font-semibold transition-colors hover:text-[#e85b2d]"
         >
           <span className="relative inline-flex">
@@ -66,7 +65,7 @@ function StepItem({
             <span className="absolute -bottom-1 left-0 h-px w-0 bg-current transition-all duration-300 ease-out group-hover:w-full" />
           </span>
           <ArrowRight className="h-4 w-4 transition-transform duration-300 ease-out group-hover:translate-x-0.5" />
-        </motion.a>
+        </Link>
       </div>
     </div>
   );

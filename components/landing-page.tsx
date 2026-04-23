@@ -10,11 +10,12 @@ import { Footer } from "@/components/footer";
 import { Hero } from "@/components/hero";
 import { HowItWorks } from "@/components/how-it-works";
 import { Testimonials } from "@/components/testimonials";
+import { WHATSAPP_CONTACT_URL } from "@/lib/whatsapp";
 
 export function LandingPage(): ReactNode {
   return (
     <main id="main-content" className="flex-1">
-      <Hero backgroundVideoSrc="/videos/SITE_HERO.mp4" />
+      <Hero backgroundImageSrc="/BG_HOME.png" ctaHref={WHATSAPP_CONTACT_URL} />
       <HowItWorks />
       <KashbackTransitionSection />
       <BlurInHeadline />

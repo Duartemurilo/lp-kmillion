@@ -28,10 +28,10 @@ import {
 import { ImsAudienceSection } from "@/components/ims-audience-section";
 import { ImsBrandBentoSection } from "@/components/ims-brand-bento-section";
 import { ImsBrandVideoSection } from "@/components/ims-brand-video-section";
-import { ImsContactSection } from "@/components/ims-contact-section";
 import { ImsFaqSection } from "@/components/ims-faq-section";
 import { ImsWorthItSection } from "@/components/ims-worth-it-section";
 import { type ReactNode } from "react";
+import { WHATSAPP_CONTACT_URL } from "@/lib/whatsapp";
 
 type Persona = "brand" | "influencer";
 
@@ -96,7 +96,7 @@ const personaContent: Record<Persona, PersonaContent> = {
     eyebrow: "LP IMS - Versão influenciador",
     description:
       "Com o IMS da Kmillion, seu conteúdo vira resultado real e você recebe de forma automática, transparente e rastreável por venda gerada.",
-    ctaPrimary: { label: "Quero fazer parte", href: "#converse" },
+    ctaPrimary: { label: "Quero fazer parte", href: WHATSAPP_CONTACT_URL },
     ctaSecondary: { label: "IMS Marca", href: "/ims" },
     stats: [
       { value: "1 cupom", label: "exclusivo por creator" },
@@ -233,14 +233,14 @@ const personaContent: Record<Persona, PersonaContent> = {
           "Sim. Você pode atuar em várias campanhas ativas ao mesmo tempo, com cupons diferentes por parceria.",
       },
     ],
-    finalPrimary: { label: "Quero fazer parte do IMS", href: "#converse" },
+    finalPrimary: { label: "Quero fazer parte do IMS", href: WHATSAPP_CONTACT_URL },
     finalSecondary: { label: "Falar com a Kmillion", href: "#faq" },
   },
   brand: {
     eyebrow: "LP IMS - Versão marca",
     description:
       "Com o IMS da Kmillion, sua marca transforma influenciadores em um motor de conversão real, rastreável e escalável - do post à venda, tudo conectado.",
-    ctaPrimary: { label: "Falar com um especialista", href: "#converse" },
+    ctaPrimary: { label: "Falar com um especialista", href: WHATSAPP_CONTACT_URL },
     ctaSecondary: { label: "IMS Influencer", href: "/ims/influencer" },
     stats: [
       { value: "100%", label: "rastreabilidade por CPF" },
@@ -377,8 +377,8 @@ const personaContent: Record<Persona, PersonaContent> = {
           "Sim - escalabilidade e rastreio são exatamente os pontos fortes do IMS.",
       },
     ],
-    finalPrimary: { label: "Solicitar demonstração", href: "#converse" },
-    finalSecondary: { label: "Falar com o time comercial", href: "#converse" },
+    finalPrimary: { label: "Solicitar demonstração", href: WHATSAPP_CONTACT_URL },
+    finalSecondary: { label: "Falar com o time comercial", href: WHATSAPP_CONTACT_URL },
   },
 };
 
@@ -517,7 +517,6 @@ export function ImsInfluencerPage(): ReactNode {
 
       <ImsAudienceSection />
       <ImsFaqSection />
-      <ImsContactSection persona="influencer" />
     </main>
   );
 }

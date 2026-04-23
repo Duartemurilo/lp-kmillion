@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import Lenis from "lenis";
 import { features } from "@/lib/config";
+import { usePathname } from "next/navigation";
 
 /**
  * Lenis configuration options.
@@ -19,6 +20,9 @@ const LENIS_OPTIONS = {
 };
 
 export function SmoothScroll({ children }: { children: ReactNode }): ReactNode {
+  const pathname = usePathname();
+  const lenisRef = useRef<Lenis | null>(null);
+
   useEffect(() => {
     if (!features.smoothScroll) return;
 
@@ -30,6 +34,7 @@ export function SmoothScroll({ children }: { children: ReactNode }): ReactNode {
     if (prefersReducedMotion) return;
 
     const lenis = new Lenis(LENIS_OPTIONS);
+    lenisRef.current = lenis;
 
     function raf(time: number) {
       lenis.raf(time);
@@ -58,9 +63,28 @@ export function SmoothScroll({ children }: { children: ReactNode }): ReactNode {
 
     return () => {
       document.removeEventListener('click', handleAnchorClick);
+      lenisRef.current = null;
       lenis.destroy();
     };
   }, []);
+
+  useEffect(() => {
+    if (!features.smoothScroll) return;
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (prefersReducedMotion) return;
+
+    // Ensure route changes always start at the top.
+    // Using Lenis when available avoids fighting smooth-scroll state.
+    const lenis = lenisRef.current;
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    }
+  }, [pathname]);
 
   return <>{children}</>;
 }

@@ -2,6 +2,7 @@
 
 import { ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
+import { WHATSAPP_CONTACT_URL } from "@/lib/whatsapp";
 import type { ReactNode } from "react";
 
 const EASE = [0.23, 1, 0.32, 1] as const;
@@ -38,7 +39,9 @@ export function FinalCtaSection(): ReactNode {
           className="mt-8 flex justify-center"
         >
           <a
-            href="#top"
+            href={WHATSAPP_CONTACT_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="group inline-flex items-center font-sans"
           >
             <span className="bg-accent relative z-10 rounded-xl px-6 py-3 font-medium text-white">

@@ -2,6 +2,7 @@
 
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import type { ReactNode } from "react";
 
 const KASHBACK_LOGO_SRC = encodeURI(
@@ -61,13 +62,13 @@ export function KashbackTransitionSection(): ReactNode {
             </p>
           </div>
 
-          <a
-            href="#faq"
+          <Link
+            href="/kashback"
             className="bg-accent mt-8 inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-white transition-transform duration-300 hover:translate-x-0.5 hover:bg-[#e85b2d]"
           >
             Saiba mais
             <ArrowRight className="h-4 w-4" />
-          </a>
+          </Link>
         </div>
       </div>
     </section>

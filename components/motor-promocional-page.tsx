@@ -16,6 +16,7 @@ import {
   useTransform,
 } from "motion/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRef, type ReactNode } from "react";
 
 const KASHBACK_HERO_TEXT = "A MAIORIA DOS CASHBACKS SÓ DEVOLVE DINHEIRO";
@@ -154,13 +155,13 @@ function KashbackCard(): ReactNode {
               </div>
             </div>
 
-            <a
-              href="#faq"
+            <Link
+              href="/kashback"
               className="inline-flex w-fit items-center gap-2 rounded-full border border-[#FF7A1A]/70 bg-[#FF7A1A] px-4 py-2 text-[0.72rem] font-semibold tracking-[0.18em] text-white uppercase transition-transform duration-300 hover:-translate-y-0.5"
             >
               Saiba mais
               <ArrowRight className="h-4 w-4" />
-            </a>
+            </Link>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
