@@ -13,6 +13,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@fontsource/sora": "^5.2.8",
     "lenis": "^1.3.17",
     "lucide-react": "^0.562.0",
     "motion": "^12.23.26",

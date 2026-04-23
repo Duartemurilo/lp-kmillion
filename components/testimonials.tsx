@@ -7,51 +7,40 @@ import { useState, useEffect, type ReactNode } from "react";
 const testimonials = [
   {
     quote:
-      "This platform completely transformed how our support team operates. Response times dropped by 60% and customer satisfaction is at an all-time high.",
-    name: "Jennifer Walsh",
-    title: "VP of Customer Success @ Commandr",
+      "Com os motores promocionais da Kmillion, ganhamos liberdade criativa e agilidade real. A equipe consegue testar mecânicas diferentes por canal — loja, e-commerce, app — sem depender do time de TI. Isso mudou completamente nossa dinâmica interna e aumentou a conversão no PDV.",
+    name: "Gerente de Marketing",
+    title: "Marca de Moda Premium | Lacoste",
     avatar:
-      "https://images.unsplash.com/photo-1600481453173-55f6a844a4ea?q=80&w=750&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    color: "#a8d946",
-    company: "Commandr",
+      "https://static.wixstatic.com/media/f9ab6d_424025ea4edf4f1fac850b7ba412a812~mv2.avif/v1/fill/w_140,h_70,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/1.avif",
+    color: "#fe6634",
+    company: "Lacoste",
   },
   {
     quote:
-      "From onboarding to full deployment, the entire process was seamless. Our team productivity increased by 40% and we couldn't be happier with the results.",
-    name: "Michael Torres",
-    title: "Head of Operations @ Interlock",
+      "A inteligência promocional da Kmillion trouxe clareza total pra nossa estratégia comercial. Agora conseguimos enxergar o que realmente performa em cada loja, por tipo de cliente. É um novo nível de decisão baseada em dados, e isso refletiu direto no giro de estoque e nas metas batidas.",
+    name: "Diretor Comercial",
+    title: "Rede de Cosméticos Nacional | Osklen",
     avatar:
-      "https://images.unsplash.com/photo-1530466015235-1d47696ea847?q=80&w=1674&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    color: "#a8d946",
-    company: "Interlock",
+      "https://static.wixstatic.com/media/f9ab6d_316a4a55454d4085a9a62d0f4393925e~mv2.avif/v1/fill/w_133,h_66,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/3.avif",
+    color: "#ff8d18",
+    company: "Osklen",
   },
   {
     quote:
-      "The AI-powered insights brought our customer strategy to life. Every interaction now feels personalized yet scalable for our growing user base.",
-    name: "Amanda Chen",
-    title: "CX Director @ Focalpoint",
+      "A gestão de benefícios por CPF foi a solução que precisávamos. Antes era um caos controlar o quanto cada colaborador podia comprar com desconto. Com a Kmillion, temos limite por canal, por período e sem risco de abuso. O RH agradece!",
+    name: "Coordenadora de RH",
+    title: "Grupo de Lojas de Moda | Farmácia",
     avatar:
-      "https://images.unsplash.com/photo-1705408115324-6bd2cbfa4d93?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    color: "#a8d946",
-    company: "Focalpoint",
-  },
-  {
-    quote:
-      "Outstanding platform and support team. They helped us implement automation two weeks ahead of schedule with zero compromises on quality.",
-    name: "David Patterson",
-    title: "CEO @ Acme Corp",
-    avatar:
-      "https://images.unsplash.com/photo-1564172556663-2bef9580fc44?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    color: "#a8d946",
-    company: "Acme Corp",
+      "https://static.wixstatic.com/media/f9ab6d_bc559861e0fa4d349e4fa6e79460136e~mv2.avif/v1/fill/w_147,h_73,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/4.avif",
+    color: "#ff3131",
+    company: "Farmácia",
   },
 ];
 
 const companies = [
-  { name: "Commandr", logo: "/mock-logos/commandr.svg" },
-  { name: "Interlock", logo: "/mock-logos/interlock.svg" },
-  { name: "Focalpoint", logo: "/mock-logos/focalpoint.svg" },
-  { name: "Acme Corp", logo: "/mock-logos/acmecorp.svg" },
+  { name: "Lacoste" },
+  { name: "Osklen" },
+  { name: "Farmácia" },
 ];
 
 export function Testimonials(): ReactNode {
@@ -66,7 +55,7 @@ export function Testimonials(): ReactNode {
   }, []);
 
   return (
-    <section className="w-full bg-frame border-t border-b border-accent/15 px-6 py-32">
+    <section className="bg-frame border-accent/15 w-full border-t border-b px-6 py-32">
       <div className="mx-auto max-w-5xl">
         <motion.h2
           initial={{ opacity: 0 }}
@@ -75,11 +64,15 @@ export function Testimonials(): ReactNode {
           transition={{ duration: 0.4 }}
           className="mb-16 text-4xl leading-tight font-medium text-neutral-900 sm:text-5xl lg:mb-20 lg:text-6xl dark:text-neutral-50"
         >
-          Trusted by teams worldwide
+          Gerando resultados e fazendo promoções com propósito
         </motion.h2>
 
         <div className="mb-16 grid gap-8 lg:mb-20 lg:grid-cols-2 lg:gap-12">
-          <div className="flex items-center justify-start gap-4 lg:gap-6" role="tablist" aria-label="Testimonials">
+          <div
+            className="flex items-center justify-start gap-4 lg:gap-6"
+            role="tablist"
+            aria-label="Testimonials"
+          >
             {testimonials.map((testimonial, index) => (
               <motion.div
                 key={index}
@@ -94,21 +87,21 @@ export function Testimonials(): ReactNode {
                 aria-selected={activeIndex === index}
                 tabIndex={activeIndex === index ? 0 : -1}
                 onClick={() => setActiveIndex(index)}
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: "pointer" }}
               >
                 <div
                   className="relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-full transition-colors duration-500 sm:h-16 sm:w-16 lg:h-20 lg:w-20"
                   style={{
                     backgroundColor:
-                      activeIndex === index ? testimonial.color : undefined,
+                      activeIndex === index ? testimonial.color : "#111111",
                   }}
                 >
                   <Image
                     src={testimonial.avatar}
-                    alt={testimonial.name}
+                    alt={`${testimonial.company} logo`}
                     width={64}
                     height={64}
-                    className="h-8 w-8 rounded-full object-cover grayscale sm:h-12 sm:w-12 lg:h-16 lg:w-16"
+                    className="h-8 w-8 object-contain sm:h-12 sm:w-12 lg:h-16 lg:w-16"
                   />
                 </div>
 
@@ -147,7 +140,11 @@ export function Testimonials(): ReactNode {
             ))}
           </div>
 
-          <div className="flex flex-col justify-center" role="tabpanel" aria-live="polite">
+          <div
+            className="flex flex-col justify-center"
+            role="tabpanel"
+            aria-live="polite"
+          >
             <AnimatePresence mode="wait">
               {testimonials[activeIndex] && (
                 <motion.div
@@ -172,9 +169,10 @@ export function Testimonials(): ReactNode {
           </div>
         </div>
 
-        <div className="flex items-center justify-between gap-6 lg:gap-8">
+        <div className="flex flex-wrap items-center justify-center gap-3 lg:gap-4">
           {companies.map((company, index) => {
-            const isActive = testimonials[activeIndex]?.company === company.name;
+            const isActive =
+              testimonials[activeIndex]?.company === company.name;
             return (
               <motion.div
                 key={company.name}
@@ -182,20 +180,18 @@ export function Testimonials(): ReactNode {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                animate={{ scale: isActive ? 1.1 : 1 }}
+                animate={{ scale: isActive ? 1.04 : 1 }}
                 className="flex items-center"
               >
-                <Image
-                  src={company.logo}
-                  alt={`${company.name} logo`}
-                  width={120}
-                  height={40}
-                  className={`h-8 w-auto object-contain brightness-0 transition-all duration-300 sm:h-10 dark:invert ${
+                <span
+                  className={`rounded-full border px-4 py-2 text-sm font-medium tracking-wide transition-all duration-300 sm:px-5 sm:py-2.5 ${
                     isActive
-                      ? "opacity-100 dark:opacity-100"
-                      : "opacity-30 hover:opacity-60 dark:opacity-20 dark:hover:opacity-50"
+                      ? "border-[#FE6634] bg-[#FE6634] text-white"
+                      : "border-[#FE6634]/35 bg-white text-[#FE6634] hover:border-[#FE6634] hover:bg-[#FFF2EC]"
                   }`}
-                />
+                >
+                  {company.name}
+                </span>
               </motion.div>
             );
           })}

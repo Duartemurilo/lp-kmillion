@@ -45,7 +45,7 @@ export const heroConfig = {
 };
 
 export const blurHeadlineConfig = {
-  text: "Modern teams use our platform to elevate every customer touchpoint, blending human expertise with AI capabilities in a unified system that drives continuous improvement across all channels.",
+  text: "O Motor Promocional Kmillion é uma camada inteligente que conecta:",
 };
 
 export const testimonialsConfig = {
@@ -63,9 +63,9 @@ export const howItWorksConfig = {
 };
 
 export const pricingConfig = {
-  title: "Simple, transparent pricing",
-  description: "Choose the plan that works best for your team. All plans include a 14-day free trial.",
-  billingNote: "Billed annually",
+  title: "Diferencial Técnico Real",
+  description: "Comparativo técnico entre o padrão do mercado e a autonomia do Kmillion.",
+  billingNote: "",
 };
 
 export const faqConfig = {

@@ -2,6 +2,7 @@
 
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { usePathname } from "next/navigation";
 import { useSyncExternalStore, type ReactNode } from "react";
 
 function useIsMounted(): boolean {
@@ -14,7 +15,12 @@ function useIsMounted(): boolean {
 
 export function ThemeSwitch(): ReactNode {
   const mounted = useIsMounted();
+  const pathname = usePathname();
   const { setTheme, resolvedTheme } = useTheme();
+
+  if (pathname.startsWith("/ims")) {
+    return null;
+  }
 
   const toggleTheme = (): void => {
     setTheme(resolvedTheme === "dark" ? "light" : "dark");

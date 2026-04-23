@@ -2,52 +2,71 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
-import { CalendarCheck, Users, Rocket } from "lucide-react";
+import { AlertTriangle, ArrowRight, Settings, PauseCircle } from "lucide-react";
+import Image from "next/image";
 import type { ReactNode } from "react";
 
 const steps = [
   {
-    icon: CalendarCheck,
-    title: "Schedule kickoff",
+    icon: AlertTriangle,
+    title: "IMS",
     description:
-      "Align on scope, structure, and timeline. Whether it's a quick setup or a full migration, we'll take it from there.",
+      "Transforme influenciadores em um canal de vendas mensurável, com campanhas rastreáveis e dados em tempo real.",
   },
   {
-    icon: Users,
-    title: "Real-time collaboration",
+    icon: Settings,
+    title: "Kashback",
     description:
-      "Work alongside our team with full visibility. Every step follows best practices and thorough QA to ensure quality.",
+      "Estimule a recompra com cashback automatizado, com regras flexíveis e dashboards claros para medir o ROI.",
   },
   {
-    icon: Rocket,
-    title: "Launch and scale",
+    icon: PauseCircle,
+    title: "Motor promocional",
     description:
-      "Go live with confidence. Our AI continuously learns and improves, helping your team scale effortlessly.",
+      "Crie e ative campanhas personalizadas em minutos — sem depender de TI, com total controle por canal, loja e perfil de cliente.",
   },
-];
+] as const;
+
+type Step = (typeof steps)[number];
 
 function StepItem({
   step,
   isLast,
 }: {
-  step: (typeof steps)[0];
+  step: Step;
   isLast: boolean;
 }): ReactNode {
   const Icon = step.icon;
 
   return (
-    <div className={`relative flex gap-5 ${isLast ? "" : "pb-64"}`}>
-      <div className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent" aria-hidden="true">
+    <div className={`relative flex gap-5 ${isLast ? "" : "pb-24 sm:pb-32"}`}>
+      <div
+        className="bg-accent relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full"
+        aria-hidden="true"
+      >
         <Icon className="h-5 w-5 text-black" strokeWidth={2} />
       </div>
 
       <div className="pt-1">
-        <h3 className="text-xl font-semibold text-foreground sm:text-2xl">
+        <h3 className="text-foreground text-xl font-semibold sm:text-2xl">
           {step.title}
         </h3>
-        <p className="mt-2 max-w-sm text-base leading-relaxed text-foreground/60">
+        <p className="text-foreground/60 mt-2 max-w-xl text-base leading-relaxed">
           {step.description}
         </p>
+
+        <motion.a
+          href="#"
+          whileHover={{ x: 2 }}
+          whileTap={{ scale: 0.98 }}
+          className="group text-accent mt-4 inline-flex items-center gap-2 text-sm font-semibold transition-colors hover:text-[#e85b2d]"
+        >
+          <span className="relative inline-flex">
+            <span>Saiba mais</span>
+            <span className="absolute -bottom-1 left-0 h-px w-0 bg-current transition-all duration-300 ease-out group-hover:w-full" />
+          </span>
+          <ArrowRight className="h-4 w-4 transition-transform duration-300 ease-out group-hover:translate-x-0.5" />
+        </motion.a>
       </div>
     </div>
   );
@@ -64,45 +83,45 @@ export function HowItWorks(): ReactNode {
   const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <section
-      ref={containerRef}
-      className="relative w-full bg-background"
-    >
+    <section ref={containerRef} className="bg-background relative w-full">
       <div className="mx-auto grid max-w-5xl gap-12 px-6 py-20 sm:py-28 lg:grid-cols-2 lg:gap-20">
         <div className="lg:sticky lg:top-48 lg:h-fit lg:self-start">
-          <h2 className="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-            How it works
+          <h2 className="text-foreground text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
+            O que é a
           </h2>
-          <p className="mt-6 max-w-md text-lg leading-relaxed text-foreground/60">
-            Your platform, configured by experts and launched on an{" "}
-            <span className="font-medium text-foreground">Enterprise plan</span>
-            , ready to grow with you.
+          <div className="mt-6 max-w-xs">
+            <Image
+              src="/LOGO%20OFICIAL/PNG_VERS%C3%95ES%20LOGO%20HORIZONTAL/KMILLION%20LARANJA_VERTICAL.png"
+              alt="KMILLION Laranja Vertical"
+              width={420}
+              height={420}
+              className="h-auto w-full object-contain"
+              priority
+            />
+          </div>
+          <p className="text-foreground/60 mt-6 max-w-md text-lg leading-relaxed">
+            A Kmillion é uma plataforma SaaS de inteligência promocional que
+            permite a times de marketing e planejamento criarem e gerenciarem
+            campanhas de forma autônoma, com integração omnichannel e sem
+            depender de TI
           </p>
-          <motion.a
-            href="#"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="mt-8 inline-flex items-center rounded-xl bg-foreground px-6 py-3 text-sm font-semibold text-background transition-colors hover:bg-foreground/90"
-          >
-            Schedule kickoff
-          </motion.a>
         </div>
 
         <div className="relative">
-          <div className="absolute left-6 top-6 h-[calc(100%-6rem)] w-0.5 -translate-x-1/2 bg-foreground/10" aria-hidden="true">
+          <div
+            className="bg-foreground/10 absolute top-6 left-6 h-[calc(100%-6rem)] w-0.5 -translate-x-1/2"
+            aria-hidden="true"
+          >
             <motion.div
               style={{ height: lineHeight, willChange: "height" }}
-              className="w-full bg-accent"
+              className="bg-accent w-full"
             />
           </div>
 
-          <ol className="relative list-none p-0 m-0">
+          <ol className="relative m-0 list-none p-0">
             {steps.map((step, index) => (
               <li key={step.title}>
-                <StepItem
-                  step={step}
-                  isLast={index === steps.length - 1}
-                />
+                <StepItem step={step} isLast={index === steps.length - 1} />
               </li>
             ))}
           </ol>

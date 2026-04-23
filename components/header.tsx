@@ -2,20 +2,34 @@
 
 import { ArrowDownRight, ChevronDown } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState, type ReactNode } from "react";
 
 const menus = {
-  products: [
-    { label: "Analytics", description: "Track your metrics in real-time" },
-    { label: "Automation", description: "Streamline your workflows" },
-    { label: "Integrations", description: "Connect with 100+ tools" },
-    { label: "API", description: "Build custom solutions" },
-  ],
-  resources: [
-    { label: "Documentation", description: "Learn how to get started" },
-    { label: "Blog", description: "Tips and best practices" },
-    { label: "Case Studies", description: "See how others succeed" },
-    { label: "Community", description: "Join the conversation" },
+  solucoes: [
+    {
+      label: "IMS Marca",
+      description:
+        "Transforme influenciadores em um canal de vendas mensurável.",
+      href: "/ims",
+    },
+    {
+      label: "IMS Influencer",
+      description: "Monetize por performance com rastreio e cashback automático.",
+      href: "/ims/influencer",
+    },
+    {
+      label: "Kashback",
+      description: "Estimule a recompra com cashback automatizado.",
+      href: "/kashback",
+    },
+    {
+      label: "Motor Promocional",
+      description: "Crie e ative campanhas em minutos, sem depender de TI.",
+      href: "/motor-promocional",
+    },
   ],
 };
 
@@ -39,11 +53,11 @@ function HamburgerIcon({ isOpen }: { isOpen: boolean }): ReactNode {
 }
 
 function DesktopDropdown({ 
-  label, 
-  menuKey, 
-  isOpen, 
-  onOpen, 
-  onClose 
+  label,
+  menuKey,
+  isOpen,
+  onOpen,
+  onClose
 }: { 
   label: string; 
   menuKey: keyof typeof menus; 
@@ -72,10 +86,16 @@ function DesktopDropdown({
           >
             <div className="bg-frame border border-border rounded-2xl shadow-lg overflow-hidden p-2">
               {menus[menuKey].map((item) => (
-                <a key={item.label} href="#" className="block px-4 py-3 rounded-xl hover:bg-muted transition-colors">
-                  <div className="text-sm font-medium text-foreground">{item.label}</div>
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="block px-4 py-3 rounded-xl hover:bg-muted transition-colors"
+                >
+                  <div className="text-sm font-medium text-foreground">
+                    {item.label}
+                  </div>
                   <div className="text-xs text-muted-foreground mt-0.5">{item.description}</div>
-                </a>
+                </Link>
               ))}
             </div>
           </motion.div>
@@ -121,14 +141,14 @@ function MobileExpandable({
           >
             <div className="pb-2 space-y-1">
               {menus[menuKey].map((item) => (
-                <a
+                <Link
                   key={item.label}
-                  href="#"
+                  href={item.href}
                   className="block py-2 text-sm text-foreground/80 hover:text-foreground"
                   onClick={onClose}
                 >
                   {item.label}
-                </a>
+                </Link>
               ))}
             </div>
           </motion.div>
@@ -144,13 +164,23 @@ const CornerSVG = ({ className }: { className: string }) => (
   </svg>
 );
 
+const headerLogoLightSrc = encodeURI("/LOGO OFICIAL/SVG_VERSÕES LOGO HORIZONTAL/ALTERNATIVO KMILLION_LARANJA.svg");
+const headerLogoDarkSrc = encodeURI("/LOGO OFICIAL/SVG_VERSÕES LOGO HORIZONTAL/ALTERNATIVO KMILLION BRANCO.svg");
+
 export function Header(): ReactNode {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
+  const pathname = usePathname();
 
   const closeMobile = () => setMobileMenuOpen(false);
   const toggleExpanded = (key: string) => setMobileExpanded(mobileExpanded === key ? null : key);
+  const contactHref =
+    pathname === "/motor-promocional"
+      ? "#converse"
+      : pathname === "/ims/influencer"
+        ? "#converse"
+        : "/motor-promocional#converse";
 
   return (
     <motion.header
@@ -160,42 +190,45 @@ export function Header(): ReactNode {
       className="fixed shadow-2xl/20 rounded-b-4xl top-2.5 left-1/2 -translate-x-1/2 w-full max-w-5xl max-[1200px]:max-w-2xl bg-frame z-9998 max-[850px]:top-0 max-[850px]:left-0 max-[850px]:right-0 max-[850px]:translate-x-0 max-[850px]:w-full max-[850px]:max-w-none max-[850px]:rounded-none max-[850px]:rounded-b-4xl max-[850px]:overflow-hidden"
     >
       <div className="h-20 max-[850px]:h-18 flex items-center justify-between px-4 max-[850px]:px-6">
-        <a href="#" className="flex items-center gap-2 ml-4 max-[850px]:ml-0">
-          <div className="w-6 h-6 rounded-full bg-foreground" />
-          <span className="text-lg font-semibold text-foreground leading-0 max-[1200px]:hidden max-[850px]:inline">Circular</span>
-        </a>
+        <Link href="/" className="flex items-center gap-2 ml-4 max-[850px]:ml-0">
+          <Image
+            src={headerLogoLightSrc}
+            alt="Kmillion"
+            width={168}
+            height={40}
+            className="h-8 w-auto max-[1200px]:h-7 max-[850px]:h-7 dark:hidden"
+            priority
+          />
+          <Image
+            src={headerLogoDarkSrc}
+            alt="Kmillion"
+            width={168}
+            height={40}
+            className="hidden h-8 w-auto max-[1200px]:h-7 max-[850px]:h-7 dark:block"
+            priority
+          />
+        </Link>
 
         <nav className="flex items-center gap-1 max-[1200px]:gap-0 max-[850px]:hidden">
+          <Link href="/" className="px-4 py-2 max-[1200px]:px-3 text-sm font-medium text-foreground/80 hover:text-foreground transition-colors rounded-full hover:bg-foreground/5">
+            Início
+          </Link>
           <DesktopDropdown
-            label="Products"
-            menuKey="products"
-            isOpen={activeMenu === "products"}
-            onOpen={() => setActiveMenu("products")}
+            label="Soluções"
+            menuKey="solucoes"
+            isOpen={activeMenu === "solucoes"}
+            onOpen={() => setActiveMenu("solucoes")}
             onClose={() => setActiveMenu(null)}
           />
-          <DesktopDropdown
-            label="Resources"
-            menuKey="resources"
-            isOpen={activeMenu === "resources"}
-            onOpen={() => setActiveMenu("resources")}
-            onClose={() => setActiveMenu(null)}
-          />
-          <a href="#pricing" className="px-4 py-2 max-[1200px]:px-3 text-sm font-medium text-foreground/80 hover:text-foreground transition-colors rounded-full hover:bg-foreground/5">
-            Pricing
-          </a>
         </nav>
 
         <div className="flex items-center gap-4 max-[850px]:hidden">
-          <a href="#" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors">
-            Sign in
-          </a>
-          <a href="#" className="group relative inline-flex items-center">
-            <span className="absolute right-0 inset-y-0 w-[calc(100%-1.5rem)] rounded-xl bg-accent" />
-            <span className="relative z-10 px-5 py-3 rounded-xl bg-foreground text-background text-sm font-medium">Try for free</span>
-            <span className="relative -left-px z-10 w-10 h-10 rounded-xl flex items-center justify-center text-black">
+          <Link href={contactHref} className="group relative inline-flex items-center">
+            <span className="relative z-10 rounded-xl bg-accent px-5 py-3 text-sm font-medium text-white">Entre em contato</span>
+            <span className="relative -left-px z-10 flex h-10 w-10 items-center justify-center rounded-xl bg-white text-accent shadow-sm">
               <ArrowDownRight className="w-4 h-4 transition-transform duration-300 group-hover:-rotate-45" />
             </span>
-          </a>
+          </Link>
         </div>
 
         <button
@@ -219,39 +252,25 @@ export function Header(): ReactNode {
           >
             <div className="px-6 pb-4">
               <nav className="space-y-0">
-                <a href="#" className="flex items-center justify-between py-4 text-base font-medium text-foreground border-b border-foreground/10" onClick={closeMobile}>
-                  Customers
-                </a>
+                <Link href="/" className="flex items-center justify-between py-4 text-base font-medium text-foreground border-b border-foreground/10" onClick={closeMobile}>
+                  Início
+                </Link>
                 <MobileExpandable
-                  label="Products"
-                  menuKey="products"
-                  isExpanded={mobileExpanded === "products"}
-                  onToggle={() => toggleExpanded("products")}
+                  label="Soluções"
+                  menuKey="solucoes"
+                  isExpanded={mobileExpanded === "solucoes"}
+                  onToggle={() => toggleExpanded("solucoes")}
                   onClose={closeMobile}
                 />
-                <MobileExpandable
-                  label="Resources"
-                  menuKey="resources"
-                  isExpanded={mobileExpanded === "resources"}
-                  onToggle={() => toggleExpanded("resources")}
-                  onClose={closeMobile}
-                />
-                <a href="#pricing" className="flex items-center justify-between py-4 text-base font-medium text-foreground" onClick={closeMobile}>
-                  Pricing
-                </a>
               </nav>
 
-              <div className="flex items-center justify-between pt-8 pb-2">
-                <a href="#" className="text-base font-medium text-foreground" onClick={closeMobile}>
-                  Sign in
-                </a>
-                <a href="#" className="group relative inline-flex items-center" onClick={closeMobile}>
-                  <span className="absolute right-0 inset-y-0 w-[calc(100%-1.5rem)] rounded-2xl bg-accent" />
-                  <span className="relative z-10 px-5 py-3 rounded-2xl bg-foreground text-background text-sm font-medium">Try for free</span>
-                  <span className="relative -left-px z-10 w-10 h-10 rounded-2xl flex items-center justify-center text-foreground">
+              <div className="flex items-center justify-end pt-8 pb-2">
+                <Link href={contactHref} className="group relative inline-flex items-center" onClick={closeMobile}>
+                  <span className="relative z-10 rounded-2xl bg-accent px-5 py-3 text-sm font-medium text-white">Entre em contato</span>
+                  <span className="relative -left-px z-10 flex h-10 w-10 items-center justify-center rounded-2xl bg-white text-accent shadow-sm">
                     <ArrowDownRight className="w-4 h-4 transition-transform duration-300 group-hover:-rotate-45" />
                   </span>
-                </a>
+                </Link>
               </div>
             </div>
           </motion.div>

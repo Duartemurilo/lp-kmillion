@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const siteConfig = {
-  name: "React Bits Pro - SaaS Template",
+  name: "Kmillion",
   description:
-    "A modern, accessible landing page template built with Next.js, Tailwind CSS, and TypeScript.",
+    "Kmillion é uma plataforma SaaS de inteligência promocional para varejo físico.",
   url: "https://example.com",
   ogImage: "/og-image.png",
   creator: "@yourhandle",
@@ -14,12 +14,11 @@ export const siteConfig = {
     },
   ],
   keywords: [
-    "landing page",
-    "template",
-    "Next.js",
-    "React",
-    "Tailwind CSS",
-    "TypeScript",
+    "Kmillion",
+    "inteligência promocional",
+    "varejo físico",
+    "promoções",
+    "SaaS",
   ],
 } as const;
 
@@ -72,8 +71,10 @@ export const baseMetadata: Metadata = {
     creator: siteConfig.creator,
   },
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
+    icon: encodeURI("/LOGO OFICIAL/SVG_VERSÕES LOGO QUADRADO/CAMALEÃO LARANJA.svg"),
+    shortcut: encodeURI(
+      "/LOGO OFICIAL/SVG_VERSÕES LOGO QUADRADO/CAMALEÃO LARANJA.svg"
+    ),
     apple: "/apple-icon.png",
   },
   manifest: "/site.webmanifest",

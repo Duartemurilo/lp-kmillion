@@ -1,31 +1,23 @@
 import { Header } from "@/components/header";
+import { I18nProvider } from "@/i18n";
 import { Providers } from "@/components/providers";
 import { SkipToContent } from "@/components/skip-to-content";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { baseMetadata } from "@/lib/metadata";
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import type { ReactNode } from "react";
+import "@fontsource/sora/400.css";
+import "@fontsource/sora/500.css";
+import "@fontsource/sora/600.css";
+import "@fontsource/sora/700.css";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export const metadata: Metadata = baseMetadata;
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+    { media: "(prefers-color-scheme: light)", color: "#fff7f1" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f0f12" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -38,11 +30,10 @@ export default function RootLayout({
   children: ReactNode;
 }>): ReactNode {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-background font-sans text-foreground antialiased`}
-      >
+    <html lang="pt-BR" suppressHydrationWarning>
+      <body className="min-h-screen bg-background font-sans text-foreground antialiased">
         <Providers>
+          <I18nProvider>
           {/* Fixed frame */}
           <div className="site-frame site-frame--top" aria-hidden="true" />
           <div className="site-frame site-frame--bottom" aria-hidden="true" />
@@ -68,6 +59,7 @@ export default function RootLayout({
           
           <SkipToContent />
           {children}
+          </I18nProvider>
         </Providers>
       </body>
     </html>

@@ -1,23 +1,60 @@
 "use client";
 
 import { motion, type Transition } from "motion/react";
-import { CircleCheck, Star } from "lucide-react";
-import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 import type { ReactNode } from "react";
 
 const EASE = [0.23, 1, 0.32, 1] as const;
 
-const AVATAR_URLS = [
-  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
-  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face",
-  "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
-  "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
-];
+const HERO_BADGES = [
+  {
+    src: "https://static.wixstatic.com/media/f9ab6d_07b3ff49476e4c318d5477c238b7b642~mv2.png/v1/crop/x_450,y_968,w_1434,h_1322/fill/w_316,h_292,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/13.png",
+    alt: "Ícone promocional 1",
+    className: "top-6 left-0 md:-left-2",
+  },
+  {
+    src: "https://static.wixstatic.com/media/f9ab6d_78048d158ab54630a010d1ef11681b93~mv2.png/v1/crop/x_463,y_980,w_1751,h_1170/fill/w_386,h_258,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/15.png",
+    alt: "Ícone promocional 2",
+    className: "top-10 right-0 md:-right-4",
+  },
+  {
+    src: "https://static.wixstatic.com/media/f9ab6d_a0d7ad7982df415da6c15c4137316cfa~mv2.png/v1/crop/x_399,y_1024,w_1924,h_1316/fill/w_424,h_290,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/12.png",
+    alt: "Ícone promocional 3",
+    className: "bottom-20 left-2 md:-left-5",
+  },
+  {
+    src: "https://static.wixstatic.com/media/f9ab6d_0966d0fc0cd54278b910eeb70abcaa87~mv2.png/v1/crop/x_444,y_951,w_1485,h_1406/fill/w_326,h_310,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/14.png",
+    alt: "Ícone promocional 4",
+    className: "bottom-8 right-2 md:-right-3",
+  },
+] as const;
 
-const DEPLOYMENT_STATS = [
-  { icon: "🚀", label: "2,598 Deploys", change: "+24%" },
-  { icon: "⚡", label: "99.9% Uptime", change: "+0.2%" },
-];
+const FEATURE_CARDS = {
+  descontos: {
+    title: "Descontos",
+    description:
+      "Descontos inteligentes e personalizáveis para impulsionar vendas.",
+    image:
+      "https://static.wixstatic.com/media/f9ab6d_345a5ac4a7454b7aaf3eca28eabb6e32~mv2.png/v1/crop/x_11,y_0,w_3352,h_3375/fill/w_576,h_580,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/4.png",
+  },
+  cupons: {
+    title: "Cupons",
+    description:
+      "Cupons personalizados que aumentam engajamento e fidelização.",
+    image:
+      "https://static.wixstatic.com/media/f9ab6d_73599328dbf34cac87dc6f4ac3fb3a8e~mv2.png/v1/crop/x_14,y_0,w_3348,h_3375/fill/w_584,h_588,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/7.png",
+  },
+  brindes: {
+    title: "Brindes",
+    image:
+      "https://static.wixstatic.com/media/f9ab6d_2da008b8543e4553adff3fc1e1132f8d~mv2.png/v1/crop/x_11,y_0,w_3352,h_3375/fill/w_584,h_588,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/1.png",
+  },
+  combo: {
+    title: "Combo de Produto",
+    image:
+      "https://static.wixstatic.com/media/f9ab6d_990885c698054dc2879598fbf50e18b6~mv2.png/v1/crop/x_126,y_0,w_2297,h_2313/fill/w_584,h_588,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/imagens%20icones.png",
+  },
+} as const;
 
 const cardAnimation = {
   initial: { opacity: 0, y: 40 },
@@ -42,19 +79,16 @@ function PhoneMockup({
 
   return (
     <div
-      className={`
-        relative bg-background shadow-2xl border-neutral-800 overflow-hidden z-10
-        ${isCompact 
-          ? "w-44 md:w-48 h-64 md:h-72 rounded-3xl border-4" 
-          : "w-56 md:w-64 h-96 md:h-115 rounded-t-4xl border-6 border-b-0"
-        }
-      `}
+      className={`relative z-10 overflow-hidden border border-neutral-200 bg-white shadow-[0_30px_80px_-40px_rgba(17,17,17,0.28)] ${
+        isCompact
+          ? "h-64 w-44 rounded-3xl md:h-72 md:w-48"
+          : "h-96 w-56 rounded-t-4xl border-b-0 md:h-115 md:w-64"
+      }`}
     >
       <div
-        className={`
-          absolute left-1/2 -translate-x-1/2 bg-neutral-800 rounded-full z-10
-          ${isCompact ? "top-2 w-16 h-4" : "top-2 w-20 h-5"}
-        `}
+        className={`absolute left-1/2 z-10 -translate-x-1/2 rounded-full bg-[#EAE4EF] ${
+          isCompact ? "top-2 h-4 w-16" : "top-2 h-5 w-20"
+        }`}
         aria-hidden="true"
       />
       {children}
@@ -62,56 +96,88 @@ function PhoneMockup({
   );
 }
 
-function AvatarStack(): ReactNode {
+function RemoteImage({
+  src,
+  alt,
+  className = "",
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+}): ReactNode {
+  return <img src={src} alt={alt} loading="lazy" className={className} />;
+}
+
+function PromoFloatingBadges(): ReactNode {
   return (
-    <div className="flex items-center">
-      {AVATAR_URLS.map((src, i) => (
+    <>
+      {HERO_BADGES.map((badge) => (
         <div
-          key={i}
-          className="size-12 rounded-full border-2 border-white/25 overflow-hidden -ml-4 first:ml-0"
+          key={badge.src}
+          className={`absolute z-20 hidden rounded-2xl bg-white/85 p-2 shadow-lg backdrop-blur-sm md:block ${badge.className}`}
         >
-          <Image
-            src={src}
-            alt=""
-            width={48}
-            height={48}
-            className="size-full object-cover"
+          <RemoteImage
+            src={badge.src}
+            alt={badge.alt}
+            className="h-12 w-auto object-contain"
           />
         </div>
       ))}
-      <div className="size-12 rounded-full border-2 border-white/25 bg-accent text-black flex items-center justify-center text-sm font-semibold -ml-4">
-        5+
-      </div>
-    </div>
+    </>
   );
 }
 
-function DeploymentStat({
-  icon,
-  label,
-  change,
-}: {
-  icon: string;
-  label: string;
-  change: string;
-}): ReactNode {
+function HeroPromoPreview(): ReactNode {
   return (
-    <div className="flex items-center justify-between bg-background rounded-xl p-3">
-      <div className="flex items-center gap-2">
-        <span className="text-lg">{icon}</span>
-        <span className="text-foreground font-medium">{label}</span>
+    <div className="absolute inset-0 bg-white px-5 pt-14">
+      <div className="rounded-full bg-[#F7EFFC] px-3 py-1 text-center text-[11px] font-semibold tracking-[0.16em] text-[#300250] uppercase">
+        Mecânicas promocionais
       </div>
-      <span className="text-black text-sm font-medium">{change}</span>
-    </div>
-  );
-}
 
-function DecorativeCircles(): ReactNode {
-  return (
-    <div className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
-      <div className="absolute size-56 border border-accent/80 rounded-full" />
-      <div className="absolute size-72 border border-accent/60 rounded-full" />
-      <div className="absolute size-88 border border-accent/40 rounded-full" />
+      <h4 className="mt-5 text-3xl leading-none font-semibold tracking-tight text-[#300250]">
+        Crie campanhas
+      </h4>
+      <h4 className="text-3xl leading-none font-semibold tracking-tight text-[#FE6634]">
+        que performam
+      </h4>
+
+      <p className="mt-4 max-w-[16rem] text-sm leading-snug text-[#6F6577]">
+        Descontos, cupons, brindes e combos em uma experiência visual, flexível
+        e rápida de operar.
+      </p>
+
+      <div className="mt-6 grid grid-cols-2 gap-2">
+        <div className="rounded-2xl bg-[#FFF2EC] p-3">
+          <RemoteImage
+            src={FEATURE_CARDS.descontos.image}
+            alt={FEATURE_CARDS.descontos.title}
+            className="h-22 w-full rounded-xl object-cover"
+          />
+          <p className="mt-2 text-xs font-semibold text-[#300250]">
+            {FEATURE_CARDS.descontos.title}
+          </p>
+        </div>
+
+        <div className="rounded-2xl bg-[#F7EFFC] p-3">
+          <RemoteImage
+            src={FEATURE_CARDS.cupons.image}
+            alt={FEATURE_CARDS.cupons.title}
+            className="h-22 w-full rounded-xl object-cover"
+          />
+          <p className="mt-2 text-xs font-semibold text-[#300250]">
+            {FEATURE_CARDS.cupons.title}
+          </p>
+        </div>
+      </div>
+
+      <div className="mt-4 flex flex-wrap gap-2">
+        <span className="rounded-full bg-[#300250] px-3 py-1 text-xs font-medium text-white">
+          Brindes
+        </span>
+        <span className="rounded-full bg-[#FE6634] px-3 py-1 text-xs font-medium text-white">
+          Combo de Produto
+        </span>
+      </div>
     </div>
   );
 }
@@ -121,80 +187,39 @@ function StepByStepCard(): ReactNode {
     <motion.div
       {...cardAnimation}
       transition={getCardTransition(0)}
-      className="group bg-card-primary rounded-4xl p-8 pb-0 overflow-hidden min-h-140 md:row-span-2 flex flex-col"
+      className="group relative flex min-h-140 flex-col overflow-hidden rounded-4xl border border-neutral-200 bg-white p-8 pb-0 shadow-[0_30px_80px_-50px_rgba(17,17,17,0.18)] md:row-span-2"
     >
-      <div className="relative z-10 text-center mb-6 transition-transform duration-500 ease-out group-hover:scale-105">
-        <h3 className="text-2xl md:text-4xl font-medium text-neutral-900 leading-tight mb-3">
-          Guided Onboarding For Every Team
+      <div className="absolute inset-x-0 top-0 h-1 bg-[linear-gradient(90deg,#FE6634,#FF8D18,#FF3131)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(254,102,52,0.08),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(255,141,24,0.08),transparent_28%)]" />
+
+      <div className="relative z-10 mb-6 text-center transition-transform duration-500 ease-out group-hover:scale-[1.02]">
+        <h3 className="text-2xl leading-tight font-semibold md:text-4xl">
+          <span className="text-neutral-900">Motor de</span>
+          <br />
+          <span className="text-accent">Promoções Inteligentes</span>
         </h3>
-        <p className="text-neutral-700 text-sm">
-          Get your team up and running in minutes with step-by-step walkthroughs
+
+        <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-neutral-600">
+          A base promocional da Kmillion para criar campanhas com mais controle,
+          autonomia e velocidade de execução.
         </p>
+
+        <a
+          href="#"
+          className="mt-5 inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-white transition-transform duration-300 hover:translate-x-0.5 hover:bg-[#e85b2d]"
+        >
+          Saiba mais
+          <ArrowRight className="h-4 w-4" />
+        </a>
       </div>
 
-      <div className="flex-1 flex justify-center items-end transition-transform duration-500 ease-out group-hover:scale-[1.02]">
+      <div className="relative flex flex-1 items-end justify-center transition-transform duration-500 ease-out group-hover:scale-[1.02]">
+        <PromoFloatingBadges />
         <PhoneMockup variant="full">
-          <div className="absolute inset-0 bg-phone-screen pt-14 px-5">
-            <h4 className="text-3xl font-medium text-neutral-900 leading-none tracking-tight mt-4">
-              Your workspace
-            </h4>
-            <h4 className="text-3xl font-medium text-neutral-900 leading-none tracking-tight mb-4">
-              is ready!
-            </h4>
-            <p className="text-sm text-neutral-500 leading-snug mb-8">
-              Invite your team and start collaborating instantly.
-            </p>
-
-            {/* Project Card */}
-            <div className="relative bg-linear-to-br from-accent via-accent/80 to-accent/50 rounded-2xl p-4 h-52 shadow-xl overflow-hidden">
-              <ProjectCardContent />
-            </div>
-          </div>
+          <HeroPromoPreview />
         </PhoneMockup>
       </div>
     </motion.div>
-  );
-}
-
-function ProjectCardContent(): ReactNode {
-  return (
-    <>
-      <svg
-        className="absolute inset-0 size-full"
-        viewBox="0 0 100 60"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
-        <path
-          d="M0,60 Q30,40 60,50 T100,30"
-          fill="none"
-          stroke="rgba(255,255,255,0.15)"
-          strokeWidth="0.5"
-        />
-        <path
-          d="M0,55 Q40,35 70,45 T100,25"
-          fill="none"
-          stroke="rgba(255,255,255,0.1)"
-          strokeWidth="0.5"
-        />
-      </svg>
-
-      <div className="relative z-10 flex items-start justify-between gap-3 h-full">
-        <div>
-          <p className="text-base font-semibold text-neutral-900">Project</p>
-          <p className="text-base font-semibold text-neutral-900">Alpha</p>
-        </div>
-        <CircleCheck className="opacity-25 text-black" aria-hidden="true" />
-      </div>
-
-      <div className="absolute bottom-3 left-5 flex items-center gap-2 text-neutral-700 text-xs tracking-widest" aria-hidden="true">
-        <span>PRJ</span>
-        <span>•</span>
-        <span>2024</span>
-        <span>•</span>
-        <span>LIVE</span>
-      </div>
-    </>
   );
 }
 
@@ -203,48 +228,44 @@ function DashboardCard(): ReactNode {
     <motion.div
       {...cardAnimation}
       transition={getCardTransition(0.1)}
-      className="group bg-card-secondary rounded-4xl p-8 overflow-hidden min-h-80 relative flex flex-col md:block"
+      className="group relative flex min-h-80 flex-col overflow-hidden rounded-4xl border border-neutral-200 bg-white p-8 shadow-[0_30px_80px_-50px_rgba(17,17,17,0.18)] md:block"
     >
-      <div className="relative z-10 max-w-48 transition-transform duration-500 ease-out group-hover:scale-105">
-        <h3 className="text-xl md:text-2xl whitespace-nowrap font-medium text-card-foreground leading-tight mb-3">
-          Real-time Data
+      <div className="absolute inset-x-0 top-0 h-1 bg-[linear-gradient(90deg,#FE6634,#FF8D18)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,141,24,0.1),transparent_30%)]" />
+
+      <div className="relative z-10 max-w-60 transition-transform duration-500 ease-out group-hover:scale-[1.02]">
+        <span className="inline-flex rounded-full bg-[#FFF2EC] px-3 py-1 text-xs font-semibold text-accent">
+          Mecânica
+        </span>
+
+        <h3 className="mt-4 text-xl leading-tight font-semibold text-neutral-900 md:text-2xl">
+          {FEATURE_CARDS.descontos.title}
         </h3>
-        <p className="text-card-foreground-muted text-sm">
-          Monitor metrics, analytics, and team activity instantly
+
+        <p className="mt-3 text-sm leading-relaxed text-neutral-600">
+          {FEATURE_CARDS.descontos.description}
         </p>
       </div>
 
-      <div className="relative md:absolute mt-8 md:mt-0 md:right-12 md:top-1/2 md:-translate-y-1/2 flex items-center justify-center transition-transform duration-500 ease-out group-hover:scale-105 self-center md:self-auto">
-        <DecorativeCircles />
+      <div className="relative mt-8 flex items-center justify-center self-center transition-transform duration-500 ease-out group-hover:scale-105 md:absolute md:top-1/2 md:right-8 md:mt-0 md:-translate-y-1/2 md:self-auto">
+        <div className="absolute h-52 w-52 rounded-full bg-[#FE6634]/10 blur-3xl" />
 
         <PhoneMockup variant="compact">
-          <div className="absolute inset-0 bg-phone-screen pt-9 px-3">
-            <div className="bg-white rounded-full px-2 py-1.5 mb-3 flex items-center gap-1.5 border border-neutral-200">
-              <span className="text-neutral-400 text-xs">Search projects...</span>
-            </div>
-            <p className="text-xs text-neutral-500 mb-0.5">Active projects</p>
-            <p className="text-xl font-medium text-neutral-900 mb-3">24 running</p>
-
-            <div className="flex gap-1.5 mb-4">
-              <span className="bg-accent text-black text-xs px-2.5 py-1 rounded-full">
-                Deploy
-              </span>
-              <span className="text-neutral-400 text-xs px-2 py-1">Build</span>
-              <span className="text-neutral-400 text-xs px-2 py-1">Test</span>
-            </div>
+          <div className="absolute inset-0 bg-white p-3">
+            <RemoteImage
+              src={FEATURE_CARDS.descontos.image}
+              alt={FEATURE_CARDS.descontos.title}
+              className="h-full w-full rounded-2xl object-cover"
+            />
           </div>
         </PhoneMockup>
 
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 bg-neutral-900 rounded-2xl px-5 py-3 shadow-xl z-20 whitespace-nowrap">
-          <div className="flex items-center gap-2 mb-0.5">
-            <span className="text-neutral-400 text-xs">Build status</span>
-            <span className="text-neutral-500 text-xs">ⓘ</span>
+        <div className="absolute bottom-0 left-1/2 z-20 -translate-x-1/2 rounded-2xl border border-[#FE6634]/12 bg-[#FFF2EC] px-4 py-3 whitespace-nowrap shadow-xl">
+          <div className="text-xs font-medium text-[#8A4A35]">
+            Descontos inteligentes
           </div>
-          <div className="flex items-center gap-3">
-            <span className="text-lg font-medium text-white">All passing</span>
-            <span className="text-xs font-medium text-accent bg-accent/20 px-2 py-0.5 rounded">
-              ✓ 100%
-            </span>
+          <div className="mt-1 text-sm font-semibold text-[#300250]">
+            Personalizáveis para vender mais
           </div>
         </div>
       </div>
@@ -257,26 +278,49 @@ function TrustedByCard(): ReactNode {
     <motion.div
       {...cardAnimation}
       transition={getCardTransition(0.2)}
-      className="group bg-card-secondary rounded-4xl p-6 md:p-8 flex flex-col items-center justify-center text-center min-h-64"
+      className="group flex min-h-64 flex-col items-center justify-center rounded-4xl border border-neutral-200 bg-white p-6 text-center shadow-[0_30px_80px_-50px_rgba(17,17,17,0.18)] md:p-8"
     >
-      <div className="transition-transform duration-500 ease-out group-hover:scale-110">
-        <h3 className="text-2xl md:text-3xl font-medium text-card-foreground leading-tight mb-1">
-          Trusted By
-        </h3>
-        <h3 className="text-2xl md:text-3xl font-medium text-card-foreground leading-tight mb-5">
-          254k+ Users
-        </h3>
-      </div>
-
       <div className="transition-transform duration-500 ease-out group-hover:scale-105">
-        <AvatarStack />
-      </div>
+        <div className="mx-auto mb-5 flex h-28 w-28 items-center justify-center rounded-3xl bg-[#FFF2EC] shadow-sm">
+          <RemoteImage
+            src={FEATURE_CARDS.cupons.image}
+            alt={FEATURE_CARDS.cupons.title}
+            className="h-24 w-24 rounded-2xl object-cover"
+          />
+        </div>
 
-      <div className="flex items-center gap-2 mt-5 text-card-foreground-muted transition-transform duration-500 ease-out group-hover:scale-105">
-        <Star className="size-4 fill-current" />
-        <span className="text-xs font-medium">4.9 from 48k+ reviews</span>
+        <h3 className="text-2xl leading-tight font-semibold text-neutral-900 md:text-3xl">
+          {FEATURE_CARDS.cupons.title}
+        </h3>
+
+        <p className="mx-auto mt-4 max-w-xs text-sm leading-relaxed text-neutral-600">
+          {FEATURE_CARDS.cupons.description}
+        </p>
       </div>
     </motion.div>
+  );
+}
+
+function MiniFeatureRow({
+  title,
+  image,
+}: {
+  title: string;
+  image: string;
+}): ReactNode {
+  return (
+    <div className="flex items-center gap-3 rounded-2xl border border-neutral-200 bg-neutral-50 p-3">
+      <div className="flex h-14 w-14 items-center justify-center overflow-hidden rounded-2xl bg-white">
+        <RemoteImage
+          src={image}
+          alt={title}
+          className="h-12 w-12 rounded-xl object-cover"
+        />
+      </div>
+      <span className="max-w-[11rem] text-sm font-semibold text-neutral-900">
+        {title}
+      </span>
+    </div>
   );
 }
 
@@ -285,21 +329,32 @@ function IntegrationsCard(): ReactNode {
     <motion.div
       {...cardAnimation}
       transition={getCardTransition(0.3)}
-      className="group bg-card-primary rounded-4xl p-6 md:p-8 flex flex-col min-h-64"
+      className="group flex min-h-64 flex-col rounded-4xl border border-neutral-200 bg-white p-6 shadow-[0_30px_80px_-50px_rgba(17,17,17,0.18)] md:p-8"
     >
-      <div className="mb-auto transition-transform duration-500 ease-out group-hover:scale-105">
-        <h3 className="text-xl md:text-2xl font-medium text-neutral-900 leading-tight mb-2">
-          Built to Scale
+      <div className="mb-auto transition-transform duration-500 ease-out group-hover:scale-[1.02]">
+        <div className="mb-3 inline-flex rounded-full bg-[#FFF2EC] px-3 py-1 text-xs font-semibold tracking-[0.16em] text-accent uppercase">
+          Destaques
+        </div>
+
+        <h3 className="text-xl leading-tight font-semibold text-neutral-900 md:text-2xl">
+          Mais possibilidades promocionais
         </h3>
-        <p className="text-neutral-700 text-sm">
-          Enterprise-ready infrastructure that grows with you
+
+        <p className="mt-2 text-sm leading-relaxed text-neutral-600">
+          Amplie sua operação promocional com diferentes mecânicas dentro da
+          mesma experiência.
         </p>
       </div>
 
-      <div className="flex flex-col gap-2 mt-6 transition-transform duration-500 ease-out group-hover:scale-[1.02]">
-        {DEPLOYMENT_STATS.map((stat) => (
-          <DeploymentStat key={stat.icon} {...stat} />
-        ))}
+      <div className="mt-6 flex flex-col gap-3">
+        <MiniFeatureRow
+          title={FEATURE_CARDS.brindes.title}
+          image={FEATURE_CARDS.brindes.image}
+        />
+        <MiniFeatureRow
+          title={FEATURE_CARDS.combo.title}
+          image={FEATURE_CARDS.combo.image}
+        />
       </div>
     </motion.div>
   );
@@ -307,13 +362,13 @@ function IntegrationsCard(): ReactNode {
 
 export function FeaturesBento(): ReactNode {
   return (
-    <section className="w-full px-6 mb-32 bg-background">
-      <div className="max-w-5xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_1.5fr] gap-4">
+    <section className="w-full bg-black px-6 pb-32">
+      <div className="mx-auto max-w-5xl">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-[1fr_1.5fr]">
           <StepByStepCard />
           <DashboardCard />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <TrustedByCard />
             <IntegrationsCard />
           </div>
