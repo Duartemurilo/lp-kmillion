@@ -80,6 +80,9 @@ const logos: LogoItem[] = [
 
 const PARALLAX_INTENSITY = 20;
 
+const HERO_BG_TREATMENT =
+  "absolute inset-0 pointer-events-none bg-black/10 backdrop-blur-[2px] backdrop-saturate-125";
+
 type HeroProps = {
   id?: string;
   headlineLines?: ReactNode[];
@@ -93,6 +96,8 @@ type HeroProps = {
   fillViewport?: boolean;
   /** Imagem de fundo (parallax). Só aplica se não houver `backgroundVideoSrc`. */
   backgroundImageSrc?: string;
+  /** Desliga o efeito de parallax (evita blur por transform). */
+  parallax?: boolean;
   /**
    * Se true, o CTA primário é um `button` sem ação (ex.: "Sou marca" em LP IMS).
    * Ignorado se `secondaryCta` existir: o par primário+secundário trata o primário.
@@ -137,6 +142,7 @@ export function Hero({
   showLogos = true,
   fillViewport = false,
   backgroundImageSrc = "/BG.webp",
+  parallax = true,
   ctaAsNoop = false,
   secondaryCta,
   lightText = false,
@@ -158,6 +164,7 @@ export function Hero({
   const handleMouseMove = (e: MouseEvent<HTMLElement>) => {
     if (!sectionRef.current) return;
 
+    if (!parallax) return;
     if (window.innerWidth < 850) return;
 
     const rect = sectionRef.current.getBoundingClientRect();
@@ -172,6 +179,7 @@ export function Hero({
   };
 
   const handleMouseLeave = () => {
+    if (!parallax) return;
     mouseX.set(0);
     mouseY.set(0);
   };
@@ -191,7 +199,7 @@ export function Hero({
       {backgroundVideoSrc ? (
         <motion.div
           className="absolute inset-0 z-0 overflow-hidden rounded-br-4xl rounded-bl-4xl bg-black min-[850px]:inset-2.5 min-[850px]:scale-105"
-          style={{ x, y }}
+          {...(parallax ? { style: { x, y } } : {})}
           aria-hidden="true"
         >
           <video
@@ -204,18 +212,18 @@ export function Hero({
           >
             <source src={backgroundVideoSrc} type="video/mp4" />
           </video>
-          <div className="absolute inset-0 bg-black/10" />
+          <div className={HERO_BG_TREATMENT} />
         </motion.div>
       ) : (
         <motion.div
-          className="absolute inset-0 z-0 rounded-br-4xl rounded-bl-4xl bg-cover bg-center bg-no-repeat brightness-125 min-[850px]:inset-2.5 min-[850px]:scale-105"
-          style={{
-            backgroundImage: `url(${backgroundImageSrc})`,
-            x,
-            y,
-          }}
+          className="absolute inset-0 z-0 overflow-hidden rounded-br-4xl rounded-bl-4xl bg-cover bg-center bg-no-repeat brightness-125 min-[850px]:inset-2.5 min-[850px]:scale-105"
+          {...(parallax
+            ? { style: { backgroundImage: `url(${backgroundImageSrc})`, x, y } }
+            : { style: { backgroundImage: `url(${backgroundImageSrc})` } })}
           aria-hidden="true"
-        />
+        >
+          <div className={HERO_BG_TREATMENT} />
+        </motion.div>
       )}
 
       <div
@@ -255,7 +263,7 @@ export function Hero({
               className={cn(
                 "mb-8 max-w-xl text-lg",
                 lightText ? "text-white/90" : "text-neutral-600",
-                "max-[850px]:text-white/90"
+                lightText ? "max-[850px]:text-white/90" : "max-[850px]:text-black"
               )}
               variants={fadeInUp}
               transition={{ duration: 0.8, ease }}

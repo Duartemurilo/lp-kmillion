@@ -469,7 +469,7 @@ export function ImsInfluencerPage(): ReactNode {
       <Hero
         id="top"
         headlineLines={[
-          <span key="ims-hero" className="text-white">
+          <span key="ims-hero" className="text-black">
             Influência que gera{" "}
             <span className="font-semibold tracking-[-0.04em] text-[#300250]">
               vendas
@@ -489,9 +489,8 @@ export function ImsInfluencerPage(): ReactNode {
         showPreview={false}
         showLogos={false}
         fillViewport
-        lightText
         dualCtaImsLayout
-        backgroundImageSrc="/BGIMS.jpg"
+        backgroundImageSrc="/bg-influencer.webp"
       />
 
       <ImsComoFuncionaProblemSection
@@ -525,10 +524,10 @@ export function ImsBrandPage(): ReactNode {
   const brandContent = personaContent.brand;
   const brandAccent = "#FE6634";
   const brandHeroHeadline: ReactNode[] = [
-    <span key="brand-hero-1" className="text-white">
+    <span key="brand-hero-1" className="text-black">
       Influencer não é mídia.
     </span>,
-    <span key="brand-hero-2" className="text-white">
+    <span key="brand-hero-2" className="text-black">
       É{" "}
       <span className="font-semibold tracking-[-0.04em] text-[#FE6634]">
         canal de vendas
@@ -556,10 +555,9 @@ export function ImsBrandPage(): ReactNode {
         showPreview={false}
         showLogos={false}
         fillViewport
-        lightText
         dualCtaImsLayout
         dualCtaPrimaryColor={brandAccent}
-        backgroundImageSrc="/BGIMS.jpg"
+        backgroundImageSrc="/bg-marca.webp"
       />
 
       <ImsBrandVideoSection
