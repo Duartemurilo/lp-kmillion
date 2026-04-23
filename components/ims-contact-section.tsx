@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { WHATSAPP_CONTACT_URL } from "@/lib/whatsapp";
 
 const ease = [0.23, 1, 0.32, 1] as const;
 
@@ -73,7 +74,9 @@ export function ImsContactSection({
             </p>
 
             <Link
-              href="/motor-promocional#converse"
+              href={WHATSAPP_CONTACT_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold text-white transition-transform duration-300 hover:translate-x-0.5"
               style={{ backgroundColor: accentColor }}
             >

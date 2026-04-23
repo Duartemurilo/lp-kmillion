@@ -9,6 +9,7 @@ import { ImsWorthItSection } from "@/components/ims-worth-it-section";
 import { Database, Repeat2, Target } from "lucide-react";
 import Image from "next/image";
 import type { ReactNode } from "react";
+import { WHATSAPP_CONTACT_URL } from "@/lib/whatsapp";
 
 const KASHBACK_REFERENCE_IMAGE_SRC =
   "https://static.wixstatic.com/media/f9ab6d_ad7c26f768d24c7da246956941029344~mv2.png/v1/fill/w_718,h_404,al_c,lg_1,q_85,enc_avif,quality_auto/f9ab6d_ad7c26f768d24c7da246956941029344~mv2.png";
@@ -104,7 +105,9 @@ function KashbackLegacySection(): ReactNode {
           </div>
 
           <a
-            href="/motor-promocional#converse"
+            href={WHATSAPP_CONTACT_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="bg-accent mt-8 inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-white transition-transform duration-300 hover:translate-x-0.5 hover:bg-[#e85b2d]"
           >
             Falar com especialista
@@ -146,7 +149,7 @@ export function KashbackPage(): ReactNode {
           </span>
         }
         ctaLabel="Fale com um especialista"
-        ctaHref="/motor-promocional#converse"
+        ctaHref={WHATSAPP_CONTACT_URL}
         showPreview={false}
         showLogos={false}
         fillViewport

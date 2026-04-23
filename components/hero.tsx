@@ -8,6 +8,8 @@ import { cn } from "@/lib/utils/cn";
 import { useRef, type ReactNode, type MouseEvent } from "react";
 
 const ease = [0.23, 1, 0.32, 1] as const;
+const isExternalHref = (href?: string) =>
+  typeof href === "string" && /^https?:\/\//i.test(href);
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20, filter: "blur(8px)" },
@@ -143,6 +145,8 @@ export function Hero({
   backgroundVideoSrc,
 }: HeroProps = {}): ReactNode {
   const sectionRef = useRef<HTMLElement>(null);
+  const externalPrimary = isExternalHref(ctaHref);
+  const externalSecondary = isExternalHref(secondaryCta?.href);
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -268,6 +272,8 @@ export function Hero({
             >
               <a
                 href={secondaryCta.href}
+                target={externalSecondary ? "_blank" : undefined}
+                rel={externalSecondary ? "noopener noreferrer" : undefined}
                 className="group relative inline-flex w-full min-w-0 cursor-pointer items-center font-sans sm:w-auto"
               >
                 <span
@@ -299,6 +305,8 @@ export function Hero({
               ) : (
                 <a
                   href={ctaHref}
+                  target={externalPrimary ? "_blank" : undefined}
+                  rel={externalPrimary ? "noopener noreferrer" : undefined}
                   className="inline-flex w-full min-w-0 items-center justify-center rounded-xl border-2 border-white/50 bg-white/5 px-6 py-3 text-sm font-medium text-white backdrop-blur-sm transition-colors hover:border-white/70 hover:bg-white/10 sm:w-auto"
                 >
                   {ctaLabel}
@@ -326,6 +334,8 @@ export function Hero({
               ) : ctaHref ? (
                 <a
                   href={ctaHref}
+                  target={externalPrimary ? "_blank" : undefined}
+                  rel={externalPrimary ? "noopener noreferrer" : undefined}
                   className="group relative inline-flex w-full min-w-0 cursor-pointer items-center font-sans sm:w-auto"
                 >
                   <span className="bg-accent relative z-10 rounded-xl px-6 py-3 font-medium text-white max-[850px]:flex-1 sm:max-w-none sm:flex-initial">
@@ -339,6 +349,8 @@ export function Hero({
 
               <a
                 href={secondaryCta.href}
+                target={externalSecondary ? "_blank" : undefined}
+                rel={externalSecondary ? "noopener noreferrer" : undefined}
                 className="inline-flex w-full min-w-0 items-center justify-center gap-2 rounded-xl border-2 border-neutral-900/10 bg-white/90 px-6 py-3 text-sm font-medium text-neutral-900 shadow-sm backdrop-blur-sm transition-transform hover:border-neutral-900/18 hover:bg-white sm:w-auto"
               >
                 {secondaryCta.label}
@@ -347,6 +359,8 @@ export function Hero({
           ) : ctaHref ? (
             <motion.a
               href={ctaHref}
+              target={externalPrimary ? "_blank" : undefined}
+              rel={externalPrimary ? "noopener noreferrer" : undefined}
               className="group relative inline-flex cursor-pointer items-center font-sans max-[850px]:w-full"
               variants={fadeInScale}
               transition={{ duration: 0.8, ease }}

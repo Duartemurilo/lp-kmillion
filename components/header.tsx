@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, type ReactNode } from "react";
+import { WHATSAPP_CONTACT_URL } from "@/lib/whatsapp";
 
 const menus = {
   solucoes: [
@@ -171,16 +172,10 @@ export function Header(): ReactNode {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
-  const pathname = usePathname();
+  usePathname();
 
   const closeMobile = () => setMobileMenuOpen(false);
   const toggleExpanded = (key: string) => setMobileExpanded(mobileExpanded === key ? null : key);
-  const contactHref =
-    pathname === "/motor-promocional"
-      ? "#converse"
-      : pathname === "/ims/influencer"
-        ? "#converse"
-        : "/motor-promocional#converse";
 
   return (
     <motion.header
@@ -223,12 +218,17 @@ export function Header(): ReactNode {
         </nav>
 
         <div className="flex items-center gap-4 max-[850px]:hidden">
-          <Link href={contactHref} className="group relative inline-flex items-center">
+          <a
+            href={WHATSAPP_CONTACT_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative inline-flex items-center"
+          >
             <span className="relative z-10 rounded-xl bg-accent px-5 py-3 text-sm font-medium text-white">Entre em contato</span>
             <span className="relative -left-px z-10 flex h-10 w-10 items-center justify-center rounded-xl bg-white text-accent shadow-sm">
               <ArrowDownRight className="w-4 h-4 transition-transform duration-300 group-hover:-rotate-45" />
             </span>
-          </Link>
+          </a>
         </div>
 
         <button
@@ -265,12 +265,18 @@ export function Header(): ReactNode {
               </nav>
 
               <div className="flex items-center justify-end pt-8 pb-2">
-                <Link href={contactHref} className="group relative inline-flex items-center" onClick={closeMobile}>
+                <a
+                  href={WHATSAPP_CONTACT_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative inline-flex items-center"
+                  onClick={closeMobile}
+                >
                   <span className="relative z-10 rounded-2xl bg-accent px-5 py-3 text-sm font-medium text-white">Entre em contato</span>
                   <span className="relative -left-px z-10 flex h-10 w-10 items-center justify-center rounded-2xl bg-white text-accent shadow-sm">
                     <ArrowDownRight className="w-4 h-4 transition-transform duration-300 group-hover:-rotate-45" />
                   </span>
-                </Link>
+                </a>
               </div>
             </div>
           </motion.div>

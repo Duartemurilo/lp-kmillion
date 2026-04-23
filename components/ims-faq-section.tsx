@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { useState, type ReactNode } from "react";
+import { WHATSAPP_CONTACT_URL } from "@/lib/whatsapp";
 
 const faqs = [
   {
@@ -113,8 +114,8 @@ export function ImsFaqSection({
   eyebrow = "FAQ",
   title = "Suas dúvidas, respondidas.",
   faqs: faqItems = faqs,
-  primaryCta = { label: "Quero fazer parte do IMS", href: "#converse" },
-  secondaryCta = { label: "Falar com a Kmillion", href: "#converse" },
+  primaryCta = { label: "Quero fazer parte do IMS", href: WHATSAPP_CONTACT_URL },
+  secondaryCta = { label: "Falar com a Kmillion", href: WHATSAPP_CONTACT_URL },
   tone = "light",
   accentColor = "#300250",
 }: ImsFaqSectionProps = {}): ReactNode {
@@ -174,6 +175,8 @@ export function ImsFaqSection({
         >
           <Link
             href={primaryCta.href}
+            target={primaryCta.href === WHATSAPP_CONTACT_URL ? "_blank" : undefined}
+            rel={primaryCta.href === WHATSAPP_CONTACT_URL ? "noopener noreferrer" : undefined}
             className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition-transform duration-300 hover:translate-x-0.5"
             style={{ backgroundColor: accentColor }}
           >
@@ -182,6 +185,8 @@ export function ImsFaqSection({
           </Link>
           <Link
             href={secondaryCta.href}
+            target={secondaryCta.href === WHATSAPP_CONTACT_URL ? "_blank" : undefined}
+            rel={secondaryCta.href === WHATSAPP_CONTACT_URL ? "noopener noreferrer" : undefined}
             className={`inline-flex items-center justify-center gap-2 rounded-full border px-6 py-3 text-sm font-semibold transition-colors ${
               isDark
                 ? "border-white/10 bg-white/5 text-white hover:bg-white/10"
