@@ -22,6 +22,10 @@ export const siteConfig = {
   ],
 } as const;
 
+const officialSquareIcon = encodeURI(
+  "/LOGO OFICIAL/SVG_VERSÕES LOGO QUADRADO/CAMALEÃO LARANJA.svg"
+);
+
 export const baseMetadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
@@ -71,10 +75,8 @@ export const baseMetadata: Metadata = {
     creator: siteConfig.creator,
   },
   icons: {
-    icon: encodeURI("/LOGO OFICIAL/SVG_VERSÕES LOGO QUADRADO/CAMALEÃO LARANJA.svg"),
-    shortcut: encodeURI(
-      "/LOGO OFICIAL/SVG_VERSÕES LOGO QUADRADO/CAMALEÃO LARANJA.svg"
-    ),
+    icon: officialSquareIcon,
+    shortcut: officialSquareIcon,
     apple: "/apple-icon.png",
   },
   manifest: "/site.webmanifest",

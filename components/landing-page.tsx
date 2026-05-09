@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { BlurInHeadline } from "@/components/blur-in-headline";
+import { CampaignSimulatorSection } from "@/components/campaign-simulator-section";
 import { FAQ } from "@/components/faq";
 import { FeaturesBento } from "@/components/features-bento";
 import { KashbackTransitionSection } from "@/components/kashback-transition";
@@ -18,6 +19,7 @@ export function LandingPage(): ReactNode {
     <main id="main-content" className="flex-1">
       <Hero
         backgroundImageSrc="/BG_HOME.png"
+        backgroundImageSrcMobile="/bg-home_mobile.png"
         parallax={false}
         ctaHref={WHATSAPP_CONTACT_URL}
         headlineLines={[
@@ -53,6 +55,7 @@ export function LandingPage(): ReactNode {
         ]}
       />
       <HowItWorks />
+      <CampaignSimulatorSection />
       <KashbackTransitionSection />
       <BlurInHeadline />
       <FeaturesBento />

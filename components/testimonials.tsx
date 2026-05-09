@@ -19,11 +19,11 @@ const testimonials = [
     quote:
       "A inteligência promocional da Kmillion trouxe clareza total pra nossa estratégia comercial. Agora conseguimos enxergar o que realmente performa em cada loja, por tipo de cliente. É um novo nível de decisão baseada em dados, e isso refletiu direto no giro de estoque e nas metas batidas.",
     name: "Diretor Comercial",
-    title: "Rede de Cosméticos Nacional | Osklen",
+    title: "Rede de Cosméticos Nacional | CityCOL",
     avatar:
       "https://static.wixstatic.com/media/f9ab6d_316a4a55454d4085a9a62d0f4393925e~mv2.avif/v1/fill/w_133,h_66,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/3.avif",
     color: "#ff8d18",
-    company: "Osklen",
+    company: "CityCOL",
   },
   {
     quote:
@@ -39,7 +39,7 @@ const testimonials = [
 
 const companies = [
   { name: "Lacoste" },
-  { name: "Osklen" },
+  { name: "CityCOL" },
   { name: "Farmácia" },
 ];
 

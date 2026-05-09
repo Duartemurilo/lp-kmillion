@@ -80,8 +80,11 @@ const logos: LogoItem[] = [
 
 const PARALLAX_INTENSITY = 20;
 
-const HERO_BG_TREATMENT =
-  "absolute inset-0 pointer-events-none bg-black/10 backdrop-blur-[2px] backdrop-saturate-125";
+const heroBgTreatment = (backdropBlur: boolean) =>
+  cn(
+    "absolute inset-0 pointer-events-none bg-black/10",
+    backdropBlur && "backdrop-blur-[2px] backdrop-saturate-125"
+  );
 
 type HeroProps = {
   id?: string;
@@ -96,6 +99,8 @@ type HeroProps = {
   fillViewport?: boolean;
   /** Imagem de fundo (parallax). Só aplica se não houver `backgroundVideoSrc`. */
   backgroundImageSrc?: string;
+  /** Abaixo de 850px de largura, usa esta imagem em vez de `backgroundImageSrc`. */
+  backgroundImageSrcMobile?: string;
   /** Desliga o efeito de parallax (evita blur por transform). */
   parallax?: boolean;
   /**
@@ -118,6 +123,8 @@ type HeroProps = {
   /** Cor do CTA primário quando `dualCtaImsLayout` estiver ativo. */
   dualCtaPrimaryColor?: string;
   backgroundVideoSrc?: string;
+  /** Overlay escuro sobre imagem/vídeo de fundo. Em false, remove `backdrop-blur` (ex.: LP Kashback). */
+  backgroundBackdropBlur?: boolean;
 };
 
 export function Hero({
@@ -142,6 +149,7 @@ export function Hero({
   showLogos = true,
   fillViewport = false,
   backgroundImageSrc = "/BG.webp",
+  backgroundImageSrcMobile,
   parallax = true,
   ctaAsNoop = false,
   secondaryCta,
@@ -149,6 +157,7 @@ export function Hero({
   dualCtaImsLayout = false,
   dualCtaPrimaryColor = "#300250",
   backgroundVideoSrc,
+  backgroundBackdropBlur = true,
 }: HeroProps = {}): ReactNode {
   const sectionRef = useRef<HTMLElement>(null);
   const externalPrimary = isExternalHref(ctaHref);
@@ -212,7 +221,24 @@ export function Hero({
           >
             <source src={backgroundVideoSrc} type="video/mp4" />
           </video>
-          <div className={HERO_BG_TREATMENT} />
+          <div className={heroBgTreatment(backgroundBackdropBlur)} />
+        </motion.div>
+      ) : backgroundImageSrcMobile != null &&
+        backgroundImageSrcMobile.length > 0 ? (
+        <motion.div
+          className="absolute inset-0 z-0 overflow-hidden rounded-br-4xl rounded-bl-4xl bg-black min-[850px]:inset-2.5 min-[850px]:scale-105"
+          {...(parallax ? { style: { x, y } } : {})}
+          aria-hidden="true"
+        >
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat brightness-125 min-[850px]:hidden"
+            style={{ backgroundImage: `url(${backgroundImageSrcMobile})` }}
+          />
+          <div
+            className="absolute inset-0 hidden bg-cover bg-center bg-no-repeat brightness-125 min-[850px]:block"
+            style={{ backgroundImage: `url(${backgroundImageSrc})` }}
+          />
+          <div className={heroBgTreatment(backgroundBackdropBlur)} />
         </motion.div>
       ) : (
         <motion.div
@@ -222,7 +248,7 @@ export function Hero({
             : { style: { backgroundImage: `url(${backgroundImageSrc})` } })}
           aria-hidden="true"
         >
-          <div className={HERO_BG_TREATMENT} />
+          <div className={heroBgTreatment(backgroundBackdropBlur)} />
         </motion.div>
       )}
 
@@ -439,7 +465,17 @@ export function Hero({
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 1, ease }}
         >
-          <LogoLoop logos={logos} speed={60} logoHeight={42} gap={124} />
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="rounded-2xl border border-white/40 bg-white/55 py-6 shadow-sm backdrop-blur-md max-[850px]:py-5 dark:border-white/10 dark:bg-neutral-950/30">
+              <LogoLoop
+                logos={logos}
+                speed={60}
+                logoHeight={42}
+                gap={124}
+                className="max-w-none"
+              />
+            </div>
+          </div>
         </motion.div>
       ) : null}
     </section>

@@ -15,7 +15,7 @@ const KASHBACK_REFERENCE_IMAGE_SRC =
   "https://static.wixstatic.com/media/f9ab6d_ad7c26f768d24c7da246956941029344~mv2.png/v1/fill/w_718,h_404,al_c,lg_1,q_85,enc_avif,quality_auto/f9ab6d_ad7c26f768d24c7da246956941029344~mv2.png";
 
 const KASHBACK_LOGO_SRC = encodeURI(
-  "/LOGO OFICIAL/KASHBACK/kashback_horizontal.svg"
+  "/LOGO OFICIAL/KASHBACK/kashback_horizontal.svg",
 );
 
 const CASHBACK_TRADICIONAL_IMAGE_SRC = "/cashback-tradicional.jpeg";
@@ -130,22 +130,20 @@ export function KashbackPage(): ReactNode {
           >
             Kashback Kmillion
           </span>,
-          <span key="kashback-hero-2" className="text-black">
+          <span key="kashback-hero-2" className="text-white">
             cashback que
           </span>,
-          <span key="kashback-hero-3" className="text-black">
+          <span key="kashback-hero-3" className="text-white">
             gera recompra,
           </span>,
-          <span key="kashback-hero-4" className="text-black">
+          <span key="kashback-hero-4" className="text-white">
             dados e performance.
           </span>,
         ]}
         subheadline={
-          <span className="text-black">
+          <span className="text-white">
             Mais do que só devolver dinheiro, o{" "}
-            <span
-              className="text-accent font-semibold tracking-[-0.04em]"
-            >
+            <span className="font-semibold tracking-[-0.04em] text-white">
               Kashback Kmillion
             </span>{" "}
             transforma cada compra em uma nova oportunidade de venda
@@ -157,12 +155,14 @@ export function KashbackPage(): ReactNode {
         showLogos={false}
         fillViewport
         lightText
-        backgroundImageSrc="/BGkashback.jpeg"
+        backgroundBackdropBlur={false}
+        backgroundImageSrc="/bg-kashback.png"
+        backgroundImageSrcMobile="/bg-kashback_mobile.png"
       />
 
+      <KashbackHowItWorksSection />
       <KashbackLegacySection />
       <KashbackWhyItMattersSection />
-      <KashbackHowItWorksSection />
       <KashbackComparisonSection />
       <KashbackResultsBentoSection />
       <Footer />

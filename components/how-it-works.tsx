@@ -104,6 +104,17 @@ export function HowItWorks(): ReactNode {
             campanhas de forma autônoma, com integração omnichannel e sem
             depender de TI
           </p>
+
+          <div className="mt-8 max-w-md">
+            <Image
+              src="/mockup-dashboard-resultados.png"
+              alt="Dashboard de resultados da plataforma Kmillion"
+              width={1920}
+              height={1080}
+              className="h-auto w-full"
+              sizes="(max-width: 1024px) 100vw, 28rem"
+            />
+          </div>
         </div>
 
         <div className="relative">

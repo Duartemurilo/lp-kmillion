@@ -36,9 +36,9 @@ export function MotorPromocionalPage(): ReactNode {
         fillViewport
       />
 
+      <HowItWorksSection />
       <MotorProblemSection />
       <MotorSection ease={ease} />
-      <HowItWorksSection />
       <DifferentialSection />
       <AudienceSection />
       <FinalCtaSection />

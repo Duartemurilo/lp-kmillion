@@ -8,6 +8,7 @@ import {
   TrendingUp,
   Video,
 } from "lucide-react";
+import Image from "next/image";
 import type { ReactNode } from "react";
 
 export type ImsComoFuncionaStep = {
@@ -57,6 +58,11 @@ type ImsComoFuncionaProblemSectionProps = {
   steps: ImsComoFuncionaStep[];
   tone?: "light" | "dark";
   accentColor?: string;
+  /**
+   * Mesmo mock que em `how-it-works.tsx` abaixo do parágrafo da Kmillion
+   * (`/mockup-dashboard-resultados.png`, `mt-8 max-w-md`, etc.).
+   */
+  dashboardMockupBelowLead?: boolean;
 };
 
 /** "Como funciona" com o mesmo padrão visual de `MotorProblemSection` (fundo escuro + timeline com ícones). */
@@ -68,6 +74,7 @@ export function ImsComoFuncionaProblemSection({
   steps,
   tone = "light",
   accentColor = "#300250",
+  dashboardMockupBelowLead = false,
 }: ImsComoFuncionaProblemSectionProps): ReactNode {
   const isDark = tone === "dark";
 
@@ -132,6 +139,18 @@ export function ImsComoFuncionaProblemSection({
           <p className={`mx-auto mt-6 max-w-md text-lg leading-relaxed lg:mx-0 ${isDark ? "text-white/68" : "text-[#5f4d58]"}`}>
             {lead}
           </p>
+          {dashboardMockupBelowLead ? (
+            <div className="mx-auto mt-8 max-w-md lg:mx-0">
+              <Image
+                src="/mockup-dashboard-resultados.png"
+                alt="Dashboard de resultados da plataforma Kmillion"
+                width={1920}
+                height={1080}
+                className="h-auto w-full"
+                sizes="(max-width: 1024px) 100vw, 28rem"
+              />
+            </div>
+          ) : null}
         </div>
       </div>
     </section>

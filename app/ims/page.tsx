@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 export const metadata: Metadata = createMetadata({
-  title: "IMS Marca",
+  title: "IMS visão loja",
   description:
     "Com o IMS da Kmillion, sua marca transforma influenciadores em um motor de conversão real, rastreável e escalável.",
   path: "/ims",

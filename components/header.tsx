@@ -11,13 +11,13 @@ import { WHATSAPP_CONTACT_URL } from "@/lib/whatsapp";
 const menus = {
   solucoes: [
     {
-      label: "IMS Marca",
+      label: "IMS visão loja",
       description:
         "Transforme influenciadores em um canal de vendas mensurável.",
       href: "/ims",
     },
     {
-      label: "IMS Influencer",
+      label: "IMS visão influencer",
       description: "Monetize por performance com rastreio e cashback automático.",
       href: "/ims/influencer",
     },

@@ -167,21 +167,25 @@ export function LogoLoop({
             {logos.map((item, itemIndex) => (
               <li
                 key={`${copyIndex}-${itemIndex}`}
-                className="flex-none mr-(--logo-gap) text-(length:--logo-height) leading-none"
+                className="flex-none mr-[var(--logo-gap)] text-[length:var(--logo-height)] leading-none"
               >
                 {item.href ? (
                   <a
                     href={item.href}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="inline-flex items-center invert"
+                    className="group inline-flex items-center transition"
                     title={item.title}
                   >
-                    {item.node}
+                    <span className="inline-flex items-center opacity-80 grayscale transition duration-200 group-hover:opacity-100 group-hover:grayscale-0">
+                      {item.node}
+                    </span>
                   </a>
                 ) : (
-                  <span className="inline-flex items-center invert">
-                    {item.node}
+                  <span className="group inline-flex items-center transition">
+                    <span className="inline-flex items-center opacity-80 grayscale transition duration-200 group-hover:opacity-100 group-hover:grayscale-0">
+                      {item.node}
+                    </span>
                   </span>
                 )}
               </li>

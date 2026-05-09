@@ -97,7 +97,7 @@ const personaContent: Record<Persona, PersonaContent> = {
     description:
       "Com o IMS da Kmillion, seu conteúdo vira resultado real e você recebe de forma automática, transparente e rastreável por venda gerada.",
     ctaPrimary: { label: "Quero fazer parte", href: WHATSAPP_CONTACT_URL },
-    ctaSecondary: { label: "IMS Marca", href: "/ims" },
+    ctaSecondary: { label: "IMS visão loja", href: "/ims" },
     stats: [
       { value: "1 cupom", label: "exclusivo por creator" },
       { value: "CPF", label: "rastreando cada compra" },
@@ -241,7 +241,7 @@ const personaContent: Record<Persona, PersonaContent> = {
     description:
       "Com o IMS da Kmillion, sua marca transforma influenciadores em um motor de conversão real, rastreável e escalável - do post à venda, tudo conectado.",
     ctaPrimary: { label: "Falar com um especialista", href: WHATSAPP_CONTACT_URL },
-    ctaSecondary: { label: "IMS Influencer", href: "/ims/influencer" },
+    ctaSecondary: { label: "IMS visão influencer", href: "/ims/influencer" },
     stats: [
       { value: "100%", label: "rastreabilidade por CPF" },
       { value: "0", label: "planilhas manuais" },
@@ -491,6 +491,7 @@ export function ImsInfluencerPage(): ReactNode {
         fillViewport
         dualCtaImsLayout
         backgroundImageSrc="/bg-influencer.webp"
+        backgroundImageSrcMobile="/bg-influencer_mobile.png"
       />
 
       <ImsComoFuncionaProblemSection
@@ -558,6 +559,7 @@ export function ImsBrandPage(): ReactNode {
         dualCtaImsLayout
         dualCtaPrimaryColor={brandAccent}
         backgroundImageSrc="/bg-marca.webp"
+        backgroundImageSrcMobile="/bg-marca_mobile.png"
       />
 
       <ImsBrandVideoSection
@@ -596,6 +598,7 @@ export function ImsBrandPage(): ReactNode {
         steps={buildImsComoFuncionaSteps("brand", brandContent.steps)}
         tone="dark"
         accentColor={brandAccent}
+        dashboardMockupBelowLead
       />
 
       <ImsWorthItSection

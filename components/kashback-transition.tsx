@@ -8,7 +8,7 @@ import type { ReactNode } from "react";
 const KASHBACK_LOGO_SRC = encodeURI(
   "/LOGO OFICIAL/KASHBACK/kashback_horizontal.svg"
 );
-const KASHBACK_IMAGE_SRC = "/kashback.avif";
+const KASHBACK_IMAGE_SRC = "/kashback.png";
 
 const KASHBACK_COPY =
   "O Kashback Kmillion é mais do que devolver parte do valor ao cliente - é uma estratégia inteligente de recompra. Ele conecta dados, canais e comportamento de consumo para ativar o cliente no momento certo, no lugar certo.";
