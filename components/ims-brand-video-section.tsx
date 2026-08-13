@@ -12,6 +12,7 @@ type ImsBrandVideoSectionProps = {
   title: ReactNode;
   description: ReactNode;
   videoSrc: string;
+  posterSrc?: string;
 };
 
 export function ImsBrandVideoSection({
@@ -20,6 +21,7 @@ export function ImsBrandVideoSection({
   title,
   description,
   videoSrc,
+  posterSrc,
 }: ImsBrandVideoSectionProps): ReactNode {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(true);
@@ -78,6 +80,7 @@ export function ImsBrandVideoSection({
             <video
               ref={videoRef}
               className="block aspect-[9/16] w-full object-contain bg-black"
+              {...(posterSrc ? { poster: posterSrc } : {})}
               autoPlay
               muted
               loop

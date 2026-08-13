@@ -1,7 +1,12 @@
 import { JsonLd } from "@/components/json-ld";
 import { MotorPromocionalPage } from "@/components/motor-promocional-page-content";
 import { createMetadata } from "@/lib/metadata";
-import { createModuleSchema } from "@/lib/structured-data";
+import { IMS_INFLUENCER_VIDEO } from "@/data/videos";
+import {
+  createBreadcrumbSchema,
+  createModuleSchema,
+  createVideoSchema,
+} from "@/lib/structured-data";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
@@ -10,6 +15,7 @@ export const metadata: Metadata = createMetadata({
   description:
     "Promoções não deveriam depender de TI. Veja como o Motor Promocional Kmillion dá autonomia total ao marketing.",
   path: "/motor-promocional",
+  image: "/og-motor-promocional.png",
 });
 
 const motorSchema = createModuleSchema({
@@ -29,7 +35,15 @@ const motorSchema = createModuleSchema({
 export default function MotorPromocionalRoute(): ReactNode {
   return (
     <>
-      <JsonLd schema={motorSchema} />
+      <JsonLd
+        schema={[
+          motorSchema,
+          createVideoSchema(IMS_INFLUENCER_VIDEO),
+          createBreadcrumbSchema([
+            { name: "Motor Promocional", path: "/motor-promocional" },
+          ]),
+        ]}
+      />
       <MotorPromocionalPage />
     </>
   );

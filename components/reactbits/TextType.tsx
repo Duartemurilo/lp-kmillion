@@ -31,6 +31,14 @@ interface TextTypeProps {
   onSentenceComplete?: (sentence: string, index: number) => void;
   startOnVisible?: boolean;
   reverseMode?: boolean;
+  /**
+   * Renderiza a primeira frase já completa (inclusive no HTML do servidor),
+   * em vez de começar vazio e digitar. Use quando o texto faz parte de uma
+   * frase que precisa existir no HTML servido, como um <h1>: sem isso o
+   * trecho animado só aparece depois do JS e crawlers leem a frase truncada.
+   * A animação segue igual a partir da primeira troca.
+   */
+  startWithFullText?: boolean;
 }
 
 const TextType = ({
@@ -52,10 +60,19 @@ const TextType = ({
   onSentenceComplete,
   startOnVisible = false,
   reverseMode = false,
+  startWithFullText = false,
   ...props
 }: TextTypeProps & React.HTMLAttributes<HTMLElement>) => {
-  const [displayedText, setDisplayedText] = useState("");
-  const [currentCharIndex, setCurrentCharIndex] = useState(0);
+  // Derivado das props, então servidor e cliente partem do mesmo estado.
+  const initialText = startWithFullText
+    ? (() => {
+        const first = (Array.isArray(text) ? text[0] : text) ?? "";
+        return reverseMode ? first.split("").reverse().join("") : first;
+      })()
+    : "";
+
+  const [displayedText, setDisplayedText] = useState(initialText);
+  const [currentCharIndex, setCurrentCharIndex] = useState(initialText.length);
   const [isDeleting, setIsDeleting] = useState(false);
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(!startOnVisible);

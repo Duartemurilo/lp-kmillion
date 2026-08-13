@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 const VIDEO_SRC = "/videos/IML.mp4";
+const VIDEO_POSTER = "/videos/IML-thumb.jpg";
 const ACCENT = "#FE6634";
 
 function VideoBlock(): ReactNode {
@@ -14,6 +15,7 @@ function VideoBlock(): ReactNode {
         <video
           key={VIDEO_SRC}
           className="block h-full w-full object-contain"
+          poster={VIDEO_POSTER}
           autoPlay
           muted
           loop

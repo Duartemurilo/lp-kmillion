@@ -1,8 +1,14 @@
 import { IMS_BRAND_FAQS } from "@/data/faqs";
+import { IMS_BRAND_VIDEO } from "@/data/videos";
 import { ImsBrandPage } from "@/components/ims-page";
 import { JsonLd } from "@/components/json-ld";
 import { createMetadata } from "@/lib/metadata";
-import { createFaqSchema, createModuleSchema } from "@/lib/structured-data";
+import {
+  createBreadcrumbSchema,
+  createFaqSchema,
+  createModuleSchema,
+  createVideoSchema,
+} from "@/lib/structured-data";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
@@ -11,6 +17,7 @@ export const metadata: Metadata = createMetadata({
   description:
     "Com o IMS da Kmillion, sua marca transforma influenciadores em um motor de conversão real, rastreável e escalável.",
   path: "/ims",
+  image: "/og-ims.png",
 });
 
 const imsSchema = createModuleSchema({
@@ -30,7 +37,14 @@ const imsSchema = createModuleSchema({
 export default function ImsRoute(): ReactNode {
   return (
     <>
-      <JsonLd schema={[imsSchema, createFaqSchema(IMS_BRAND_FAQS, "/ims")]} />
+      <JsonLd
+        schema={[
+          imsSchema,
+          createFaqSchema(IMS_BRAND_FAQS, "/ims"),
+          createVideoSchema(IMS_BRAND_VIDEO),
+          createBreadcrumbSchema([{ name: "IMS visão loja", path: "/ims" }]),
+        ]}
+      />
       <ImsBrandPage />
     </>
   );

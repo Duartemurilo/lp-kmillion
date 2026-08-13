@@ -1,4 +1,5 @@
 import type { FaqEntry } from "@/data/faqs";
+import type { SiteVideo } from "@/data/videos";
 import { siteConfig } from "@/lib/metadata";
 
 /**
@@ -137,6 +138,45 @@ export function createModuleSchema({
     publisher: { "@id": ORGANIZATION_ID },
     provider: { "@id": ORGANIZATION_ID },
     featureList,
+  };
+}
+
+export function createVideoSchema(video: SiteVideo): JsonLdSchema {
+  return {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "@id": `${absoluteUrl(video.src)}#video`,
+    name: video.name,
+    description: video.description,
+    contentUrl: absoluteUrl(video.src),
+    thumbnailUrl: [absoluteUrl(video.thumbnail)],
+    uploadDate: video.uploadDate,
+    duration: video.duration,
+    inLanguage: "pt-BR",
+    isFamilyFriendly: true,
+    publisher: { "@id": ORGANIZATION_ID },
+  };
+}
+
+/**
+ * Trilha de navegação. O primeiro item é sempre a home, então passe daqui
+ * pra frente: `[{ name: "IMS", path: "/ims" }]`.
+ */
+export function createBreadcrumbSchema(
+  trail: { name: string; path: string }[]
+): JsonLdSchema {
+  const items = [{ name: "Início", path: "/" }, ...trail];
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "@id": `${absoluteUrl(trail[trail.length - 1]?.path ?? "/")}#breadcrumb`,
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: absoluteUrl(item.path),
+    })),
   };
 }
 

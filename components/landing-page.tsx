@@ -32,6 +32,8 @@ export function LandingPage(): ReactNode {
             <TextType
               className="text-accent font-semibold tracking-[-0.04em] whitespace-nowrap"
               as="span"
+              // O h1 precisa chegar como frase completa no HTML servido.
+              startWithFullText
               showCursor={false}
               typingSpeed={80}
               deletingSpeed={40}

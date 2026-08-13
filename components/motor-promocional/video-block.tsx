@@ -8,6 +8,7 @@ export function MotorVideoBlock(): ReactNode {
       <div className="relative aspect-[370/640] w-full overflow-hidden rounded-[1.5rem] bg-black">
         <video
           className="block h-full w-full object-cover object-center"
+          poster="/videos/IML-thumb.jpg"
           autoPlay
           muted
           loop

@@ -551,6 +551,7 @@ export function ImsBrandPage(): ReactNode {
           </>
         }
         videoSrc="/videos/ims_marca.mp4"
+        posterSrc="/videos/ims_marca-thumb.jpg"
       />
 
       <ImsComoFuncionaProblemSection
