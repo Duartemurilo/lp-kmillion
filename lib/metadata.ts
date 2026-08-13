@@ -20,10 +20,15 @@ export const siteConfig = {
     },
   ],
   /**
-   * Perfis oficiais (LinkedIn, Instagram, YouTube) entram aqui e alimentam o
-   * `sameAs` do schema.org. Vazio até o cliente confirmar as URLs oficiais.
+   * Perfis oficiais confirmados pela Kmillion. Alimentam o `sameAs` do
+   * schema.org, que é como os motores de resposta ligam o site à entidade
+   * "Kmillion" em outras fontes.
    */
-  sameAs: [] as string[],
+  sameAs: [
+    "https://www.linkedin.com/company/kmilliontech/",
+    "https://www.instagram.com/kmillion.promo/",
+    "https://www.youtube.com/@kmillionpromo",
+  ] as string[],
   keywords: [
     "Kmillion",
     "inteligência promocional",
