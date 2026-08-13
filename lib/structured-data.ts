@@ -87,7 +87,6 @@ export const softwareApplicationSchema: JsonLdSchema = {
   applicationCategory: "BusinessApplication",
   applicationSubCategory: "Plataforma SaaS de inteligência promocional",
   operatingSystem: "Web",
-  browserRequirements: "Requer navegador moderno com JavaScript habilitado",
   inLanguage: "pt-BR",
   image: absoluteUrl(siteConfig.ogImage),
   publisher: { "@id": ORGANIZATION_ID },
