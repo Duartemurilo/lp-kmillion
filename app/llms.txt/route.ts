@@ -22,6 +22,7 @@ para o time de marketing, personalização das ações e integração entre cana
 físicos e digitais, sem depender do time de TI. É indicada principalmente para
 redes com mais de 20 lojas.
 
+- Razão social: ${siteConfig.legalName} (CNPJ ${siteConfig.taxId}), no mercado desde 2022
 - Categoria: SaaS de inteligência promocional (B2B)
 - Público: redes de varejo físico (lojas, franquias, farmácias, supermercados,
   perfumarias, academias, pet shops, entre outras)

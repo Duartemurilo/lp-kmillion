@@ -31,6 +31,13 @@ export const organizationSchema: JsonLdSchema = {
   "@id": ORGANIZATION_ID,
   name: siteConfig.name,
   legalName: siteConfig.legalName,
+  taxID: siteConfig.taxId,
+  identifier: {
+    "@type": "PropertyValue",
+    propertyID: "CNPJ",
+    value: siteConfig.taxId,
+  },
+  foundingDate: siteConfig.foundingDate,
   url: siteConfig.url,
   description: siteConfig.description,
   slogan: "Promoções inteligentes para o varejo físico, sem depender do TI.",

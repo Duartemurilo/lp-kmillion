@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 
 export const siteConfig = {
   name: "Kmillion",
-  legalName: "Kmillion",
+  legalName: "Kmillion Tecnologia Ltda",
+  /** Dados do cartão CNPJ, conferidos na base pública da Receita. */
+  taxId: "46.541.038/0001-72",
+  foundingDate: "2022-05-25",
   description:
     "Kmillion é uma plataforma SaaS de inteligência promocional para o varejo físico. Crie, ative e meça promoções, cashback e campanhas com influenciadores sem depender do time de TI.",
   shortDescription:
