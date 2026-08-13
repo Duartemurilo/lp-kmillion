@@ -12,6 +12,13 @@ export const siteConfig = {
   email: "marketing@kmillion.cloud",
   /** Mesmo número usado no CTA de WhatsApp do site (lib/whatsapp.ts). */
   phone: "+55 11 96775-0313",
+  address: {
+    street: "Avenida Paulista, 302, conjunto 50, Bela Vista",
+    city: "São Paulo",
+    region: "SP",
+    postalCode: "01310-000",
+    country: "BR",
+  },
   locale: "pt_BR",
   authors: [
     {

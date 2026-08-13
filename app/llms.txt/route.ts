@@ -27,6 +27,7 @@ redes com mais de 20 lojas.
   perfumarias, academias, pet shops, entre outras)
 - País de atuação: Brasil
 - Idioma do site: português do Brasil
+- Endereço: ${siteConfig.address.street}, ${siteConfig.address.city}, ${siteConfig.address.region}, CEP ${siteConfig.address.postalCode}
 - Contato: ${siteConfig.email} | WhatsApp ${siteConfig.phone}
 
 ## Produtos

@@ -42,6 +42,14 @@ export const organizationSchema: JsonLdSchema = {
   image: absoluteUrl(siteConfig.ogImage),
   email: siteConfig.email,
   telephone: siteConfig.phone,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: siteConfig.address.street,
+    addressLocality: siteConfig.address.city,
+    addressRegion: siteConfig.address.region,
+    postalCode: siteConfig.address.postalCode,
+    addressCountry: siteConfig.address.country,
+  },
   areaServed: {
     "@type": "Country",
     name: "Brasil",
