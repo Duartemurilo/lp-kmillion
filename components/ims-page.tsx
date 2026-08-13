@@ -31,6 +31,11 @@ import { ImsBrandVideoSection } from "@/components/ims-brand-video-section";
 import { ImsFaqSection } from "@/components/ims-faq-section";
 import { ImsWorthItSection } from "@/components/ims-worth-it-section";
 import { type ReactNode } from "react";
+import {
+  IMS_BRAND_FAQS,
+  IMS_INFLUENCER_FAQS,
+  type FaqEntry,
+} from "@/data/faqs";
 import { WHATSAPP_CONTACT_URL } from "@/lib/whatsapp";
 
 type Persona = "brand" | "influencer";
@@ -58,11 +63,6 @@ type AudienceCard = {
   icon: LucideIcon;
 };
 
-type FaqItem = {
-  question: string;
-  answer: string;
-};
-
 type PersonaContent = {
   eyebrow: string;
   description: string;
@@ -86,7 +86,7 @@ type PersonaContent = {
   faqEyebrow: string;
   faqTitle: string;
   faqLead: string;
-  faqs: FaqItem[];
+  faqs: readonly FaqEntry[];
   finalPrimary: { label: string; href: string };
   finalSecondary: { label: string; href: string };
 };
@@ -211,28 +211,7 @@ const personaContent: Record<Persona, PersonaContent> = {
     faqTitle: "Suas dúvidas, respondidas.",
     faqLead:
       "Se você está começando ou já tem audiência, a lógica continua a mesma: conversão primeiro.",
-    faqs: [
-      {
-        question: "Preciso ter muitos seguidores?",
-        answer:
-          "Não. O que importa é conversão, não tamanho de base. O IMS foi desenhado para creator que gera resultado.",
-      },
-      {
-        question: "Como sei que fui eu que gerei a venda?",
-        answer:
-          "Seu cupom é exclusivo e rastreado por CPF. Cada compra aparece no painel em tempo real.",
-      },
-      {
-        question: "Quando recebo meu cashback?",
-        answer:
-          "Automaticamente após a validação da compra. Sem precisar cobrar, sem esperar aprovação manual.",
-      },
-      {
-        question: "Posso trabalhar com mais de uma marca?",
-        answer:
-          "Sim. Você pode atuar em várias campanhas ativas ao mesmo tempo, com cupons diferentes por parceria.",
-      },
-    ],
+    faqs: IMS_INFLUENCER_FAQS,
     finalPrimary: { label: "Quero fazer parte do IMS", href: WHATSAPP_CONTACT_URL },
     finalSecondary: { label: "Falar com a Kmillion", href: "#faq" },
   },
@@ -360,23 +339,7 @@ const personaContent: Record<Persona, PersonaContent> = {
     faqTitle: "Pronto para transformar influenciadores em performance?",
     faqLead:
       "Perguntas comuns de quem precisa integrar, medir e escalar sem travar a operação.",
-    faqs: [
-      {
-        question: "Precisa integrar com o PDV?",
-        answer:
-          "Sim, a Kmillion integra com ERP, e-commerce, WhatsApp e sistemas de vendas.",
-      },
-      {
-        question: "Como o influenciador recebe o cashback?",
-        answer:
-          "O resgate é automatizado após a validação da compra via CPF, sem intervenção manual.",
-      },
-      {
-        question: "Funciona com microinfluenciadores?",
-        answer:
-          "Sim - escalabilidade e rastreio são exatamente os pontos fortes do IMS.",
-      },
-    ],
+    faqs: IMS_BRAND_FAQS,
     finalPrimary: { label: "Solicitar demonstração", href: WHATSAPP_CONTACT_URL },
     finalSecondary: { label: "Falar com o time comercial", href: WHATSAPP_CONTACT_URL },
   },

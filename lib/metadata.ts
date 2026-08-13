@@ -2,23 +2,41 @@ import type { Metadata } from "next";
 
 export const siteConfig = {
   name: "Kmillion",
+  legalName: "Kmillion",
   description:
-    "Kmillion é uma plataforma SaaS de inteligência promocional para varejo físico.",
-  url: "https://example.com",
+    "Kmillion é uma plataforma SaaS de inteligência promocional para o varejo físico. Crie, ative e meça promoções, cashback e campanhas com influenciadores sem depender do time de TI.",
+  shortDescription:
+    "Plataforma SaaS de inteligência promocional para o varejo físico.",
+  url: "https://www.kmillion.com.br",
   ogImage: "/og-image.png",
-  creator: "@yourhandle",
+  email: "marketing@kmillion.cloud",
+  /** Mesmo número usado no CTA de WhatsApp do site (lib/whatsapp.ts). */
+  phone: "+55 11 96775-0313",
+  locale: "pt_BR",
   authors: [
     {
-      name: "Your Name",
-      url: "https://example.com",
+      name: "Kmillion",
+      url: "https://www.kmillion.com.br",
     },
   ],
+  /**
+   * Perfis oficiais (LinkedIn, Instagram, YouTube) entram aqui e alimentam o
+   * `sameAs` do schema.org. Vazio até o cliente confirmar as URLs oficiais.
+   */
+  sameAs: [] as string[],
   keywords: [
     "Kmillion",
     "inteligência promocional",
+    "plataforma de promoções",
+    "motor promocional",
+    "cashback para varejo",
+    "kashback",
     "varejo físico",
-    "promoções",
-    "SaaS",
+    "campanhas promocionais",
+    "influencer marketing para varejo",
+    "IMS",
+    "SaaS para varejo",
+    "omnichannel",
   ],
 } as const;
 
@@ -29,13 +47,15 @@ const officialSquareIcon = encodeURI(
 export const baseMetadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: siteConfig.name,
+    default: `${siteConfig.name} | Inteligência promocional para o varejo físico`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  applicationName: siteConfig.name,
+  category: "technology",
   keywords: [...siteConfig.keywords],
   authors: [...siteConfig.authors],
-  creator: siteConfig.creator,
+  creator: siteConfig.name,
   publisher: siteConfig.name,
   robots: {
     index: true,
@@ -53,9 +73,9 @@ export const baseMetadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: siteConfig.locale,
     url: siteConfig.url,
-    title: siteConfig.name,
+    title: `${siteConfig.name} | Inteligência promocional para o varejo físico`,
     description: siteConfig.description,
     siteName: siteConfig.name,
     images: [
@@ -63,16 +83,15 @@ export const baseMetadata: Metadata = {
         url: siteConfig.ogImage,
         width: 1200,
         height: 630,
-        alt: siteConfig.name,
+        alt: `${siteConfig.name}, plataforma SaaS de inteligência promocional`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: siteConfig.name,
+    title: `${siteConfig.name} | Inteligência promocional para o varejo físico`,
     description: siteConfig.description,
     images: [siteConfig.ogImage],
-    creator: siteConfig.creator,
   },
   icons: {
     icon: officialSquareIcon,
@@ -97,6 +116,7 @@ export function createMetadata({
 }): Metadata {
   const url = `${siteConfig.url}${path}`;
   const ogImage = image ?? siteConfig.ogImage;
+  const ogTitle = title ? `${title} | ${siteConfig.name}` : siteConfig.name;
 
   return {
     title,
@@ -105,7 +125,10 @@ export function createMetadata({
       canonical: path,
     },
     openGraph: {
-      title: title ?? siteConfig.name,
+      type: "website",
+      locale: siteConfig.locale,
+      siteName: siteConfig.name,
+      title: ogTitle,
       description: description ?? siteConfig.description,
       url,
       images: [
@@ -113,12 +136,13 @@ export function createMetadata({
           url: ogImage,
           width: 1200,
           height: 630,
-          alt: title ?? siteConfig.name,
+          alt: ogTitle,
         },
       ],
     },
     twitter: {
-      title: title ?? siteConfig.name,
+      card: "summary_large_image",
+      title: ogTitle,
       description: description ?? siteConfig.description,
       images: [ogImage],
     },

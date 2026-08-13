@@ -1,44 +1,20 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { useState, type ReactNode } from "react";
+import { IMS_INFLUENCER_FAQS, type FaqEntry } from "@/data/faqs";
 import { WHATSAPP_CONTACT_URL } from "@/lib/whatsapp";
 
-const faqs = [
-  {
-    question: "Preciso ter muitos seguidores?",
-    answer:
-      "Não. O que importa é conversão, não tamanho de base.",
-  },
-  {
-    question: "Como sei que fui eu que gerei a venda?",
-    answer:
-      "Seu cupom é exclusivo e rastreado por CPF. Cada compra fica no seu painel em tempo real.",
-  },
-  {
-    question: "Quando recebo meu cashback?",
-    answer:
-      "Automaticamente após validação da compra. Sem precisar cobrar, sem esperar aprovação manual.",
-  },
-  {
-    question: "Posso trabalhar com mais de uma marca?",
-    answer:
-      "Sim. Várias campanhas ativas ao mesmo tempo.",
-  },
-];
+const faqs = IMS_INFLUENCER_FAQS;
 
 const ease = [0.23, 1, 0.32, 1] as const;
-
-type FaqEntry = {
-  question: string;
-  answer: string;
-};
 
 function FaqItem({
   faq,
   index,
+  idPrefix,
   isOpen,
   onToggle,
   tone,
@@ -46,29 +22,36 @@ function FaqItem({
 }: {
   faq: FaqEntry;
   index: number;
+  idPrefix: string;
   isOpen: boolean;
   onToggle: () => void;
   tone: "light" | "dark";
   accentColor: string;
 }): ReactNode {
   const isDark = tone === "dark";
+  const panelId = `${idPrefix}-answer-${index}`;
+  const buttonId = `${idPrefix}-question-${index}`;
 
   return (
-    <motion.button
-      type="button"
+    <motion.div
       initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.5, delay: index * 0.05, ease }}
-      onClick={onToggle}
       className={`w-full rounded-[1.5rem] border p-5 text-left shadow-[0_20px_70px_-55px_rgba(48,2,80,0.3)] backdrop-blur-xl transition-colors sm:p-6 ${
         isDark
           ? "border-white/10 bg-white/5 hover:bg-white/10"
           : "border-[#300250]/12 bg-white/72 hover:bg-[#faf7ff]"
       }`}
-      aria-expanded={isOpen}
     >
-      <div className="flex items-start justify-between gap-4">
+      <button
+        type="button"
+        id={buttonId}
+        onClick={onToggle}
+        aria-expanded={isOpen}
+        aria-controls={panelId}
+        className="flex w-full cursor-pointer items-start justify-between gap-4 text-left"
+      >
         <span className={`text-base font-semibold sm:text-lg ${isDark ? "text-white" : "text-[#18131a]"}`}>
           {faq.question}
         </span>
@@ -77,24 +60,34 @@ function FaqItem({
           transition={{ duration: 0.25, ease }}
           className="mt-0.5 shrink-0"
         >
-          <ChevronDown className="h-5 w-5" style={{ color: accentColor }} />
+          <ChevronDown
+            className="h-5 w-5"
+            style={{ color: accentColor }}
+            aria-hidden="true"
+          />
         </motion.span>
-      </div>
+      </button>
 
-      <AnimatePresence initial={false}>
-        {isOpen ? (
-          <motion.p
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease }}
-            className={`overflow-hidden pt-4 text-sm leading-relaxed sm:text-base ${isDark ? "text-white/68" : "text-[#4c4050]"}`}
-          >
-            {faq.answer}
-          </motion.p>
-        ) : null}
-      </AnimatePresence>
-    </motion.button>
+      {/*
+        Resposta sempre presente no HTML servido: o acordeão só colapsa
+        visualmente, então crawlers de IA leem o conteúdo sem executar JS.
+      */}
+      <motion.div
+        id={panelId}
+        role="region"
+        aria-labelledby={buttonId}
+        initial={false}
+        animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
+        transition={{ duration: 0.25, ease }}
+        className="overflow-hidden"
+      >
+        <p
+          className={`pt-4 text-sm leading-relaxed sm:text-base ${isDark ? "text-white/68" : "text-[#4c4050]"}`}
+        >
+          {faq.answer}
+        </p>
+      </motion.div>
+    </motion.div>
   );
 }
 
@@ -102,7 +95,7 @@ type ImsFaqSectionProps = {
   id?: string;
   eyebrow?: string;
   title?: string;
-  faqs?: FaqEntry[];
+  faqs?: readonly FaqEntry[];
   primaryCta?: { label: string; href: string };
   secondaryCta?: { label: string; href: string };
   tone?: "light" | "dark";
@@ -158,6 +151,7 @@ export function ImsFaqSection({
               key={faq.question}
               faq={faq}
               index={index}
+              idPrefix={id}
               isOpen={openIndex === index}
               onToggle={() => setOpenIndex(openIndex === index ? null : index)}
               tone={tone}

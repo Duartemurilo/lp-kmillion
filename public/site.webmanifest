@@ -1,11 +1,12 @@
 {
-  "name": "Your Site Name",
-  "short_name": "Site",
-  "description": "A modern, accessible landing page template built with Next.js, Tailwind CSS, and TypeScript.",
+  "name": "Kmillion",
+  "short_name": "Kmillion",
+  "description": "Plataforma SaaS de inteligência promocional para o varejo físico: promoções, cashback e campanhas com influenciadores sem depender do TI.",
+  "lang": "pt-BR",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#a8d946",
+  "background_color": "#0f0f12",
+  "theme_color": "#fe6634",
   "icons": [
     {
       "src": "/icon-192.png",

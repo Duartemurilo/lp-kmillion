@@ -1,31 +1,9 @@
 "use client";
 
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import { ChevronDown } from "lucide-react";
 import { useState, type ReactNode } from "react";
-
-const faqs = [
-  {
-    question: "O que difere a Kmillion de outras plataformas?",
-    answer:
-      "A Kmillion foi criada exclusivamente para o varejo físico. É a única plataforma que une autonomia para o marketing com personalização e integração entre canais físicos e digitais, sem depender do TI.",
-  },
-  {
-    question: "Posso personalizar os nomes das ações (ex: cashback)?",
-    answer:
-      'Sim! Você pode nomear ações como quiser, criando experiências únicas - por exemplo: "Cashback Kmillion", "PremiaFashion" ou "Volta+".',
-  },
-  {
-    question: "Preciso integrar com o ERP?",
-    answer:
-      "Não é obrigatório, mas integrar com o ERP permite um controle mais completo de regras, saldos e resultados. A Kmillion se conecta via API com os principais ERPs do mercado.",
-  },
-  {
-    question: "A Kmillion serve para redes pequenas?",
-    answer:
-      "A Kmillion é ideal para redes com mais de 20 lojas, especialmente no varejo de moda. Para redes pequenas, o ganho com automação pode ser limitado - mas analisamos caso a caso.",
-  },
-];
+import { HOME_FAQS, type FaqEntry } from "@/data/faqs";
 
 const ease = [0.23, 1, 0.32, 1] as const;
 
@@ -35,56 +13,59 @@ function FAQItem({
   isOpen,
   onToggle,
 }: {
-  faq: (typeof faqs)[0];
+  faq: FaqEntry;
   index: number;
   isOpen: boolean;
   onToggle: () => void;
 }): ReactNode {
+  const panelId = `faq-answer-${index}`;
+  const buttonId = `faq-question-${index}`;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.5, ease, delay: index * 0.05 }}
-      onClick={onToggle}
-      className="cursor-pointer rounded-2xl border border-white/10 bg-[#111111] p-5 shadow-sm sm:p-6"
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          onToggle();
-        }
-      }}
-      aria-expanded={isOpen}
+      className="rounded-2xl border border-white/10 bg-[#111111] p-5 shadow-sm sm:p-6"
     >
-      <div className="flex w-full items-center justify-between gap-4 text-left">
+      <button
+        type="button"
+        id={buttonId}
+        onClick={onToggle}
+        aria-expanded={isOpen}
+        aria-controls={panelId}
+        className="flex w-full cursor-pointer items-center justify-between gap-4 text-left"
+      >
         <span className="text-base font-medium text-white sm:text-lg">
           {faq.question}
         </span>
-        <motion.div
+        <motion.span
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.3, ease }}
           className="shrink-0"
         >
-          <ChevronDown className="h-5 w-5 text-white/60" />
-        </motion.div>
-      </div>
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease }}
-            className="overflow-hidden"
-          >
-            <p className="pt-4 text-sm leading-relaxed text-white/70 sm:text-base">
-              {faq.answer}
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          <ChevronDown className="h-5 w-5 text-white/60" aria-hidden="true" />
+        </motion.span>
+      </button>
+
+      {/*
+        A resposta fica SEMPRE no HTML (SSR) e só o colapso é visual: motores de
+        busca e crawlers de IA leem o texto mesmo com o acordeão fechado.
+      */}
+      <motion.div
+        id={panelId}
+        role="region"
+        aria-labelledby={buttonId}
+        initial={false}
+        animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
+        transition={{ duration: 0.3, ease }}
+        className="overflow-hidden"
+      >
+        <p className="pt-4 text-sm leading-relaxed text-white/70 sm:text-base">
+          {faq.answer}
+        </p>
+      </motion.div>
     </motion.div>
   );
 }
@@ -117,10 +98,10 @@ export function FAQ(): ReactNode {
           </p>
         </motion.div>
 
-        <div className="flex flex-col gap-3" role="list">
-          {faqs.map((faq, index) => (
+        <div className="flex flex-col gap-3">
+          {HOME_FAQS.map((faq, index) => (
             <FAQItem
-              key={index}
+              key={faq.question}
               faq={faq}
               index={index}
               isOpen={openIndex === index}

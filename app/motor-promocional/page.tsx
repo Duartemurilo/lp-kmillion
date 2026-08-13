@@ -1,5 +1,7 @@
+import { JsonLd } from "@/components/json-ld";
 import { MotorPromocionalPage } from "@/components/motor-promocional-page-content";
 import { createMetadata } from "@/lib/metadata";
+import { createModuleSchema } from "@/lib/structured-data";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
@@ -10,6 +12,25 @@ export const metadata: Metadata = createMetadata({
   path: "/motor-promocional",
 });
 
+const motorSchema = createModuleSchema({
+  name: "Motor Promocional Kmillion",
+  description:
+    "Módulo da Kmillion que permite ao marketing criar, ativar e medir campanhas promocionais no varejo físico sem depender do time de TI.",
+  path: "/motor-promocional",
+  featureList: [
+    "Criação e ativação de campanhas promocionais sem depender do TI",
+    "Regras promocionais personalizáveis por rede, loja e público",
+    "Integração entre canais físicos e digitais",
+    "Medição de resultado das campanhas em tempo real",
+    "Conexão via API com ERP e sistemas de venda",
+  ],
+});
+
 export default function MotorPromocionalRoute(): ReactNode {
-  return <MotorPromocionalPage />;
+  return (
+    <>
+      <JsonLd schema={motorSchema} />
+      <MotorPromocionalPage />
+    </>
+  );
 }

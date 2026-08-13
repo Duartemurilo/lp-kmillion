@@ -1,9 +1,11 @@
 import { Header } from "@/components/header";
 import { I18nProvider } from "@/i18n";
+import { JsonLd } from "@/components/json-ld";
 import { Providers } from "@/components/providers";
 import { SkipToContent } from "@/components/skip-to-content";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { baseMetadata } from "@/lib/metadata";
+import { organizationSchema, websiteSchema } from "@/lib/structured-data";
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import "@fontsource/sora/400.css";
@@ -31,6 +33,10 @@ export default function RootLayout({
 }>): ReactNode {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
+      <head>
+        {/* Identidade da empresa e do site, válida para todas as páginas. */}
+        <JsonLd schema={[organizationSchema, websiteSchema]} />
+      </head>
       <body className="min-h-screen bg-background font-sans text-foreground antialiased">
         <Providers>
           <I18nProvider>
