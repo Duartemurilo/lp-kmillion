@@ -4,7 +4,8 @@
 
 :root {
   --font-sora-stack: "Sora", system-ui, -apple-system, sans-serif;
-  --font-mono-stack: ui-monospace, SFMono-Regular, "SF Mono", Consolas, monospace;
+  --font-mono-stack:
+    ui-monospace, SFMono-Regular, "SF Mono", Consolas, monospace;
   --background: #fff7f1;
   --foreground: #18131a;
   --muted: #f7eee8;
@@ -70,7 +71,11 @@
 html {
   color-scheme: dark;
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  /* `clip` e não `hidden`: hidden transforma o elemento em contêiner de
+     rolagem e quebra `position: sticky` nos filhos (era o caso do sumário
+     da Política de Privacidade). O efeito visual é o mesmo, sem barra
+     horizontal. */
+  overflow-x: clip;
 }
 
 html.dark {
@@ -99,7 +104,8 @@ body {
 }
 
 body {
-  overflow-x: hidden;
+  /* Ver a nota em `html`: clip preserva o corte lateral sem quebrar sticky. */
+  overflow-x: clip;
   background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-sora-stack);

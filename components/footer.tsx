@@ -89,7 +89,7 @@ export function Footer(): ReactNode {
                 type="submit"
                 disabled={isSubmitting}
                 aria-busy={isSubmitting}
-                className="bg-foreground text-background hover:bg-foreground/90 flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium whitespace-nowrap transition-colors disabled:opacity-80 disabled:cursor-progress max-[850px]:w-full max-[850px]:py-3"
+                className="bg-foreground text-background hover:bg-foreground/90 flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium whitespace-nowrap transition-colors disabled:cursor-progress disabled:opacity-80 max-[850px]:w-full max-[850px]:py-3"
               >
                 {isSubmitting ? (
                   <>
@@ -119,10 +119,18 @@ export function Footer(): ReactNode {
               controlar benefícios e acelerar decisões sem depender do time de
               TI.
             </p>
-            <p className="text-sm text-neutral-900/50">
-              © {new Date().getFullYear()} Kmillion. Todos os direitos
-              reservados.
-            </p>
+            <div className="flex items-center gap-5 max-[850px]:flex-wrap">
+              <Link
+                href="/politicadeprivacidade"
+                className="text-sm whitespace-nowrap text-neutral-900/70 underline decoration-neutral-900/25 underline-offset-4 transition-colors hover:text-neutral-900 focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-neutral-900/40 focus-visible:outline-none"
+              >
+                Política de Privacidade
+              </Link>
+              <p className="text-sm text-neutral-900/50">
+                © {new Date().getFullYear()} Kmillion. Todos os direitos
+                reservados.
+              </p>
+            </div>
           </div>
         </div>
       </div>
