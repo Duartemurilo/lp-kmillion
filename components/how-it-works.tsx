@@ -11,18 +11,21 @@ const steps = [
   {
     icon: AlertTriangle,
     title: "IMS",
+    href: "/ims",
     description:
       "Transforme influenciadores em um canal de vendas mensurável, com campanhas rastreáveis e dados em tempo real.",
   },
   {
     icon: Settings,
     title: "Kashback",
+    href: "/kashback",
     description:
       "Estimule a recompra com cashback automatizado, com regras flexíveis e dashboards claros para medir o ROI.",
   },
   {
     icon: PauseCircle,
     title: "Motor promocional",
+    href: "/motor-promocional",
     description:
       "Crie e ative campanhas personalizadas em minutos — sem depender de TI, com total controle por canal, loja e perfil de cliente.",
   },
@@ -57,7 +60,7 @@ function StepItem({
         </p>
 
         <Link
-          href="/ims"
+          href={step.href}
           className="group text-accent mt-4 inline-flex items-center gap-2 text-sm font-semibold transition-colors hover:text-[#e85b2d]"
         >
           <span className="relative inline-flex">
