@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, type ReactNode } from "react";
+import { APP_LOGIN_URL } from "@/lib/app-url";
 import { WHATSAPP_CONTACT_URL } from "@/lib/whatsapp";
 
 const menus = {
@@ -219,6 +220,12 @@ export function Header(): ReactNode {
 
         <div className="flex items-center gap-4 max-[850px]:hidden">
           <a
+            href={APP_LOGIN_URL}
+            className="px-4 py-2 max-[1200px]:px-3 text-sm font-medium text-foreground/80 hover:text-foreground transition-colors rounded-full hover:bg-foreground/5"
+          >
+            Entrar
+          </a>
+          <a
             href={WHATSAPP_CONTACT_URL}
             target="_blank"
             rel="noopener noreferrer"
@@ -262,6 +269,9 @@ export function Header(): ReactNode {
                   onToggle={() => toggleExpanded("solucoes")}
                   onClose={closeMobile}
                 />
+                <a href={APP_LOGIN_URL} className="flex items-center justify-between py-4 text-base font-medium text-foreground border-b border-foreground/10" onClick={closeMobile}>
+                  Entrar
+                </a>
               </nav>
 
               <div className="flex items-center justify-end pt-8 pb-2">
