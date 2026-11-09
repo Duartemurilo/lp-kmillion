@@ -1,6 +1,7 @@
 "use client";
 
 import { LogoLoop, type LogoItem } from "@/components/logo-loop";
+import { CLIENTS } from "@/data/clients";
 import { ArrowRight } from "lucide-react";
 import { motion, useMotionValue, useSpring } from "motion/react";
 import Image from "next/image";
@@ -21,62 +22,16 @@ const fadeInScale = {
   visible: { opacity: 1, scale: 1, filter: "blur(0px)" },
 };
 
-const logos: LogoItem[] = [
-  {
-    node: (
-      <img
-        src="https://static.wixstatic.com/media/f9ab6d_424025ea4edf4f1fac850b7ba412a812~mv2.avif/v1/fill/w_140,h_70,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/1.avif"
-        alt="Marca 1"
-        className="h-[1em] w-auto object-contain"
-      />
-    ),
-  },
-  {
-    node: (
-      <img
-        src="https://static.wixstatic.com/media/f9ab6d_ea92226b12aa4211aa467140e675a74b~mv2.avif/v1/fill/w_137,h_68,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/2.avif"
-        alt="Marca 2"
-        className="h-[1em] w-auto object-contain"
-      />
-    ),
-  },
-  {
-    node: (
-      <img
-        src="https://static.wixstatic.com/media/f9ab6d_316a4a55454d4085a9a62d0f4393925e~mv2.avif/v1/fill/w_133,h_66,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/3.avif"
-        alt="Marca 3"
-        className="h-[1em] w-auto object-contain"
-      />
-    ),
-  },
-  {
-    node: (
-      <img
-        src="https://static.wixstatic.com/media/f9ab6d_bc559861e0fa4d349e4fa6e79460136e~mv2.avif/v1/fill/w_147,h_73,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/4.avif"
-        alt="Marca 4"
-        className="h-[1em] w-auto object-contain"
-      />
-    ),
-  },
-  {
-    node: (
-      <img
-        src="https://static.wixstatic.com/media/f9ab6d_2d09a9e3a652433a98eb072a0ba8db1c~mv2.avif/v1/fill/w_133,h_66,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/5.avif"
-        alt="Marca 5"
-        className="h-[1em] w-auto object-contain"
-      />
-    ),
-  },
-  {
-    node: (
-      <img
-        src="https://static.wixstatic.com/media/f9ab6d_cb6383215a814cd6a10d5bd9728528e2~mv2.avif/v1/fill/w_118,h_58,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/6.avif"
-        alt="Marca 6"
-        className="h-[1em] w-auto object-contain"
-      />
-    ),
-  },
-];
+const logos: LogoItem[] = CLIENTS.map((client) => ({
+  title: client.name,
+  node: (
+    <img
+      src={client.logo}
+      alt={client.name}
+      className="h-[1em] w-auto object-contain"
+    />
+  ),
+}));
 
 const PARALLAX_INTENSITY = 20;
 

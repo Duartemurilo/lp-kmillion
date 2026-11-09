@@ -1,4 +1,6 @@
+import { CLIENTS } from "@/data/clients";
 import { HOME_FAQS } from "@/data/faqs";
+import { APP_LOGIN_URL } from "@/lib/app-url";
 import { siteConfig } from "@/lib/metadata";
 
 /**
@@ -44,6 +46,10 @@ redes com mais de 20 lojas.
 - [IMS, visão influencer](${url}/ims/influencer): como o creator monetiza por
   performance, com rastreio por venda gerada e pagamento automático.
 
+## Clientes
+
+Marcas que usam a Kmillion: ${CLIENTS.map((client) => client.name).join(", ")}.
+
 ## Integrações
 
 Integração via API com os principais ERPs do mercado, além de e-commerce,
@@ -57,6 +63,7 @@ ${HOME_FAQS.map((faq) => `### ${faq.question}\n\n${faq.answer}`).join("\n\n")}
 ## Links
 
 - [Site](${url})
+- [Plataforma (login de clientes)](${APP_LOGIN_URL})
 ${siteConfig.sameAs.map((profile) => `- [Perfil oficial](${profile})`).join("\n")}
 `;
 
