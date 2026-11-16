@@ -1,0 +1,934 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<script>/* garante a barra final (/estoque-parado/) para as imagens em img/ carregarem */
+(function(l){if(l.protocol.indexOf('http')===0&&!/\/$/.test(l.pathname)&&!/\.html?$/.test(l.pathname)){l.replace(l.pathname+'/'+l.search+l.hash);}})(location);</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estoque parado: como girar produtos em redes de lojas | Kmillion</title>
+<meta name="description" content="Calcule o valor do estoque parado, veja quando um desconto compensa e entenda como criar promoções por loja com o Motor Promocional da Kmillion.">
+<link rel="canonical" href="https://www.kmillion.com.br/estoque-parado">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Kmillion">
+<meta property="og:url" content="https://www.kmillion.com.br/estoque-parado">
+<meta property="og:title" content="Estoque parado: como girar produtos em redes de lojas | Kmillion">
+<meta property="og:description" content="Calcule o valor do estoque parado, veja quando um desconto compensa e entenda como criar promoções por loja com o Motor Promocional da Kmillion.">
+<meta property="og:image" content="img/kamila-estoque-960.webp">
+<meta name="theme-color" content="#FE6634">
+<meta property="article:published_time" content="2026-11-16">
+<meta property="article:section" content="Estoque">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/kamila-estoque-960.webp" imagesrcset="img/kamila-estoque-640.webp 640w, img/kamila-estoque-960.webp 960w" imagesizes="(min-width: 960px) 44vw, 100vw">
+<style>
+/* =========================================================
+   Kmillion · /estoque-parado · v1 (prévia para revisão)
+   Cores: preto #0D0B0A · off-white #F2EFEA · laranja #FE6634
+          laranja escuro #C2410C · roxo #300250 · verde #2E9E5B
+   ========================================================= */
+:root{
+  --preto:#0D0B0A; --tinta:#111111; --off:#F2EFEA; --branco:#FFFFFF;
+  --laranja:#FE6634; --laranja-esc:#C2410C; --laranja-claro:#FFF1E8;
+  --roxo:#300250; --cinza:#5E5650; --linha:#E2DBD1; --verde:#2E9E5B; --erro:#C81E3A;
+  --raio:20px; --max:1200px; --gutter:20px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--branco);color:var(--tinta);font-family:'Sora',system-ui,-apple-system,'Segoe UI',sans-serif;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+h1,h2,h3{margin:0;line-height:1.12;letter-spacing:-.03em;color:var(--preto)}
+p{margin:0 0 1em}
+p:last-child{margin-bottom:0}
+strong{font-weight:700}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+:focus-visible{outline:3px solid var(--laranja);outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:12px;top:-60px;background:var(--preto);color:#fff;padding:10px 16px;border-radius:999px;z-index:100;text-decoration:none;font-weight:600}
+.skip:focus{top:12px}
+
+/* destaque laranja atrás do texto (mesma linguagem dos carrosséis) */
+.hl{background:linear-gradient(transparent 16%,var(--laranja) 16%,var(--laranja) 93%,transparent 93%);padding:0 .08em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.o{color:var(--laranja-esc)}
+
+/* ---------- botões ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:14px 28px;border-radius:999px;background:var(--laranja);color:var(--preto);font-weight:700;font-size:16px;line-height:1.25;text-decoration:none;text-align:center;border:2px solid var(--laranja);transition:background .15s,transform .15s}
+.btn:hover{background:#ff7d52;transform:translateY(-1px)}
+.btn svg{flex:0 0 auto;width:20px;height:20px}
+.lnk{display:inline;font-weight:600;font-size:16px;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:5px;text-decoration-color:var(--laranja);min-height:44px}
+.lnk:hover{color:var(--laranja-esc)}
+.ctas{display:flex;flex-wrap:wrap;align-items:center;gap:14px 28px;margin-top:30px}
+
+/* ---------- cabeçalho (espelha o site) ---------- */
+.topo{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--linha)}
+.topo .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:20px}
+.topo .logo img{height:30px;width:auto}
+.topo nav ul{list-style:none;margin:0;padding:0;display:flex;align-items:center;gap:28px;font-size:15px;font-weight:500}
+.topo nav a{text-decoration:none}
+.topo nav a:hover{color:var(--laranja-esc)}
+.topo .pill{background:var(--preto);color:#fff!important;padding:10px 20px;border-radius:999px;font-weight:600}
+.topo .pill:hover{background:var(--roxo)}
+.topo .so-desk{display:none}
+@media (min-width:900px){.topo .so-desk{display:list-item}}
+
+/* ---------- 1 · abertura ---------- */
+.hero{background:var(--off);padding:44px 0 0;overflow:hidden}
+.hero .grid{display:grid;gap:36px}
+.kick{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--laranja-esc);margin-bottom:18px}
+.hero h1{font-size:clamp(34px,8.6vw,62px);font-weight:800;line-height:1.06}
+.hero .lead{font-size:clamp(17px,2.2vw,20px);line-height:1.6;color:#2a2522;margin-top:22px;max-width:36em}
+.hero .foto{position:relative;margin:0 calc(var(--gutter)*-1)}
+.hero .foto img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 30%}
+@media (min-width:600px) and (max-width:959px){
+  .hero .foto{margin:0;border-radius:var(--raio) var(--raio) 0 0;overflow:hidden;max-width:560px}
+}
+@media (min-width:960px){
+  .hero{padding:72px 0}
+  .hero .grid{grid-template-columns:1.08fr .92fr;align-items:center;gap:64px}
+  .hero .foto{margin:0;border-radius:28px;overflow:hidden;box-shadow:0 30px 60px -30px rgba(13,11,10,.45)}
+}
+
+/* ---------- seções ---------- */
+.sec{padding:72px 0}
+.sec h2{font-size:clamp(28px,5.4vw,44px);font-weight:800;max-width:20em;margin-bottom:26px}
+.sec .texto{max-width:44em;font-size:18px}
+.sec.alt{background:var(--off)}
+.sec.esc{background:var(--preto);color:#EDE8E1}
+.sec.esc h2{color:#fff}
+.sec[id]{scroll-margin-top:84px}
+@media (min-width:960px){.sec{padding:110px 0}}
+.dois{display:grid;gap:40px}
+@media (min-width:960px){.dois{grid-template-columns:1fr 1fr;gap:64px;align-items:start}}
+.nota{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--cinza)}
+
+/* ---------- marcador de asset pendente ---------- */
+.pend{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:24px;border:2px dashed #C9BFB2;border-radius:var(--raio);background:repeating-linear-gradient(-45deg,#F7F4EF 0 14px,#EFEAE3 14px 28px);color:#4A433D;font-size:14px;line-height:1.5}
+.pend b{display:inline-block;background:var(--preto);color:#fff;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border-radius:999px}
+.pend .play{width:64px;height:64px;border-radius:50%;background:var(--laranja);display:flex;align-items:center;justify-content:center}
+.pend .play svg{width:26px;height:26px;margin-left:4px}
+.pend.v916{aspect-ratio:9/16;max-width:340px;width:100%}
+.pend.v169{aspect-ratio:16/9;width:100%}
+.sec.esc .pend{background:repeating-linear-gradient(-45deg,#1D1916 0 14px,#16120F 14px 28px);border-color:#4A433D;color:#CFC6BB}
+.sec.esc .pend b{background:var(--laranja);color:var(--preto)}
+
+/* ---------- 3 · calculadora ---------- */
+.calc{background:#fff;border:1px solid var(--linha);border-radius:24px;padding:26px;box-shadow:0 24px 48px -32px rgba(13,11,10,.35)}
+.calc .campos{display:grid;gap:18px}
+.campo label{display:block;font-weight:700;font-size:15px;margin-bottom:8px}
+.campo .entrada{display:flex;align-items:center;border:2px solid #CFC6BB;border-radius:14px;background:#fff;transition:border-color .15s}
+.campo .entrada:focus-within{border-color:var(--preto)}
+.campo .pre,.campo .suf{padding:0 0 0 16px;font-weight:600;color:var(--cinza);font-size:18px}
+.campo .suf{padding:0 16px 0 0;font-size:15px}
+.campo{min-width:0}
+.campo input{flex:1;min-width:0;width:100%;border:0;background:transparent;font:inherit;font-size:22px;font-weight:700;color:var(--preto);padding:14px 16px;height:60px;border-radius:14px}
+.campo input:focus{outline:none}
+.campo .erro{display:none;color:var(--erro);font-size:14px;font-weight:600;margin-top:8px}
+.campo.invalido .entrada{border-color:var(--erro);background:#FFF5F6}
+.campo.invalido .erro{display:block}
+.campo .dica{font-size:13px;color:var(--cinza);margin-top:6px}
+.resultado{margin-top:22px;background:var(--preto);color:#fff;border-radius:18px;padding:22px 24px}
+.resultado .rot{display:block;font-size:14px;font-weight:600;color:#CFC6BB;margin-bottom:4px}
+.resultado output{display:block;font-size:clamp(32px,7vw,46px);font-weight:800;letter-spacing:-.03em;line-height:1.15;color:var(--laranja);word-break:break-word}
+.resultado .conta{display:block;font-size:14px;color:#CFC6BB;margin-top:8px}
+.resultado.vazio output{color:#8C8798}
+@media (min-width:600px){.calc .campos{grid-template-columns:1fr 1fr}.calc{padding:34px}}
+.apoio{margin-top:28px;font-size:16px;color:#2a2522;border-left:4px solid var(--laranja);padding-left:18px}
+.calc-img{border-radius:var(--raio);overflow:hidden;margin-top:36px}
+.calc-img img{width:100%;aspect-ratio:3/2;object-fit:cover}
+@media (min-width:960px){
+  .calc-wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:start}
+  .calc-img{margin-top:0;position:sticky;top:100px}
+}
+
+/* ---------- 4 · grade de tamanhos ---------- */
+.grade-bloco{display:grid;gap:32px;margin-top:40px}
+@media (min-width:960px){.grade-bloco{grid-template-columns:1fr 340px;gap:56px;align-items:start}}
+.grade-cab{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.grade-cab strong{font-size:17px}
+.grade{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media (min-width:600px){.grade{grid-template-columns:repeat(4,1fr)}}
+.tam{border-radius:18px;padding:18px 16px 16px;background:#fff;border:2px solid var(--linha);display:flex;flex-direction:column;gap:6px;min-height:150px}
+.tam .num{font-size:13px;font-weight:600;color:var(--cinza);text-transform:uppercase;letter-spacing:.08em}
+.tam .num b{display:block;font-size:40px;line-height:1.05;letter-spacing:-.03em;color:var(--preto);text-transform:none}
+.tam .saldo{font-weight:700;font-size:17px;margin-top:auto}
+.tam .barra{height:8px;border-radius:4px;background:#EEE8E0;overflow:hidden}
+.tam .barra i{display:block;height:100%;background:var(--preto);border-radius:4px}
+.tam.zero{background:var(--laranja-claro);border-color:var(--laranja)}
+.tam.zero .saldo{color:var(--laranja-esc)}
+.tam .tag{align-self:flex-start;font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--laranja);color:var(--preto)}
+.legenda-grade{font-size:14px;color:var(--cinza);margin-top:14px}
+.video-legenda{font-size:14px;color:var(--cinza);margin-top:12px;max-width:340px}
+
+/* ---------- 5 · tabela que vira cartões ---------- */
+.cenarios{width:100%;border-collapse:separate;border-spacing:0;margin-top:40px;font-size:17px}
+.cenarios th{text-align:left;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--cinza);font-weight:700;padding:0 24px 14px}
+.cenarios td{vertical-align:top;padding:24px;background:#fff;border-top:1px solid var(--linha)}
+.cenarios td:first-child{font-weight:700;border-left:1px solid var(--linha);width:46%}
+.cenarios td:last-child{border-right:1px solid var(--linha);background:var(--laranja-claro)}
+.cenarios tr:first-child td:first-child{border-top-left-radius:18px}
+.cenarios tr:first-child td:last-child{border-top-right-radius:18px}
+.cenarios tbody tr:last-child td{border-bottom:1px solid var(--linha)}
+.cenarios tr:last-child td:first-child{border-bottom-left-radius:18px}
+.cenarios tr:last-child td:last-child{border-bottom-right-radius:18px}
+.cenarios td .rot{display:none}
+@media (max-width:767px){
+  .cenarios,.cenarios tbody,.cenarios tr,.cenarios td{display:block;width:100%!important}
+  .cenarios thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .cenarios tr{margin-bottom:16px;border-radius:18px;overflow:hidden;border:1px solid var(--linha)}
+  .cenarios td,.cenarios td:first-child,.cenarios td:last-child{border:0!important;border-radius:0!important;padding:18px 20px}
+  .cenarios td .rot{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--cinza);font-weight:700;margin-bottom:6px}
+}
+.destaque{margin-top:48px;background:var(--preto);color:#EDE8E1;border-radius:24px;padding:30px 26px;display:grid;gap:14px}
+.destaque h3{color:#fff;font-size:clamp(22px,3.4vw,30px);font-weight:800}
+.destaque p{font-size:17px;max-width:46em}
+@media (min-width:960px){.destaque{grid-template-columns:.9fr 1.1fr;gap:48px;padding:44px 48px;align-items:center}}
+
+/* ---------- 6 · margem ---------- */
+.contas{display:grid;gap:16px;margin-top:36px}
+@media (min-width:768px){.contas{grid-template-columns:1fr 1fr;gap:20px}}
+.conta-card{border-radius:22px;padding:24px;background:#fff;border:2px solid var(--linha)}
+.conta-card.promo{border-color:var(--laranja);background:var(--laranja-claro)}
+.conta-card h3{font-size:19px;font-weight:800;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.conta-card h3 span{white-space:nowrap;flex:0 0 auto;font-size:12px;font-weight:700;letter-spacing:.06em;padding:5px 10px;border-radius:999px;background:var(--preto);color:#fff}
+.conta-card.promo h3 span{background:var(--laranja);color:var(--preto)}
+.conta-card dl{margin:0;display:grid;grid-template-columns:1fr auto;gap:0}
+.conta-card dt,.conta-card dd{padding:11px 0;border-bottom:1px solid rgba(13,11,10,.1);margin:0;font-size:16px}
+.conta-card dd{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.conta-card dt.tot,.conta-card dd.tot{border-bottom:0;padding-top:14px;font-weight:800;font-size:18px}
+.conta-card dd.tot{font-size:28px;letter-spacing:-.02em;color:var(--preto)}
+.conta-card.promo dd.tot{color:var(--laranja-esc)}
+.conta-card s{color:var(--cinza);font-weight:500;margin-right:6px}
+.equacao{margin-top:20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px 14px;background:var(--off);border-radius:22px;padding:20px;font-weight:700;font-size:16px;text-align:center}
+.equacao .bloco{display:flex;flex-direction:column;align-items:center;background:#fff;border-radius:14px;padding:10px 16px;min-width:120px}
+.equacao .bloco small{font-size:12px;font-weight:600;color:var(--cinza)}
+.equacao .bloco strong{font-size:22px;letter-spacing:-.02em}
+.equacao .op{font-size:24px;color:var(--laranja-esc)}
+.margem-bloco{display:grid;gap:36px}
+@media (min-width:1080px){.margem-bloco{grid-template-columns:1fr 340px;gap:56px;align-items:start}}
+
+/* ---------- 7 · kmillion ---------- */
+.sec.esc .texto{color:#DCD5CC}
+.sec.esc strong{color:#fff}
+.sec.esc .lnk{color:#fff}
+.sec.esc .lnk:hover{color:var(--laranja)}
+.km-grid{display:grid;gap:40px}
+@media (min-width:960px){.km-grid{grid-template-columns:.95fr 1.05fr;gap:64px;align-items:center}}
+
+/* ---------- 8 · FAQ ---------- */
+.faq{margin-top:28px;border-top:1px solid var(--linha);max-width:52em}
+.faq details{border-bottom:1px solid var(--linha)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0;min-height:44px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary h3{font-size:clamp(18px,2.4vw,21px);font-weight:700;line-height:1.35;letter-spacing:-.01em}
+.faq summary .mais{flex:0 0 36px;height:36px;border-radius:50%;background:var(--off);position:relative;transition:transform .2s,background .2s}
+.faq summary .mais::before,.faq summary .mais::after{content:"";position:absolute;left:50%;top:50%;width:14px;height:2px;background:var(--preto);transform:translate(-50%,-50%)}
+.faq summary .mais::after{transform:translate(-50%,-50%) rotate(90deg)}
+.faq details[open] summary .mais{background:var(--laranja);transform:rotate(45deg)}
+.faq .resp{padding:0 52px 24px 0;font-size:17px;color:#2a2522}
+
+/* ---------- fechamento ---------- */
+.fecha{background:var(--laranja);padding:72px 0}
+.fecha .caixa{max-width:46em}
+.fecha h2{font-size:clamp(28px,5.4vw,46px);font-weight:800;margin-bottom:18px}
+.fecha p{font-size:19px;color:var(--preto)}
+.fecha .btn{background:var(--preto);color:#fff;border-color:var(--preto)}
+.fecha .btn:hover{background:var(--roxo);border-color:var(--roxo)}
+@media (min-width:960px){.fecha{padding:100px 0}}
+
+/* ---------- rodapé ---------- */
+.rodape{background:var(--preto);color:#BDB4A9;padding:48px 0 36px;font-size:14px}
+.rodape .wrap{display:grid;gap:28px}
+.rodape img{height:28px;width:auto}
+.rodape ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:12px 26px}
+.rodape a{text-decoration:none;color:#EDE8E1}
+.rodape a:hover{color:var(--laranja)}
+@media (min-width:960px){.rodape .wrap{grid-template-columns:auto 1fr auto;align-items:center}.rodape ul{justify-content:center}}
+
+/* itens de grid podem encolher */
+.grid>*,.calc-wrap>*,.grade-bloco>*,.margem-bloco>*,.km-grid>*{min-width:0}
+h1,h2,h3{overflow-wrap:break-word}
+
+/* barra de revisão (some ao publicar: remover o elemento .revisao) */
+.revisao{background:#1F1A2E;color:#fff;font-size:13px;text-align:center;padding:8px 16px;line-height:1.4}
+.revisao b{color:var(--laranja)}
+
+/* =================== v2 =================== */
+.o2{color:var(--laranja)}
+.sec.esc{position:relative}
+/* filete laranja na virada para as seções pretas */
+.sec.esc::before{content:"";position:absolute;left:0;top:0;width:min(220px,40vw);height:6px;background:var(--laranja)}
+
+/* ---- 2 · definição: título grande à esquerda, setas à direita, trilho de cartões ---- */
+.def{padding-bottom:72px}
+.def-cab{display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+.def h2{font-size:clamp(34px,6.4vw,64px);line-height:1.02;max-width:13em;margin-bottom:0}
+.setas{display:none;gap:10px;flex:0 0 auto}
+.seta-btn{width:48px;height:48px;border-radius:50%;border:0;background:var(--preto);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.seta-btn svg{width:22px;height:22px}
+.seta-btn:hover{background:var(--laranja);color:var(--preto)}
+.seta-btn[disabled]{opacity:.25;cursor:default;background:var(--preto);color:#fff}
+@media (min-width:768px){.setas{display:flex}}
+.def-txt{display:grid;gap:4px 48px;margin-top:26px;font-size:17px;color:#2a2522;max-width:1000px}
+@media (min-width:960px){.def-txt{grid-template-columns:1fr 1fr;margin-top:34px}}
+.trilho-wrap{margin-top:40px;--ini:max(var(--gutter),calc((100vw - var(--max))/2 + var(--gutter)))}
+.trilho-nota{margin:0 0 14px;padding:0 var(--gutter) 0 var(--ini);max-width:none}
+.trilho{list-style:none;margin:0;padding:4px var(--gutter) 12px var(--ini);display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:var(--ini);scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.trilho::-webkit-scrollbar{display:none}
+.sem{flex:0 0 min(78vw,318px);scroll-snap-align:start;border-radius:26px;background:var(--off);display:flex;flex-direction:column;overflow:hidden}
+.sem-top{padding:20px 20px 18px}
+.pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.pills span{background:#fff;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:600}
+.sem-num{margin:0;font-size:17px;font-weight:600;line-height:1.1}
+.sem-num b{display:block;font-size:56px;font-weight:800;letter-spacing:-.04em;line-height:1}
+.sem-txt{margin:8px 0 14px;font-size:14px;line-height:1.45;color:#4A433D;min-height:2.9em}
+.lote{height:10px;border-radius:5px;background:rgba(13,11,10,.12);overflow:hidden}
+.lote i{display:block;height:100%;background:var(--preto);border-radius:5px}
+.sem.alerta{background:var(--laranja)}
+.sem.alerta .sem-txt{color:var(--preto)}
+.sem.alerta .lote{background:rgba(13,11,10,.18)}
+.sem.escuro{background:var(--preto);color:#fff}
+.sem.escuro .pills span{background:#2A2522;color:#fff}
+.sem.escuro .sem-txt{color:#CFC6BB}
+.mini{display:flex;align-items:flex-end;gap:6px;height:40px}
+.mini i{flex:1;background:var(--laranja);border-radius:4px 4px 0 0}
+.sem-img{margin:auto 8px 8px;border-radius:20px;overflow:hidden}
+.sem-img .pend{aspect-ratio:1/1;border-radius:20px;font-size:12.5px;padding:18px}
+.sem.escuro .pend{background:repeating-linear-gradient(-45deg,#1D1916 0 14px,#16120F 14px 28px);border-color:#4A433D;color:#CFC6BB}
+.sem.escuro .pend b{background:var(--laranja);color:var(--preto)}
+
+/* ---- 3 · calculadora em preto ---- */
+.calc-esc .texto{color:#DCD5CC}
+.calc-esc .apoio{color:#DCD5CC}
+.calc-esc .calc{border:0;box-shadow:none;color:var(--tinta)}
+.calc-esc .resultado{background:#1F1A17;border:1px solid #3A332E}
+.calc-esc .calc-img{border:6px solid var(--laranja)}
+
+/* ---- 5 · painel preto arredondado com três cartões ---- */
+.painel-sec{padding:24px 0}
+.painel{max-width:calc(var(--max) + 80px);margin:0 auto;background:var(--preto);color:#EDE8E1;border-radius:0;padding:64px var(--gutter)}
+@media (min-width:768px){.painel-sec{padding:40px 20px}.painel{border-radius:32px;padding:64px 40px}}
+@media (min-width:960px){.painel{padding:80px 56px}}
+.painel h2{color:#fff}
+.painel-cab{display:grid;gap:18px;margin-bottom:40px}
+.painel-cab h2{font-size:clamp(28px,4.6vw,44px);font-weight:800;margin:0;max-width:14em}
+.painel-cab p{color:#CFC6BB;font-size:16px;margin:0;max-width:34em}
+@media (min-width:960px){.painel-cab{grid-template-columns:1fr 1fr;gap:64px;align-items:end}}
+.exps{list-style:none;margin:0;padding:0;display:grid;gap:16px}
+@media (min-width:960px){.exps{grid-template-columns:repeat(3,1fr)}}
+.exp{background:#1C1916;border-radius:24px;padding:22px 22px 10px;display:flex;flex-direction:column;position:relative}
+.exp-top{position:relative;padding-right:56px}
+.exp-rot{display:block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8C8378;margin-bottom:8px}
+.exp h3{color:var(--laranja);font-size:20px;font-weight:700;line-height:1.25;letter-spacing:-.02em}
+.exp-seta{position:absolute;right:0;top:0;width:44px;height:44px;border-radius:50%;background:#2E2925;color:#fff;display:flex;align-items:center;justify-content:center}
+.exp-seta svg{width:22px;height:22px}
+.exp-acao{margin:18px 0 18px}
+.exp-acao p{font-size:15px;color:#DCD5CC;margin:0}
+.exp-img{margin:auto -12px 0;border-radius:18px;overflow:hidden;position:relative}
+.exp-img img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.exp-img .pend{aspect-ratio:4/3;border-radius:18px;background:repeating-linear-gradient(-45deg,#262220 0 14px,#1F1B19 14px 28px);border-color:#4A433D;color:#CFC6BB;font-size:13px}
+.exp-img .pend b{background:var(--laranja);color:var(--preto)}
+.exp.destq{background:var(--laranja)}
+.exp.destq h3{color:var(--preto)}
+.exp.destq .exp-rot{color:rgba(13,11,10,.6)}
+.exp.destq .exp-acao p{color:var(--preto)}
+.exp.destq .exp-seta{background:var(--preto)}
+.exp.destq .exp-img .pend{background:repeating-linear-gradient(-45deg,#ff7a4d 0 14px,#f56a3b 14px 28px);border-color:rgba(13,11,10,.35);color:var(--preto)}
+.exp.destq .exp-img .pend b{background:var(--preto);color:#fff}
+.painel .destaque{background:#1C1916;margin-top:16px}
+.painel .destaque .hl{color:var(--preto)}
+
+/* ---- 6 · margem: título à esquerda, texto à direita ---- */
+#margem .margem-cab{display:grid;gap:8px}
+@media (min-width:960px){#margem .margem-cab{grid-template-columns:1fr 1fr;gap:64px;align-items:end}}
+
+/* ---- 7 · kmillion ---- */
+.km-grid{grid-template-areas:"t" "i" "x"}
+.km-t{grid-area:t;margin-bottom:0!important}
+.km-img{grid-area:i}
+.km-txt{grid-area:x}
+@media (min-width:960px){
+  .km-grid{grid-template-columns:.95fr 1.05fr;grid-template-areas:"t i" "x i";align-items:start;row-gap:28px}
+  .km-img{align-self:center}
+}
+.lojas{list-style:none;margin:18px 0 0;padding:0;display:grid;grid-template-columns:repeat(10,1fr);gap:8px}
+.lojas li{aspect-ratio:1/1;border-radius:8px;background:#2A2522}
+.lojas li.on{background:var(--laranja)}
+.lojas-leg{display:flex;flex-wrap:wrap;gap:8px 22px;margin:12px 0 0;font-size:13px;color:#CFC6BB}
+.lojas-leg span{display:inline-flex;align-items:center;gap:8px}
+.lojas-leg i{width:12px;height:12px;border-radius:3px;background:#2A2522;display:inline-block}
+.lojas-leg i.on{background:var(--laranja)}
+
+/* ---- 8 · FAQ em linhas ---- */
+.flist{display:grid;gap:12px;margin-top:8px}
+.frow{position:relative;display:grid;grid-template-columns:auto 1fr;gap:14px 18px;align-items:center;background:#FBF6EF;border-radius:20px;padding:20px}
+.frow h3{font-size:clamp(19px,2.6vw,28px);font-weight:600;letter-spacing:-.03em;line-height:1.2}
+.frow p{grid-column:1/-1;margin:0;font-size:15px;color:#4A433D;line-height:1.6}
+.ficon{display:flex;align-items:center;gap:6px;align-self:start}
+.ficon .ic{width:46px;height:46px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center}
+.ficon .ic svg{width:22px;height:22px}
+.ficon .diag{display:none;width:20px;height:20px}
+.frow.on{background:var(--laranja)}
+.frow.on p{color:var(--preto)}
+.fcard{display:none}
+@media (min-width:900px){
+  .frow{grid-template-columns:110px 1fr minmax(260px,.85fr);gap:28px;padding:26px 28px;min-height:116px}
+  .frow p{grid-column:auto;font-size:14.5px}
+  .ficon .diag{display:block}
+  .frow.on p{padding-left:24px}
+  .frow.on{grid-template-columns:110px 1fr 150px minmax(260px,.85fr)}
+  .fcard{display:block;width:150px;height:150px;object-fit:cover;border-radius:18px;margin:-34px 0;transform:rotate(-8deg);box-shadow:0 20px 40px -14px rgba(13,11,10,.55);border:4px solid #fff;position:relative;z-index:2}
+}
+
+/* ---- fechamento: painel preto, recorte e selo ---- */
+.fecha{background:var(--branco);padding:24px 0 0}
+@media (min-width:768px){.fecha{padding:40px 20px 40px}}
+.fecha-painel{display:grid;gap:8px;padding-bottom:0;overflow:hidden;position:relative}
+.fecha h2{color:#fff;font-size:clamp(32px,5.6vw,58px);line-height:1.04;margin-bottom:18px}
+.fecha p{color:#DCD5CC;font-size:18px}
+.fecha .btn{background:var(--laranja);color:var(--preto);border-color:var(--laranja)}
+.fecha .btn:hover{background:#ff7d52;border-color:#ff7d52}
+.fecha-txt{padding-bottom:8px}
+.fecha-foto{position:relative;align-self:end;max-width:420px;width:100%;justify-self:center}
+.fecha-foto img{width:100%;display:block;-webkit-mask-image:linear-gradient(to right,transparent 0,#000 14%);mask-image:linear-gradient(to right,transparent 0,#000 14%)}
+.selo{position:absolute;right:-18px;top:2%;width:132px;height:132px;border-radius:50%;background:var(--laranja);display:flex;align-items:center;justify-content:center;color:var(--preto);text-decoration:none;box-shadow:0 0 0 6px var(--preto)}
+.selo svg{position:absolute;inset:0;width:100%;height:100%;animation:gira 14s linear infinite}
+.selo text{font-family:'Sora',sans-serif;font-size:9.6px;font-weight:700;fill:var(--preto)}
+.selo-ic{width:46px;height:46px;border-radius:50%;background:var(--preto);color:var(--laranja);display:flex;align-items:center;justify-content:center}
+.selo-ic svg{position:static;width:22px;height:22px;animation:none}
+@keyframes gira{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.selo svg{animation:none}}
+@media (min-width:960px){
+  .fecha-painel{grid-template-columns:1.15fr .85fr;gap:40px;align-items:end;padding-top:80px}
+  .fecha-txt{padding-bottom:80px}
+}
+
+/* =================== v3 =================== */
+:root{--laranja-2:#FF8D18}
+
+/* ---- 1 · segundo tom de laranja, por função ----
+   #FE6634 = ação principal (botões, destaques de título, cartão em alerta, lojas com cupom)
+   #FF8D18 = apoio (links secundários, ícones, etiquetas, resultados e dados em fundo escuro)
+   Texto sobre #FF8D18 é sempre preto (contraste 8,6:1); nunca branco. */
+.lnk{text-decoration-color:var(--laranja-2)}
+.sec.esc .lnk,.painel .lnk{color:var(--laranja-2);text-decoration-color:var(--laranja-2)}
+.sec.esc .lnk:hover{color:#fff}
+.sec.esc::before{background:linear-gradient(90deg,var(--laranja) 0 60%,var(--laranja-2) 60%)}
+.seta-btn:hover{background:var(--laranja-2);color:var(--preto)}
+.tam .tag{background:var(--laranja-2)}
+.tam.zero{border-color:var(--laranja-2);background:#FFF4E6}
+.resultado output{color:var(--laranja-2)}
+.calc-esc .calc-img{border-color:var(--laranja-2)}
+.mini i{background:var(--laranja-2)}
+.sem.escuro .pills span:last-child{background:var(--laranja-2);color:var(--preto)}
+.exp-seta{color:var(--laranja-2)}
+.exp.destq .exp-seta{color:var(--laranja-2)}
+.ficon .ic{background:var(--laranja-2);color:var(--preto)}
+.frow.on .ficon .ic{background:#fff}
+.ficon .diag{color:var(--laranja-2)}
+.frow.on .ficon .diag{color:var(--preto)}
+.lojas-leg i.on{background:var(--laranja)}
+.sec.esc .pend b,.painel .exp-img .pend b,.sem.escuro .pend b{background:var(--laranja-2);color:var(--preto)}
+.conta-card.promo h3 span{background:var(--laranja-2)}
+.equacao .op{color:var(--laranja)}
+.pend .play{background:var(--laranja-2)}
+/* botão secundário (borda no tom claro, texto legível) */
+.btn-sec{background:transparent;color:var(--preto);border-color:var(--laranja-2)}
+.btn-sec:hover{background:var(--laranja-2);color:var(--preto)}
+.sec.esc .btn-sec{color:#fff}
+.sec.esc .btn-sec:hover{color:var(--preto)}
+
+/* ---- 3 · cartões de "Quando um produto vira estoque parado?" centralizados ---- */
+.trilho-nota{padding:0 var(--gutter);max-width:var(--max);margin:0 auto 14px}
+.trilho{padding:4px var(--gutter) 12px;scroll-padding-left:var(--gutter)}
+.sem{flex:0 0 min(80vw,318px)}
+@media (max-width:767px){
+  /* celular: um cartão por vez, centralizado, com o próximo aparecendo dos dois lados */
+  .trilho{--pad:calc((100vw - min(80vw,318px))/2);padding-left:var(--pad);padding-right:var(--pad);scroll-padding:0 var(--pad)}
+  .sem{scroll-snap-align:center}
+  .trilho-nota{text-align:center}
+}
+@media (min-width:1100px){
+  /* computador: os quatro cartões cabem na largura do conteúdo, com margens iguais */
+  .trilho{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;max-width:var(--max);margin:0 auto;padding:4px var(--gutter) 12px;overflow:visible}
+  .sem{min-width:0}
+}
+
+/* ---- 4 · tênis: duas colunas, vídeo alinhado pelo topo ---- */
+.decidir{display:grid;gap:36px}
+.decidir .grade-cab{margin-top:32px}
+.decidir-video .pend.v916{max-width:360px;margin:0 auto}
+@media (min-width:960px){
+  .decidir{grid-template-columns:minmax(0,1fr) 380px;gap:56px;align-items:start}
+  .decidir-video .pend.v916{max-width:none;width:100%}
+  .decidir-video{position:sticky;top:100px}
+}
+@media (min-width:1200px){.decidir{grid-template-columns:minmax(0,1fr) 400px;gap:72px}}
+.sem-img img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:20px}
+.km-tela{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:18px;box-shadow:0 24px 48px -24px rgba(0,0,0,.7)}
+.video-916{margin:0;width:100%;max-width:360px;margin-left:auto;margin-right:auto}
+.video-916 video{display:block;width:100%;height:auto;aspect-ratio:9/16;border-radius:var(--raio);background:#0D0B0A;object-fit:cover}
+.video-916 figcaption{font-size:13px;line-height:1.5;color:var(--cinza);margin-top:10px}
+.video-916 figcaption b{display:block;color:var(--preto);font-size:14px}
+@media (min-width:960px){.decidir-video .video-916{max-width:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="topo">
+  <div class="wrap">
+    <a class="logo" href="https://www.kmillion.com.br/" aria-label="Kmillion, página inicial"><img src="img/logo-kmillion-laranja.svg" alt="Kmillion" width="120" height="30"></a>
+    <nav aria-label="Principal">
+      <ul>
+        <li class="so-desk"><a href="https://www.kmillion.com.br/">Início</a></li>
+        <li class="so-desk"><a href="https://www.kmillion.com.br/motor-promocional">Motor Promocional</a></li>
+        <li class="so-desk"><a href="https://www.kmillion.com.br/kashback">KashBack</a></li>
+        <li class="so-desk"><a href="https://www.kmillion.com.br/ims">IMS</a></li>
+        <li class="so-desk"><a href="/blog">Blog</a></li>
+        <li><a class="pill js-wpp" data-posicao="cabecalho" href="#" target="_blank" rel="noopener">Entre em contato</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="conteudo">
+
+<!-- ================= 1 · ABERTURA ================= -->
+<section class="hero" aria-labelledby="titulo">
+  <div class="wrap grid">
+    <div class="txt">
+      <h1 id="titulo">Como girar <span class="hl">estoque parado</span> sem colocar a rede inteira em liquidação</h1>
+      <p class="lead">Sobrou o mesmo produto em dez lojas. Será que as dez precisam dar desconto? Veja como descobrir onde está o excesso, quanto ele representa em dinheiro e qual oferta vale testar em cada unidade.</p>
+      <div class="ctas">
+        <a class="btn js-wpp" data-posicao="abertura" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3a.5.5 0 0 0 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.7 11.7 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.5-.3Z"/></svg>
+          Pedir uma demonstração para minha rede</a>
+        <a class="lnk" href="#calcular">Calcular o valor do meu estoque parado <span aria-hidden="true">↓</span></a>
+      </div>
+    </div>
+    <figure class="foto" style="margin-bottom:0">
+      <img src="img/kamila-estoque-960.webp" srcset="img/kamila-estoque-640.webp 640w, img/kamila-estoque-960.webp 960w" sizes="(min-width: 960px) 44vw, 100vw" width="960" height="1200" alt="Mulher sorridente faz uma selfie no estoque de uma loja, entre prateleiras com caixas de produtos." fetchpriority="high">
+    </figure>
+  </div>
+</section>
+
+<!-- ================= 2 · DEFINIÇÃO (composição: cartões em sequência, ref. 3) ================= -->
+<section class="sec def" aria-labelledby="t-definicao">
+  <div class="wrap">
+    <div class="def-cab">
+      <h2 id="t-definicao">Quando um produto vira estoque parado?</h2>
+      <div class="setas" aria-hidden="false">
+        <button type="button" class="seta-btn" data-dir="-1" aria-label="Cartão anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <button type="button" class="seta-btn" data-dir="1" aria-label="Próximo cartão"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+    <div class="def-txt">
+      <p>Estoque parado é a mercadoria que continua disponível depois do prazo em que a rede esperava vendê-la. Esse prazo muda com a categoria e a estação. Para identificar o que exige ação, compare o saldo, a última venda e o ritmo de saída do mesmo produto em cada loja.</p>
+      <p>Se a coleção está no fim e uma unidade ainda tem metade do lote, vale investigar. Se outra vende o mesmo item toda semana a preço cheio, cada loja pede uma decisão diferente.</p>
+    </div>
+  </div>
+  <div class="trilho-wrap">
+    <p class="nota trilho-nota">Exemplo ilustrativo · o mesmo liquidificador em duas lojas</p>
+    <ul class="trilho" id="trilho" aria-label="Saldo do mesmo produto ao longo de três semanas">
+        <li class="sem ">
+          <div class="sem-top">
+            <div class="pills"><span>Semana 1</span><span>Loja A</span></div>
+            <p class="sem-num"><b>52</b> unidades</p>
+            <p class="sem-txt">de 100 compradas · vendeu 2 na semana</p>
+            <div class="lote" aria-hidden="true"><i style="width:52%"></i></div>
+          </div>
+          <div class="sem-img"><img src="img/prateleira-semana-1.webp" width="640" height="640" loading="lazy" alt="Semana 1: seis caixas do liquidificador laranja no centro da prateleira, cercadas de torradeiras, cafeteiras e panelas."></div>
+        </li>
+        <li class="sem ">
+          <div class="sem-top">
+            <div class="pills"><span>Semana 2</span><span>Loja A</span></div>
+            <p class="sem-num"><b>51</b> unidades</p>
+            <p class="sem-txt">de 100 compradas · vendeu 1 na semana</p>
+            <div class="lote" aria-hidden="true"><i style="width:51%"></i></div>
+          </div>
+          <div class="sem-img"><img src="img/prateleira-semana-2.webp" width="640" height="640" loading="lazy" alt="Semana 2: as mesmas seis caixas do liquidificador; ao redor, as prateleiras vizinhas já estão quase vazias."></div>
+        </li>
+        <li class="sem alerta">
+          <div class="sem-top">
+            <div class="pills"><span>Semana 3</span><span>Loja A</span></div>
+            <p class="sem-num"><b>50</b> unidades</p>
+            <p class="sem-txt">de 100 compradas · vendeu 1 na semana</p>
+            <div class="lote" aria-hidden="true"><i style="width:50%"></i></div>
+          </div>
+          <div class="sem-img"><img src="img/prateleira-semana-3.webp" width="640" height="640" loading="lazy" alt="Semana 3: as mesmas seis caixas do liquidificador, agora com uma teia no canto; ao redor, enfeites de Natal substituíram os outros produtos."></div>
+        </li>
+        <li class="sem escuro">
+          <div class="sem-top">
+            <div class="pills"><span>Semanas 1 a 3</span><span>Loja B</span></div>
+            <p class="sem-num"><b>12</b> unidades</p>
+            <p class="sem-txt">de 48 compradas · vendeu 12 por semana a preço cheio</p>
+            <div class="mini" aria-hidden="true"><i style="height:100%"></i><i style="height:75%"></i><i style="height:50%"></i><i style="height:25%"></i></div>
+          </div>
+          <div class="sem-img"><img src="img/prateleira-loja-b.webp" width="640" height="640" loading="lazy" alt="Loja B: restam só duas caixas do mesmo liquidificador na prateleira."></div>
+        </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= 3 · CALCULADORA ================= -->
+<section class="sec esc calc-esc" id="calcular" aria-labelledby="t-calcular">
+  <div class="wrap calc-wrap">
+    <div>
+      <h2 id="t-calcular">Quanto dinheiro está parado no seu estoque?</h2>
+      <div class="texto"><p>Multiplique a quantidade que sobrou pelo custo de compra de cada unidade. Se você está analisando vários produtos, faça a conta de cada um e some os resultados.</p></div>
+
+      <form class="calc" id="calc" novalidate onsubmit="return false" style="margin-top:28px" aria-label="Calculadora do valor do estoque parado">
+        <div class="campos">
+          <div class="campo" id="c-unidades">
+            <label for="unidades">Unidades paradas</label>
+            <div class="entrada">
+              <input id="unidades" name="unidades" type="text" inputmode="numeric" autocomplete="off" value="100" aria-describedby="e-unidades">
+              <span class="suf" aria-hidden="true">un.</span>
+            </div>
+            <p class="erro" id="e-unidades" role="alert" aria-live="polite"></p>
+          </div>
+          <div class="campo" id="c-custo">
+            <label for="custo">Custo de compra por unidade</label>
+            <div class="entrada">
+              <span class="pre" aria-hidden="true">R$</span>
+              <input id="custo" name="custo" type="text" inputmode="decimal" autocomplete="off" value="120,00" aria-describedby="e-custo">
+            </div>
+            <p class="erro" id="e-custo" role="alert" aria-live="polite"></p>
+          </div>
+        </div>
+        <div class="resultado" id="resultado">
+          <span class="rot" id="r-rot">Valor investido nesse estoque</span>
+          <output id="valor" for="unidades custo" aria-labelledby="r-rot" aria-live="polite">R$&nbsp;12.000,00</output>
+          <span class="conta" id="conta">100 unidades × R$&nbsp;120,00</span>
+        </div>
+      </form>
+
+      <p class="apoio">Imagine que sobraram 100 liquidificadores que custaram R$ 120 cada. São R$ 12 mil investidos nessa mercadoria. Quanto vai voltar para o caixa depende do preço de venda, de quantos forem vendidos e de quando a rede receber.</p>
+    </div>
+    <figure class="calc-img" style="margin-left:0;margin-right:0;margin-bottom:0">
+      <img src="img/caixas-dinheiro-1200.webp" srcset="img/caixas-dinheiro-720.webp 720w, img/caixas-dinheiro-1200.webp 1200w" sizes="(min-width: 960px) 46vw, 100vw" width="1200" height="800" loading="lazy" alt="Caixas de papelão abertas em um estoque, cheias de cédulas de dinheiro.">
+    </figure>
+  </div>
+</section>
+
+<!-- ================= 4 · DECIDIR (duas colunas: explicação | vídeo) ================= -->
+<section class="sec" id="decidir" aria-labelledby="t-decidir">
+  <div class="wrap decidir">
+    <div class="decidir-txt">
+      <h2 id="t-decidir">Olhe primeiro para o que sobrou em cada loja</h2>
+      <div class="texto">
+        <p>Uma loja tem 40 pares do mesmo tênis. Vinte são do 35 e vinte do 43. O 38 e o 39, os mais procurados ali, acabaram. Se a rede der 20% de desconto, o cliente que calça 39 continua sem ter o que levar.</p>
+        <p>Se outra unidade tiver o 39 de sobra e a transferência fizer sentido em custo e prazo, a rede pode atender essa procura. Para os números 35 e 43, a pergunta é outra: onde ainda há comprador?</p>
+      </div>
+      <div class="grade-cab"><strong>Saldo do tênis nesta loja</strong><span class="nota">Exemplo ilustrativo</span></div>
+      <ul class="grade" aria-label="Saldo por numeração">
+        <li class="tam"><span class="num">Número <b>35</b></span><span class="barra" aria-hidden="true"><i style="width:100%"></i></span><span class="saldo">20 pares</span></li>
+        <li class="tam zero"><span class="num">Número <b>38</b></span><span class="tag">mais procurado</span><span class="saldo">0 pares</span></li>
+        <li class="tam zero"><span class="num">Número <b>39</b></span><span class="tag">mais procurado</span><span class="saldo">0 pares</span></li>
+        <li class="tam"><span class="num">Número <b>43</b></span><span class="barra" aria-hidden="true"><i style="width:100%"></i></span><span class="saldo">20 pares</span></li>
+      </ul>
+    </div>
+    <div class="decidir-video">
+      <figure class="video-916">
+        <video controls playsinline preload="none" poster="video/tenis-grade-quebrada-poster.jpg" width="720" height="1280" aria-label="Varejo em menos de um minuto · Grade quebrada">
+          <source src="video/tenis-grade-quebrada.mp4" type="video/mp4">
+        </video>
+        <figcaption><b>Varejo em menos de um minuto · Grade quebrada</b>Sobraram 40 pares, mas faltam o 38 e o 39. Legendas no próprio vídeo.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 5 · COMPRADOR (composição: painel preto com três cartões, ref. 2) ================= -->
+<section class="sec painel-sec" aria-labelledby="t-comprador">
+  <div class="painel">
+    <div class="painel-cab">
+      <h2 id="t-comprador">Como encontrar comprador para o que ficou?</h2>
+      <p>Comece pelas lojas em que o produto ainda vende a preço cheio. Depois, olhe para os clientes que já compraram aquela categoria ou levaram um item que combina com o que sobrou. Com essas duas informações, dá para escolher onde agir e quem deve receber a oferta.</p>
+    </div>
+    <ul class="exps">
+        <li class="exp ">
+          <div class="exp-top">
+            <span class="exp-rot">O que a rede encontrou</span>
+            <h3>O produto ainda vende a preço cheio em algumas lojas.</h3>
+            <span class="exp-seta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+          </div>
+          <div class="exp-acao"><span class="exp-rot">O que vale testar</span><p>Manter o preço nessas unidades e avaliar se vale transferir parte do saldo para elas.</p></div>
+          <div class="exp-img"><img src="img/kamila-corredor-800.webp" width="800" height="600" alt="Mulher separa produtos nas prateleiras do estoque de uma loja."></div>
+        </li>
+        <li class="exp destq">
+          <div class="exp-top">
+            <span class="exp-rot">O que a rede encontrou</span>
+            <h3>O excesso está concentrado em poucas lojas e há clientes interessados na categoria.</h3>
+            <span class="exp-seta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+          </div>
+          <div class="exp-acao"><span class="exp-rot">O que vale testar</span><p>Criar um cupom só para esse público, nas lojas participantes, com produto e prazo definidos.</p></div>
+          <div class="exp-img"><img src="img/camila-celular.webp" width="800" height="600" loading="lazy" alt="Mulher no estoque de uma loja olha a tela do celular, com prateleiras de caixas ao fundo."></div>
+        </li>
+        <li class="exp ">
+          <div class="exp-top">
+            <span class="exp-rot">O que a rede encontrou</span>
+            <h3>O item parado combina com outro que já vende bem.</h3>
+            <span class="exp-seta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+          </div>
+          <div class="exp-acao"><span class="exp-rot">O que vale testar</span><p>Testar um combo e calcular quanto sobra na venda do conjunto depois do benefício.</p></div>
+          <div class="exp-img"><img src="img/combo-copos.webp" width="800" height="600" loading="lazy" alt="Liquidificador laranja ao lado de quatro copos de vidro sobre o balcão de uma loja."></div>
+        </li>
+    </ul>
+    <aside class="destaque" aria-labelledby="t-tres">
+      <h3 id="t-tres">Seu estoque já passou por <span class="hl">três promoções</span> e continua lá?</h3>
+      <p>Antes de repetir a oferta, confira se o público certo recebeu o benefício, se a loja tinha a variação que ele procurava e quanto precisava vender para compensar o desconto.</p>
+    </aside>
+  </div>
+</section>
+
+<!-- ================= 6 · MARGEM ================= -->
+<section class="sec alt" id="margem" aria-labelledby="t-margem">
+  <div class="wrap">
+    <div class="margem-cab">
+      <h2 id="t-margem">Quanto um desconto de 20% custa à sua margem?</h2>
+      <div class="texto" style="margin-bottom:26px">
+          <p>Um liquidificador custa R$ 120 para a rede e é vendido por R$ 200. Nessa conta simplificada, sobram R$ 80 de lucro bruto por unidade. Com 20% de desconto, o preço cai para R$ 160 e sobram R$ 40.</p>
+          <p>A rede precisa vender <strong>dois liquidificadores em promoção</strong> para igualar o lucro bruto de <strong>um a preço cheio</strong>. Olhando para o histórico dessa loja, dá para vender o dobro no prazo da campanha?</p>
+      </div>
+    </div>
+    <div class="margem-bloco">
+      <div>
+
+        <p class="nota" style="margin-top:32px">Exemplo ilustrativo · considera apenas preço de venda e custo de compra</p>
+        <div class="contas">
+          <div class="conta-card">
+            <h3>Preço cheio <span>1 unidade</span></h3>
+            <dl>
+              <dt>Preço de venda</dt><dd>R$ 200</dd>
+              <dt>Custo de compra</dt><dd>− R$ 120</dd>
+              <dt class="tot">Lucro bruto</dt><dd class="tot">R$ 80</dd>
+            </dl>
+          </div>
+          <div class="conta-card promo">
+            <h3>Com 20% de desconto <span>1 unidade</span></h3>
+            <dl>
+              <dt>Preço de venda</dt><dd><s>R$ 200</s>R$ 160</dd>
+              <dt>Custo de compra</dt><dd>− R$ 120</dd>
+              <dt class="tot">Lucro bruto</dt><dd class="tot">R$ 40</dd>
+            </dl>
+          </div>
+        </div>
+        <div class="equacao" aria-label="2 vezes R$ 40 é igual a 1 vez R$ 80">
+          <span class="bloco"><small>em promoção</small><strong>2 × R$ 40</strong></span>
+          <span class="op" aria-hidden="true">=</span>
+          <span class="bloco"><small>a preço cheio</small><strong>1 × R$ 80</strong></span>
+        </div>
+      </div>
+      <div>
+        <figure class="video-916">
+        <video controls playsinline preload="none" poster="video/liquidificador-desconto-poster.jpg" width="720" height="1280" aria-label="Varejo em 1 minuto · Quanto custa dar desconto?">
+          <source src="video/liquidificador-desconto.mp4" type="video/mp4">
+        </video>
+        <figcaption><b>Varejo em 1 minuto · Quanto custa dar desconto?</b>Com 20% de desconto, o lucro bruto por unidade cai de R$ 80 para R$ 40. Legendas no próprio vídeo.</figcaption>
+      </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 7 · KMILLION ================= -->
+<section class="sec esc" id="kmillion" aria-labelledby="t-kmillion">
+  <div class="wrap km-grid">
+    <h2 id="t-kmillion" class="km-t">Como colocar essa estratégia de pé em <span class="o2">várias lojas?</span></h2>
+    <div class="km-img">
+      <img class="km-tela" src="img/motor-configurar-cupom-1600.webp" srcset="img/motor-configurar-cupom-960.webp 960w, img/motor-configurar-cupom-1600.webp 1600w" sizes="(min-width: 960px) 52vw, 100vw" width="1600" height="900" loading="lazy" alt="Tela ilustrativa do Motor Promocional: configuração de um cupom de 7 dias para o liquidificador, com 4 de 20 lojas selecionadas e público de clientes interessados na categoria.">
+      <ul class="lojas" aria-label="Exemplo ilustrativo: 4 de 20 lojas com cupom">
+        <li class="on"></li><li class="on"></li><li></li><li></li><li class="on"></li><li></li><li></li><li></li><li></li><li></li><li></li><li class="on"></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+      </ul>
+      <p class="lojas-leg"><span><i class="on"></i>4 lojas com cupom de 7 dias</span><span><i></i>16 lojas a preço cheio</span></p>
+    </div>
+    <div class="km-txt">
+      <div class="texto">
+        <p>Imagine que quatro lojas estão com excesso e as outras dezesseis seguem vendendo bem. Com o <strong>Motor Promocional da Kmillion</strong>, seu time pode criar um cupom de sete dias, escolher as quatro lojas participantes, definir qual público recebe o benefício e acompanhar o resultado da ação. Nas outras dezesseis, o produto segue a preço cheio.</p>
+        <p>Na demonstração, veja como configurar uma oferta para parte da rede, publicar a regra e acompanhar a campanha.</p>
+      </div>
+      <div class="ctas">
+        <a class="btn js-wpp" data-posicao="kmillion" href="#" target="_blank" rel="noopener">Pedir uma demonstração para minha rede</a>
+        <a class="btn btn-sec" href="https://www.kmillion.com.br/motor-promocional">Conhecer o Motor Promocional <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 8 · FAQ (composição: lista em linhas com uma linha em destaque, ref. 1) ================= -->
+<section class="sec" aria-labelledby="t-faq">
+  <div class="wrap">
+    <h2 id="t-faq">Dúvidas sobre estoque parado</h2>
+    <div class="flist">
+      <div class="frow ">
+        <div class="ficon"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v5l3 2"/><circle cx="12" cy="12" r="9"/></svg></span><span class="diag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7l10 10M17 8v9H8"/></svg></span></div>
+        <h3>Depois de quantos dias um produto pode ser considerado parado?</h3>
+        <p>Use o ciclo de venda da categoria como referência. Compare o tempo desde a última venda, a época do ano e a saída do mesmo produto em outras lojas. Uma peça de fim de coleção e um item que vende o ano inteiro podem pedir prazos diferentes.</p>
+      </div>
+      <div class="frow ">
+        <div class="ficon"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span class="diag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7l10 10M17 8v9H8"/></svg></span></div>
+        <h3>Estoque parado já significa prejuízo?</h3>
+        <p>O produto ainda tem valor em estoque. O risco aumenta quando a rede precisa vender abaixo do custo, descartar mercadoria ou gastar mais para mantê-la.</p>
+      </div>
+      <div class="frow ">
+        <div class="ficon"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span class="diag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7l10 10M17 8v9H8"/></svg></span></div>
+        <h3>Como saber se a promoção ajudou?</h3>
+        <p>Compare as unidades vendidas, o saldo que restou e o lucro bruto no período. Quando possível, use lojas semelhantes que ficaram fora da ação como referência e considere diferenças de calendário.</p>
+      </div>
+      <div class="frow on">
+        <div class="ficon"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg></span><span class="diag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7l10 10M17 8v9H8"/></svg></span></div>
+        <h3>Para que tipo de rede a Kmillion é indicada?</h3>
+        <img class="fcard" src="img/kamila-positivo-600.webp" width="600" height="600" alt="Mulher sorridente faz sinal de positivo com as duas mãos, sentada no estoque com um notebook.">
+        <p>A plataforma atende operações com várias lojas e regras promocionais por canal e público. A Kmillion indica maior aderência em redes com mais de 20 unidades.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FECHAMENTO (composição: painel preto com selo giratório, ref. 2) ================= -->
+<section class="fecha" aria-labelledby="t-fecha">
+  <div class="painel fecha-painel">
+    <div class="fecha-txt">
+      <h2 id="t-fecha">Quer ver como essa estratégia funcionaria <span class="o2">na sua rede?</span></h2>
+      <p>Traga um produto, as lojas em que ele sobrou e a promoção que você pensou em fazer.</p>
+      <div class="ctas"><a class="btn js-wpp" data-posicao="fechamento" href="#" target="_blank" rel="noopener">Pedir uma demonstração para minha rede</a></div>
+    </div>
+    <div class="fecha-foto">
+      <img src="img/kamila-recorte.webp" width="900" height="1062" alt="Mulher sorridente de camiseta branca, em recorte.">
+      <a class="selo js-wpp" data-posicao="selo" href="#" target="_blank" rel="noopener" aria-label="Pedir uma demonstração para minha rede">
+        <svg viewBox="0 0 120 120" aria-hidden="true"><defs><path id="circ" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"/></defs><text><textPath href="#circ" textLength="272" lengthAdjust="spacing">PEDIR DEMONSTRAÇÃO · PEDIR DEMONSTRAÇÃO · </textPath></text></svg>
+        <span class="selo-ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Z"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="rodape">
+  <div class="wrap">
+    <a href="https://www.kmillion.com.br/" aria-label="Kmillion, página inicial"><img src="img/logo-kmillion-branco.svg" alt="Kmillion" width="112" height="28"></a>
+    <ul>
+      <li><a href="https://www.kmillion.com.br/motor-promocional">Motor Promocional</a></li>
+      <li><a href="https://www.kmillion.com.br/kashback">KashBack</a></li>
+      <li><a href="https://www.kmillion.com.br/ims">IMS</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="https://app.kmillion.com.br">Entrar</a></li>
+      <li><a href="https://www.kmillion.com.br/politicadeprivacidade">Política de Privacidade</a></li>
+    </ul>
+    <span>© Kmillion</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* ---------- WhatsApp: mesmo destino e mensagem em todos os botões ---------- */
+  var WPP_NUMERO = '5511967750313';
+  var WPP_MSG = 'Oi, vim pela página de estoque parado e quero ver como configurar uma promoção para algumas lojas da minha rede.';
+  var WPP_URL = 'https://api.whatsapp.com/send/?phone=' + WPP_NUMERO + '&text=' + encodeURIComponent(WPP_MSG);
+
+  window.dataLayer = window.dataLayer || [];
+  function evento(nome, dados){ var e = {event: nome}; for (var k in dados) e[k] = dados[k]; window.dataLayer.push(e); }
+
+  document.querySelectorAll('.js-wpp').forEach(function(a){
+    a.href = WPP_URL;
+    /* um evento por clique; sem telefone ou texto da mensagem no analytics */
+    a.addEventListener('click', function(){ evento('clique_whatsapp', {posicao_botao: a.dataset.posicao}); });
+  });
+
+  /* ---------- calculadora ---------- */
+  var BRL = new Intl.NumberFormat('pt-BR', {style:'currency', currency:'BRL'});
+  var INT = new Intl.NumberFormat('pt-BR', {maximumFractionDigits:0});
+  var $u = document.getElementById('unidades'), $c = document.getElementById('custo');
+  var $valor = document.getElementById('valor'), $conta = document.getElementById('conta'), $res = document.getElementById('resultado');
+
+  function limpa(s){ return String(s).replace(/R\$/gi,'').replace(/[\s ]/g,''); }
+
+  /* unidades: inteiro ≥ 0, aceita separador de milhar (1.000) */
+  function lerUnidades(s){
+    s = limpa(s);
+    if (s === '') return {erro:'Informe quantas unidades sobraram (pode ser 0).'};
+    if (/^\d{1,3}(\.\d{3})+$/.test(s)) s = s.replace(/\./g,'');
+    if (!/^\d+$/.test(s)) return {erro: /^-/.test(s) ? 'Use um número igual ou maior que zero.' : 'Use apenas números inteiros, sem vírgula.'};
+    return {v: parseInt(s,10)};
+  }
+  /* custo: aceita 120 · 120,5 · 120,50 · 1.234,56 · 1234.56 */
+  function lerCusto(s){
+    s = limpa(s);
+    if (s === '') return {erro:'Informe o custo de compra de uma unidade.'};
+    if (/^-/.test(s)) return {erro:'Use um valor igual ou maior que zero.'};
+    var n;
+    if (/^\d{1,3}(\.\d{3})*(,\d{1,2})?$/.test(s) || /^\d+(,\d{1,2})?$/.test(s)) n = s.replace(/\./g,'').replace(',','.');
+    else if (/^\d+\.\d{1,2}$/.test(s)) n = s;
+    else return {erro: /,\d{3,}$/.test(s) ? 'Use no máximo dois dígitos para os centavos.' : 'Digite um valor em reais, como 120,00.'};
+    return {v: Math.round(parseFloat(n)*100)/100};
+  }
+
+  function marca(campo, msg){
+    var box = document.getElementById('c-'+campo), err = document.getElementById('e-'+campo), inp = document.getElementById(campo);
+    box.classList.toggle('invalido', !!msg);
+    err.textContent = msg || '';
+    if (msg) inp.setAttribute('aria-invalid','true'); else inp.removeAttribute('aria-invalid');
+  }
+
+  var calculou = false, timer = null;
+  function calcula(){
+    var u = lerUnidades($u.value), c = lerCusto($c.value);
+    marca('unidades', u.erro); marca('custo', c.erro);
+    if (u.erro || c.erro){
+      $res.classList.add('vazio');
+      $valor.textContent = 'R$ —';
+      $conta.textContent = 'Corrija o campo destacado para ver o resultado.';
+      return null;
+    }
+    var total = Math.round(u.v * c.v * 100) / 100;
+    $res.classList.remove('vazio');
+    $valor.textContent = BRL.format(total);
+    $conta.textContent = INT.format(u.v) + (u.v === 1 ? ' unidade' : ' unidades') + ' × ' + BRL.format(c.v);
+    return total;
+  }
+  /* "cálculo concluído": dispara uma única vez por visita, depois que a pessoa para de digitar com valores válidos */
+  function aoDigitar(){
+    var ok = calcula() !== null;
+    clearTimeout(timer);
+    if (ok && !calculou) timer = setTimeout(function(){ calculou = true; evento('calculo_concluido', {secao:'calcular'}); }, 1200);
+  }
+  $u.addEventListener('input', aoDigitar);
+  $c.addEventListener('input', aoDigitar);
+  /* ao sair do campo, mostra o custo no formato 120,00 */
+  $c.addEventListener('blur', function(){
+    var c = lerCusto($c.value);
+    if (!c.erro) $c.value = c.v.toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
+  });
+  $u.addEventListener('blur', function(){
+    var u = lerUnidades($u.value);
+    if (!u.erro) $u.value = String(u.v);
+  });
+  calcula();
+
+  /* ---------- trilho de cartões (seção 2) ---------- */
+  var trilho = document.getElementById('trilho');
+  var setas = document.querySelectorAll('.seta-btn');
+  function atualizaSetas(){
+    var max = trilho.scrollWidth - trilho.clientWidth - 2;
+    setas[0].disabled = trilho.scrollLeft <= 2;
+    setas[1].disabled = trilho.scrollLeft >= max;
+    setas[0].parentNode.style.visibility = max > 0 ? 'visible' : 'hidden';
+  }
+  setas.forEach(function(b){
+    b.addEventListener('click', function(){
+      var passo = trilho.querySelector('.sem').offsetWidth + 16;
+      trilho.scrollBy({left: passo * parseInt(b.dataset.dir,10), behavior:'smooth'});
+    });
+  });
+  trilho.addEventListener('scroll', atualizaSetas, {passive:true});
+  window.addEventListener('resize', atualizaSetas);
+  atualizaSetas();
+})();
+</script>
+</body>
+</html>
