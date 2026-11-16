@@ -50,8 +50,6 @@ export function CampaignSimulatorSection(): ReactNode {
           </p>
           <Link
             href={CALCULADORA_URL}
-            target="_blank"
-            rel="noopener noreferrer"
             className="bg-accent mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold text-white transition-transform duration-300 hover:translate-x-0.5 hover:bg-[#e85b2d] lg:mt-10"
           >
             Abrir simulador
@@ -76,7 +74,7 @@ export function CampaignSimulatorSection(): ReactNode {
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-sm font-semibold text-white">
-                  calculadora.com
+                  Motor promocional Kmillion
                 </p>
                 <p className="mt-2 text-sm leading-relaxed text-white/65 sm:text-base">
                   Simule cashback, desconto progressivo, combo ou cupom e acompanhe

@@ -1,2 +1,2 @@
-/** Simulador de campanha (site externo). */
-export const CALCULADORA_URL = "https://calculadora.com";
+/** Página do Motor promocional, onde fica a simulação de campanha. */
+export const CALCULADORA_URL = "/motor-promocional";
