@@ -15,62 +15,47 @@ import type { ReactNode } from "react";
  * Página /blog. Server component: a lista precisa estar no HTML para o
  * Google e para os motores de resposta.
  *
- * O post mais recente ganha o destaque grande; os outros entram na grade.
+ * Título curto e direto para os posts (pedido de 16/11/2026: sem subtítulo,
+ * os posts logo de cara). Dois posts por linha; enquanto houver um só, ele
+ * ocupa a largura toda, com foto e texto lado a lado.
+ *
  * Os links são <a> comuns, não <Link>: o post é uma página HTML à parte
  * (ver app/blog/[slug]/route.ts), não uma rota React.
  */
 export function BlogIndexPage({ posts }: { posts: BlogPost[] }): ReactNode {
-  const [featured, ...rest] = posts;
+  const [onlyPost] = posts;
 
   return (
     <>
       <main id="main-content" className="relative overflow-hidden">
         <div
-          className="pointer-events-none absolute inset-x-0 top-0 h-[720px] bg-[radial-gradient(900px_420px_at_12%_10%,rgba(254,102,52,0.14),transparent_60%),radial-gradient(700px_380px_at_92%_30%,rgba(48,2,80,0.22),transparent_55%)]"
+          className="pointer-events-none absolute inset-x-0 top-0 h-[560px] bg-[radial-gradient(900px_380px_at_12%_0%,rgba(254,102,52,0.12),transparent_60%),radial-gradient(700px_340px_at_92%_10%,rgba(48,2,80,0.2),transparent_55%)]"
           aria-hidden="true"
         />
 
         <div className="relative mx-auto max-w-6xl px-6 pt-36 max-[850px]:px-5 max-[850px]:pt-28">
-          <MotionDiv className="max-w-3xl">
-            <p className="text-accent text-sm font-semibold tracking-[0.2em] uppercase">
-              Blog Kmillion
-            </p>
-            <h1 className="text-foreground mt-4 text-[clamp(2.25rem,5vw,4rem)] leading-[1.04] font-semibold tracking-[-0.05em] text-balance">
-              Ideias e contas para{" "}
-              <span className="text-accent">promoções</span> que funcionam no
-              varejo físico.
+          <MotionDiv>
+            <h1 className="text-foreground text-[clamp(2rem,3.5vw,3rem)] leading-[1.08] font-semibold tracking-[-0.045em] text-balance">
+              Promoções que funcionam no{" "}
+              <span className="text-accent">varejo físico</span>
             </h1>
-            <p className="text-muted-foreground mt-6 max-w-2xl text-lg leading-relaxed">
-              Artigos práticos sobre estoque, desconto, cashback e campanhas,
-              com exemplos e números para aplicar na sua rede.
-            </p>
           </MotionDiv>
 
-          {featured ? (
-            <MotionDiv className="mt-14 max-[850px]:mt-10">
-              <FeaturedPost post={featured} />
-            </MotionDiv>
-          ) : (
-            <EmptyState />
-          )}
+          <MotionDiv className="mt-10 max-[850px]:mt-8">
+            {posts.length === 0 && <EmptyState />}
 
-          {rest.length > 0 && (
-            <section aria-labelledby="mais-artigos" className="mt-20">
-              <h2
-                id="mais-artigos"
-                className="text-foreground text-2xl font-semibold tracking-[-0.03em]"
-              >
-                Mais artigos
-              </h2>
-              <ul className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {rest.map((post) => (
+            {posts.length === 1 && onlyPost && <WidePost post={onlyPost} />}
+
+            {posts.length > 1 && (
+              <ul className="grid gap-6 md:grid-cols-2">
+                {posts.map((post, index) => (
                   <li key={post.slug} className="min-w-0">
-                    <PostCard post={post} />
+                    <PostCard post={post} priority={index < 2} />
                   </li>
                 ))}
               </ul>
-            </section>
-          )}
+            )}
+          </MotionDiv>
 
           <ContactCta />
         </div>
@@ -81,10 +66,11 @@ export function BlogIndexPage({ posts }: { posts: BlogPost[] }): ReactNode {
   );
 }
 
-function FeaturedPost({ post }: { post: BlogPost }): ReactNode {
+/** Um post só: largura toda, foto e texto lado a lado no computador. */
+function WidePost({ post }: { post: BlogPost }): ReactNode {
   return (
     <article className="group border-border bg-muted hover:border-accent/50 relative grid overflow-hidden rounded-[2rem] border shadow-[0_30px_80px_-50px_rgba(0,0,0,0.6)] transition-colors duration-300 lg:grid-cols-[1.05fr_1fr]">
-      <div className="relative aspect-[4/3] overflow-hidden lg:aspect-auto lg:min-h-[540px]">
+      <div className="relative aspect-[16/10] overflow-hidden lg:aspect-auto lg:min-h-[460px]">
         {post.cover ? (
           <Image
             src={post.cover}
@@ -100,9 +86,9 @@ function FeaturedPost({ post }: { post: BlogPost }): ReactNode {
       </div>
 
       <div className="flex flex-col p-10 max-[850px]:p-6 max-[850px]:pt-7">
-        <PostTags post={post} label="Mais recente" />
+        <PostTags post={post} />
 
-        <h2 className="text-foreground mt-6 text-[clamp(1.75rem,3.2vw,2.6rem)] leading-[1.08] font-semibold tracking-[-0.04em] text-balance">
+        <h2 className="text-foreground mt-5 text-[clamp(1.6rem,2.8vw,2.3rem)] leading-[1.1] font-semibold tracking-[-0.04em] text-balance">
           {/* O link cobre o cartão inteiro (::after), sem aninhar elementos dentro do <a>. */}
           <a
             href={post.path}
@@ -112,89 +98,87 @@ function FeaturedPost({ post }: { post: BlogPost }): ReactNode {
           </a>
         </h2>
 
-        <p className="text-muted-foreground mt-5 line-clamp-4 text-lg leading-relaxed">
+        <p className="text-muted-foreground mt-4 line-clamp-4 text-lg leading-relaxed">
           {post.description}
         </p>
 
-        <div className="mt-auto flex flex-wrap items-center justify-between gap-6 pt-10">
+        <div className="mt-auto flex flex-wrap items-center justify-between gap-6 pt-8">
           <PostMeta post={post} />
-          <span className="inline-flex items-center" aria-hidden="true">
-            <span className="bg-accent rounded-xl px-5 py-3 text-sm font-medium text-white">
-              Ler artigo
-            </span>
-            <span className="text-accent relative -left-px flex h-10 w-10 items-center justify-center rounded-xl bg-white shadow-sm">
-              <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:rotate-45" />
-            </span>
-          </span>
+          <ReadButton />
         </div>
       </div>
     </article>
   );
 }
 
-function PostCard({ post }: { post: BlogPost }): ReactNode {
+function ReadButton(): ReactNode {
   return (
-    <article className="group border-border bg-muted hover:border-accent/50 relative flex h-full flex-col overflow-hidden rounded-[1.6rem] border transition-colors duration-300">
-      <div className="relative aspect-[4/3] overflow-hidden">
+    <span className="inline-flex items-center" aria-hidden="true">
+      <span className="bg-accent rounded-xl px-5 py-3 text-sm font-medium text-white">
+        Ler artigo
+      </span>
+      <span className="text-accent relative -left-px flex h-10 w-10 items-center justify-center rounded-xl bg-white shadow-sm">
+        <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:rotate-45" />
+      </span>
+    </span>
+  );
+}
+
+/** Cartão da grade de 2 por linha. */
+function PostCard({
+  post,
+  priority,
+}: {
+  post: BlogPost;
+  priority: boolean;
+}): ReactNode {
+  return (
+    <article className="group border-border bg-muted hover:border-accent/50 relative flex h-full flex-col overflow-hidden rounded-[1.8rem] border transition-colors duration-300">
+      <div className="relative aspect-[16/10] overflow-hidden">
         {post.cover ? (
           <Image
             src={post.cover}
             alt={post.coverAlt}
             fill
-            sizes="(min-width: 1024px) 360px, (min-width: 768px) 50vw, 100vw"
-            className="object-cover object-[50%_30%] transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+            priority={priority}
+            sizes="(min-width: 1152px) 552px, (min-width: 768px) 50vw, 100vw"
+            className="object-cover object-[50%_30%] transition-transform duration-700 ease-out group-hover:scale-[1.03]"
           />
         ) : (
           <CoverFallback />
         )}
       </div>
 
-      <div className="flex flex-1 flex-col p-6">
+      <div className="flex flex-1 flex-col p-8 max-[850px]:p-6">
         <PostTags post={post} />
-        <h3 className="text-foreground mt-4 text-xl leading-snug font-semibold tracking-[-0.02em] text-balance">
+        <h2 className="text-foreground mt-4 text-[1.6rem] leading-[1.15] font-semibold tracking-[-0.035em] text-balance first:mt-0 max-[850px]:text-[1.35rem]">
           <a
             href={post.path}
-            className="focus-visible:after:ring-accent after:absolute after:inset-0 after:rounded-[1.6rem] focus-visible:outline-none focus-visible:after:ring-2"
+            className="focus-visible:after:ring-accent after:absolute after:inset-0 after:rounded-[1.8rem] focus-visible:outline-none focus-visible:after:ring-2"
           >
             {post.title}
           </a>
-        </h3>
-        <p className="text-muted-foreground mt-3 line-clamp-3 text-[0.9375rem] leading-relaxed">
+        </h2>
+        <p className="text-muted-foreground mt-3 line-clamp-3 leading-relaxed">
           {post.description}
         </p>
-        <div className="mt-auto flex items-center justify-between gap-4 pt-6">
+        <div className="mt-auto flex flex-wrap items-center justify-between gap-4 pt-7">
           <PostMeta post={post} />
-          <ArrowUpRight
-            className="text-accent h-5 w-5 shrink-0 transition-transform duration-300 group-hover:rotate-45"
-            aria-hidden="true"
-          />
+          <ReadButton />
         </div>
       </div>
     </article>
   );
 }
 
-function PostTags({
-  post,
-  label,
-}: {
-  post: BlogPost;
-  label?: string;
-}): ReactNode {
-  if (!post.category && !label) return null;
+function PostTags({ post }: { post: BlogPost }): ReactNode {
+  if (!post.category) return null;
 
   return (
     <div className="flex flex-wrap items-center gap-2">
-      {label && (
-        <span className="bg-accent rounded-full px-3 py-1 text-xs font-semibold text-white">
-          {label}
-        </span>
-      )}
-      {post.category && (
-        <span className="border-border text-foreground/80 rounded-full border px-3 py-1 text-xs font-semibold">
-          {post.category}
-        </span>
-      )}
+      <span className="border-border text-foreground/80 rounded-full border px-3 py-1 text-xs font-semibold">
+        {post.category}
+      </span>
     </div>
   );
 }
