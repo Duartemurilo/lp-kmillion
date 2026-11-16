@@ -1,6 +1,7 @@
 import { CLIENTS } from "@/data/clients";
 import { HOME_FAQS } from "@/data/faqs";
 import { APP_LOGIN_URL } from "@/lib/app-url";
+import { BLOG_PATH, getPublishedPosts } from "@/lib/blog";
 import { siteConfig } from "@/lib/metadata";
 
 /**
@@ -55,6 +56,13 @@ Marcas que usam a Kmillion: ${CLIENTS.map((client) => client.name).join(", ")}.
 Integração via API com os principais ERPs do mercado, além de e-commerce,
 WhatsApp e sistemas de venda. A integração com ERP não é obrigatória, mas
 permite controle mais completo de regras, saldos e resultados.
+
+## Blog
+
+${getPublishedPosts()
+  .map((post) => `- [${post.title}](${post.url}): ${post.description}`)
+  .join("\n")}
+- [Todos os artigos](${url}${BLOG_PATH})
 
 ## Perguntas frequentes
 

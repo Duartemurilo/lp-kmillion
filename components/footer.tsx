@@ -121,12 +121,18 @@ export function Footer(): ReactNode {
             </p>
             <div className="flex items-center gap-5 max-[850px]:flex-wrap">
               <Link
+                href="/blog"
+                className="text-sm whitespace-nowrap text-neutral-900/70 underline decoration-neutral-900/25 underline-offset-4 transition-colors hover:text-neutral-900 focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-neutral-900/40 focus-visible:outline-none"
+              >
+                Blog
+              </Link>
+              <Link
                 href="/politicadeprivacidade"
                 className="text-sm whitespace-nowrap text-neutral-900/70 underline decoration-neutral-900/25 underline-offset-4 transition-colors hover:text-neutral-900 focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-neutral-900/40 focus-visible:outline-none"
               >
                 Política de Privacidade
               </Link>
-              <p className="text-sm text-neutral-900/50">
+              <p className="text-sm text-neutral-900/50 min-[851px]:whitespace-nowrap">
                 © {new Date().getFullYear()} Kmillion. Todos os direitos
                 reservados.
               </p>

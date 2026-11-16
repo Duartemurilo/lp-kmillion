@@ -216,6 +216,9 @@ export function Header(): ReactNode {
             onOpen={() => setActiveMenu("solucoes")}
             onClose={() => setActiveMenu(null)}
           />
+          <Link href="/blog" className="px-4 py-2 max-[1200px]:px-3 text-sm font-medium text-foreground/80 hover:text-foreground transition-colors rounded-full hover:bg-foreground/5">
+            Blog
+          </Link>
         </nav>
 
         <div className="flex items-center gap-4 max-[850px]:hidden">
@@ -269,6 +272,9 @@ export function Header(): ReactNode {
                   onToggle={() => toggleExpanded("solucoes")}
                   onClose={closeMobile}
                 />
+                <Link href="/blog" className="flex items-center justify-between py-4 text-base font-medium text-foreground border-b border-foreground/10" onClick={closeMobile}>
+                  Blog
+                </Link>
                 <a href={APP_LOGIN_URL} className="flex items-center justify-between py-4 text-base font-medium text-foreground border-b border-foreground/10" onClick={closeMobile}>
                   Entrar
                 </a>
