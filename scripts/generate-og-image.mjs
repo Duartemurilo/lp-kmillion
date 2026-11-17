@@ -30,6 +30,13 @@ const pages = [
     tag: "kmillion.com.br",
   },
   {
+    // Mesma arte da home para o site publicado em kmillion.cloud.
+    file: "og-image-cloud.png",
+    headline: "Promoções inteligentes para o varejo físico",
+    lead: "Plataforma SaaS de inteligência promocional: campanhas, cashback e influenciadores sem depender do TI.",
+    tag: "kmillion.cloud",
+  },
+  {
     file: "og-motor-promocional.png",
     headline: "Promoções não deveriam depender de TI",
     lead: "O Motor Promocional dá ao marketing autonomia para criar, ativar e medir campanhas em minutos.",
@@ -124,7 +131,10 @@ function card({ headline, lead, tag }) {
   );
 }
 
-for (const page of pages) {
+// `node scripts/generate-og-image.mjs og-image-cloud.png` gera só esse arquivo.
+const only = process.argv.slice(2);
+
+for (const page of pages.filter((p) => !only.length || only.includes(p.file))) {
   const response = new ImageResponse(card(page), { width: 1200, height: 630 });
   const buffer = Buffer.from(await response.arrayBuffer());
   await writeFile(path.join(root, "public", page.file), buffer);

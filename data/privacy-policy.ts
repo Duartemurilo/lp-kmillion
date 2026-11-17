@@ -1,3 +1,5 @@
+import { IS_ALTERNATE_DOMAIN, SITE_DOMAIN } from "@/lib/site-domain";
+
 /**
  * Conteúdo da Política de Privacidade, Cookies e Termos de Uso.
  *
@@ -43,7 +45,7 @@ export const POLICY_META = {
   version: "3",
   /** ISO para o <time>; o rótulo legível sai formatado na página. */
   updatedAt: "2026-03-15",
-  contactEmail: "lgpd@kmillion.com.br",
+  contactEmail: `lgpd@${SITE_DOMAIN}`,
 } as const;
 
 /** Abertura, antes da primeira seção numerada. */
@@ -52,6 +54,15 @@ export const POLICY_INTRO: readonly PolicyBlock[] = [
     type: "p",
     text: "A Kmillion Tecnologia Ltda., inscrita no CNPJ nº 46.541.038/0001-72, com sede na Avenida Paulista, 302, conjunto 50, Bela Vista, São Paulo – SP, CEP 01310-000, respeita a privacidade e está comprometida com a proteção, segurança e uso responsável dos dados pessoais tratados no contexto de suas atividades.",
   },
+  // Pedido da Kmillion: no kmillion.cloud a Política cita o site pelo domínio.
+  ...(IS_ALTERNATE_DOMAIN
+    ? [
+        {
+          type: "p",
+          text: `Esta Política vale para o site oficial da Kmillion, www.${SITE_DOMAIN}, e para os serviços oferecidos por ele.`,
+        } as const,
+      ]
+    : []),
   {
     type: "p",
     text: "Esta Política descreve como coletamos, utilizamos, armazenamos, compartilhamos e protegemos dados pessoais, em conformidade com a Lei nº 13.709/2018 (LGPD) e orientações da Autoridade Nacional de Proteção de Dados (ANPD).",
@@ -388,7 +399,7 @@ export const POLICY_SECTIONS: readonly PolicySection[] = [
       {
         type: "email",
         label: "As solicitações podem ser enviadas para",
-        address: "lgpd@kmillion.com.br",
+        address: `lgpd@${SITE_DOMAIN}`,
       },
       {
         type: "p",
@@ -486,7 +497,7 @@ export const POLICY_SECTIONS: readonly PolicySection[] = [
           "executar as demais atribuições do art. 41 da LGPD e normas da ANPD.",
         ],
       },
-      { type: "email", label: "Contato", address: "lgpd@kmillion.com.br" },
+      { type: "email", label: "Contato", address: `lgpd@${SITE_DOMAIN}` },
     ],
   },
   {

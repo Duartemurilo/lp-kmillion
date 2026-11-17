@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 
+import { IS_ALTERNATE_DOMAIN, SITE_DOMAIN } from "@/lib/site-domain";
+
+const SITE_URL = `https://www.${SITE_DOMAIN}`;
+
 export const siteConfig = {
   name: "Kmillion",
   legalName: "Kmillion Tecnologia Ltda",
@@ -10,8 +14,8 @@ export const siteConfig = {
     "Kmillion é uma plataforma SaaS de inteligência promocional para o varejo físico. Crie, ative e meça promoções, cashback e campanhas com influenciadores sem depender do time de TI.",
   shortDescription:
     "Plataforma SaaS de inteligência promocional para o varejo físico.",
-  url: "https://www.kmillion.com.br",
-  ogImage: "/og-image.png",
+  url: SITE_URL,
+  ogImage: IS_ALTERNATE_DOMAIN ? "/og-image-cloud.png" : "/og-image.png",
   email: "marketing@kmillion.cloud",
   /** Mesmo número usado no CTA de WhatsApp do site (lib/whatsapp.ts). */
   phone: "+55 11 96775-0313",
@@ -26,7 +30,7 @@ export const siteConfig = {
   authors: [
     {
       name: "Kmillion",
-      url: "https://www.kmillion.com.br",
+      url: SITE_URL,
     },
   ],
   /**

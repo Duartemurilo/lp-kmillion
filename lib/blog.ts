@@ -2,6 +2,8 @@ import fs from "node:fs";
 import path from "node:path";
 
 import { siteConfig } from "@/lib/metadata";
+import { APP_LOGIN_URL } from "@/lib/app-url";
+import { SITE_DOMAIN, withSiteDomain } from "@/lib/site-domain";
 import { ORGANIZATION_ID, WEBSITE_ID } from "@/lib/structured-data";
 
 /**
@@ -344,7 +346,12 @@ function blogPostingSchema(post: BlogPost): string {
  * og:url) apontando para /blog/<slug> e dados estruturados de artigo.
  */
 export function renderPostHtml(slug: string): string {
-  const original = readPostHtml(slug);
+  // No kmillion.cloud, os links absolutos do post apontam para o próprio
+  // domínio; o "Entrar" segue o mesmo endereço do cabeçalho (lib/app-url.ts).
+  const original = withSiteDomain(readPostHtml(slug)).replaceAll(
+    `https://app.${SITE_DOMAIN}`,
+    APP_LOGIN_URL
+  );
   const post = parsePost(slug, original);
 
   let html = removeTrailingSlashScripts(original);
